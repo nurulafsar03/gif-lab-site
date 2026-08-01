@@ -3,75 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>যোগাযোগ — গিফল্যাব</title>
+<title>QR কোড জেনারেটর — VeloraGif</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
-<script src="assets/i18n.js" defer></script>
-<style>
-.doc{ max-width:640px; margin:0 auto; line-height:1.8; font-size:15px; color:var(--ink); }
-.doc p{ margin:0 0 14px; }
-</style>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="../assets/i18n.js" defer></script>
 </head>
 <body>
 
 <div class="sprockets"></div>
 <header class="site-header">
-  <a href="index.html" class="logo">গিফ<span>ল্যাব</span></a>
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
   <nav>
-    <a href="tools/gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
-    <a href="tools/effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
-    <a href="tools/image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
-    <a href="tools/qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
-    <a href="tools/analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" class="active" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
     <select id="langSwitch" class="lang-switch"></select>
   </nav>
 </header>
 <div class="sprockets"></div>
 
 <div class="page-hero">
-  <h1 data-i18n="ct_title">যোগাযোগ</h1>
-  <p data-i18n="ct_sub">মতামত, বাগ রিপোর্ট বা প্রশ্ন — আমরা শুনতে চাই</p>
+  <h1 data-i18n="qr_title">QR কোড জেনারেটর</h1>
+  <p data-i18n="qr_sub">লিংক বা টেক্সট থেকে QR কোড বানান, PNG ডাউনলোড করুন</p>
 </div>
 
 <div class="app">
   <div class="card">
-    <div class="doc">
-      <p data-i18n="ct_p1">এই সাইটের কোনো ব্যাকএন্ড সার্ভার নেই, তাই নিচের ফর্মটা পূরণ করে "মেসেজ পাঠান" চাপলে সরাসরি আপনার ইমেইল অ্যাপ (Gmail/Outlook ইত্যাদি) খুলে যাবে, একটা খসড়া মেইল রেডি অবস্থায়। অথবা সরাসরি ইমেইল করুন:</p>
-      <p style="font-size:17px;"><strong class="mono">afsar.nurul@gmail.com</strong> <span style="color:var(--muted); font-size:13px;" data-i18n="ct_email_note">(এই ইমেইলটা আপনার নিজের ডোমেইনের ঠিকানা দিয়ে বদলে নিন)</span></p>
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage" style="background:#fff; padding:16px; border-radius:10px;">
+          <div id="qrContainer"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="field"><label data-i18n="qr_text_label">টেক্সট বা URL</label><textarea id="qrText" rows="4" placeholder="https://example.com">https://ezgif.com</textarea></div>
+        <div class="control"><label><span data-i18n="qr_size_label">সাইজ</span> <b id="qrSizeVal" class="mono">240px</b></label><input type="range" id="qrSize" min="100" max="500" step="20" value="240"></div>
+        <div class="row">
+          <div class="field"><label data-i18n="qr_color_label">রং</label><input type="color" id="qrColor" value="#000000" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+          <div class="field"><label data-i18n="qr_bg_label">ব্যাকগ্রাউন্ড</label><input type="color" id="qrBg" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+        </div>
+        <button class="btn" id="qrGenerateBtn" data-i18n="qr_generate_btn">QR বানান</button>
+        <div class="result-actions" style="margin-top:6px;">
+          <a class="btn ghost" id="qrDownload" style="display:none;" data-i18n="qr_download_btn">⬇ PNG ডাউনলোড</a>
+        </div>
+        <div class="status" id="qrStatus"></div>
+      </div>
     </div>
-
-    <form id="contactForm" style="max-width:640px; margin:0 auto; display:flex; flex-direction:column; gap:14px;">
-      <div class="field"><label data-i18n="ct_name">আপনার নাম</label><input type="text" id="cf-name" required></div>
-      <div class="field"><label data-i18n="ct_email">ইমেইল</label><input type="text" id="cf-email" required></div>
-      <div class="field"><label data-i18n="ct_subject">বিষয়</label><input type="text" id="cf-subject" data-i18n-ph="ct_subject_ph" placeholder="যেমন: বাগ রিপোর্ট, ফিচার রিকোয়েস্ট, সাধারণ প্রশ্ন"></div>
-      <div class="field"><label data-i18n="ct_message">মেসেজ</label><textarea id="cf-message" rows="6" required></textarea></div>
-      <button type="submit" class="btn" style="align-self:flex-start;" data-i18n="ct_send">✉ মেসেজ পাঠান</button>
-      <div class="status" id="cf-status"></div>
-    </form>
   </div>
 </div>
 
 <footer class="site-footer">
-  <a href="about.html" data-i18n="c_footer_about">About</a> · <a href="privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a><br>
   <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
 </footer>
 
 <script>
-// TODO: এই ইমেইল ঠিকানাটা আপনার নিজের ডোমেইনের ইমেইলে বদলে নিন
-const CONTACT_EMAIL = 'afsar.nurul@gmail.com';
+const qrContainer = document.getElementById('qrContainer');
+const qrText = document.getElementById('qrText');
+const qrSize = document.getElementById('qrSize');
+const qrColor = document.getElementById('qrColor');
+const qrBg = document.getElementById('qrBg');
+const qrStatus = document.getElementById('qrStatus');
+const qrDownload = document.getElementById('qrDownload');
 
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('cf-name').value;
-  const email = document.getElementById('cf-email').value;
-  const subject = document.getElementById('cf-subject').value || 'GifLab';
-  const message = document.getElementById('cf-message').value;
-  const body = `${name}\n${email}\n\n${message}`;
-  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
-  document.getElementById('cf-status').textContent = t('ct_opening');
-});
+qrSize.oninput = () => document.getElementById('qrSizeVal').textContent = qrSize.value+'px';
+
+function generate(){
+  qrContainer.innerHTML = '';
+  qrDownload.style.display = 'none';
+  const text = qrText.value.trim();
+  if(!text){ qrStatus.textContent = t('qr_empty_warn'); return; }
+  try{
+    new QRCode(qrContainer, {
+      text: text,
+      width: parseInt(qrSize.value,10),
+      height: parseInt(qrSize.value,10),
+      colorDark: qrColor.value,
+      colorLight: qrBg.value,
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    qrStatus.textContent = '';
+    setTimeout(()=>{
+      const canvas = qrContainer.querySelector('canvas');
+      const img = qrContainer.querySelector('img');
+      if(canvas){
+        qrDownload.href = canvas.toDataURL('image/png');
+        qrDownload.download = 'qrcode.png';
+        qrDownload.style.display = 'inline-block';
+      } else if(img){
+        qrDownload.href = img.src;
+        qrDownload.download = 'qrcode.png';
+        qrDownload.style.display = 'inline-block';
+      }
+    }, 80);
+  } catch(e){
+    qrStatus.textContent = t('qr_error');
+  }
+}
+
+document.getElementById('qrGenerateBtn').onclick = generate;
+window.addEventListener('DOMContentLoaded', generate);
 </script>
 </body>
 </html>
