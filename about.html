@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — গিফল্যাব</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/i18n.js" defer></script>
+<style>
+.doc{ max-width:760px; margin:0 auto; line-height:1.8; font-size:15px; color:var(--ink); }
+.doc h2{ color:var(--amber); font-size:18px; margin:28px 0 10px; }
+.doc p{ margin:0 0 14px; color:var(--ink); }
+.doc ul{ margin:0 0 14px; padding-right:0; padding-left:20px; }
+.doc li{ margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="index.html" class="logo">গিফ<span>ল্যাব</span></a>
+  <nav>
+    <a href="tools/gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="tools/effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="tools/image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="tools/qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="tools/analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="ab_title">গিফল্যাব সম্পর্কে</h1>
+  <p data-i18n="ab_sub">একটা সাদামাটা লক্ষ্য: GIF ও ছবি এডিট করা সহজ ও প্রাইভেট রাখা</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="doc">
+      <h2 data-i18n="ab_h_what">আমরা কী বানাচ্ছি</h2>
+      <p data-i18n="ab_p_what">গিফল্যাব একটা ফ্রি, ব্রাউজার-বেসড টুলসেট যেখানে ছবি ও অ্যানিমেটেড GIF তৈরি, এডিট ও কনভার্ট করা যায় — কোনো অ্যাকাউন্ট, ইনস্টলেশন বা ফাইল আপলোড ছাড়াই। প্রতিটা টুল সরাসরি আপনার ব্রাউজারে চলে, যাতে কাজটা দ্রুত এবং প্রাইভেট থাকে।</p>
+
+      <h2 data-i18n="ab_h_why">কেন বানানো হলো</h2>
+      <p data-i18n="ab_p_why">অনলাইনে GIF/ইমেজ এডিটিং টুলের বেশিরভাগই ফাইল সার্ভারে আপলোড করে প্রসেস করে, যা কখনো কখনো ধীর, এবং প্রাইভেসি নিয়ে প্রশ্ন তোলে। আমরা চেয়েছিলাম এমন একটা বিকল্প বানাতে যেখানে সাধারণ কাজগুলো কোনো সার্ভার ছাড়াই, শুধু ব্রাউজারের ক্ষমতা ব্যবহার করে করা যায়।</p>
+
+      <h2 data-i18n="ab_h_now">এখন যা যা করা যায়</h2>
+      <ul>
+        <li data-i18n="ab_li1">ছবি বা ভিডিও থেকে GIF তৈরি (ক্রপ, রিসাইজ, স্পিড, রিভার্স)</li>
+        <li data-i18n="ab_li2">ফিল্টার ও ইফেক্ট এবং টেক্সট/ওয়াটারমার্ক</li>
+        <li data-i18n="ab_li3">ইমেজ ফরম্যাট কনভার্সন, Data URI কনভার্টার, EXIF দেখা/মোছা</li>
+        <li data-i18n="ab_li4">QR কোড জেনারেটর</li>
+        <li data-i18n="ab_li5">GIF অ্যানালাইজার</li>
+      </ul>
+
+      <h2 data-i18n="ab_h_next">যা যা আসছে</h2>
+      <p data-i18n="ab_p_next">ভিডিও কাটাকাটি, রিভার্স ও স্পিড পরিবর্তন (ffmpeg.wasm দিয়ে), সেন্সর টুল, রাউন্ড কর্নার, GIF কম্বাইন এবং আরও কিছু ফিচার নিয়ে কাজ চলছে।</p>
+
+      <h2 data-i18n="ab_h_contact">যোগাযোগ</h2>
+      <p data-i18n="ab_p_contact">মতামত, বাগ রিপোর্ট বা ফিচার রিকোয়েস্ট থাকলে <a href="contact.html" style="color:var(--teal);">যোগাযোগ পেজ</a> দেখুন।</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="about.html" data-i18n="c_footer_about">About</a> · <a href="privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+</body>
+</html>

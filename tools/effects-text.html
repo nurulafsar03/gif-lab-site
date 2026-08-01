@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ইফেক্ট ও টেক্সট — গিফল্যাব</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+<script src="../assets/frames.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">গিফ<span>ল্যাব</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" class="active" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="fx_title">ইফেক্ট ও টেক্সট</h1>
+  <p data-i18n="fx_sub">ফিল্টার, রং সমন্বয় ও টেক্সট/ওয়াটারমার্ক যোগ করুন — ছবি বা ভিডিও ফ্রেমে</p>
+</div>
+
+<div class="app">
+
+  <div class="card" id="step1">
+    <h2><span class="num">১</span> <span data-i18n="c_step1">সোর্স বেছে নিন</span></h2>
+    <div class="source-toggle">
+      <button id="tabImages" class="active" data-i18n="c_tab_images_fx">🖼️ ছবি</button>
+      <button id="tabVideo" data-i18n="c_tab_video_fx">🎬 ভিডিও</button>
+    </div>
+    <div id="imageSource">
+      <div class="dropzone" id="dropzoneImages">
+        <div><strong data-i18n="c_drop_images_title">ছবি টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="imageInput" accept="image/*" multiple>
+      </div>
+    </div>
+    <div id="videoSource" style="display:none;">
+      <div class="dropzone" id="dropzoneVideo">
+        <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="videoInput" accept="video/*">
+      </div>
+      <div id="videoControls" style="display:none; margin-top:14px;">
+        <video id="videoPreview" controls muted playsinline style="width:100%; max-height:220px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+        <div class="row">
+          <div class="field"><label data-i18n="c_start_time">শুরু (সেকেন্ড)</label><input type="number" id="startTime" min="0" step="0.1" value="0"></div>
+          <div class="field"><label data-i18n="c_end_time">শেষ (সেকেন্ড)</label><input type="number" id="endTime" min="0" step="0.1" value="3"></div>
+          <div class="field"><label><span data-i18n="c_fps_label">FPS</span> — <b id="fpsVal" class="mono">8</b></label><input type="range" id="fpsRange" min="2" max="20" value="8"></div>
+        </div>
+        <button class="btn" id="extractBtn" data-i18n="c_extract_btn">ফ্রেম বের করুন</button>
+        <div class="status mono" id="videoStatus"></div>
+      </div>
+    </div>
+    <div class="thumbs" id="thumbs"></div>
+    <div class="empty-note" id="emptyNote" data-i18n="c_empty_note">এখনও কোনো ফ্রেম যোগ হয়নি।</div>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h2><span class="num">২</span> <span data-i18n="fx_step2_title">ইফেক্ট ও টেক্সট ঠিক করুন</span></h2>
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage"><canvas id="previewCanvas"></canvas></div>
+      </div>
+      <div class="controls">
+        <div class="control">
+          <label data-i18n="fx_filter_label">ফিল্টার</label>
+          <select id="effectSelect">
+            <option value="none" data-i18n="fx_filter_none">কোনোটি না</option>
+            <option value="grayscale" data-i18n="fx_filter_gray">গ্রেস্কেল</option>
+            <option value="sepia" data-i18n="fx_filter_sepia">সেপিয়া</option>
+            <option value="invert" data-i18n="fx_filter_invert">ইনভার্ট</option>
+            <option value="blur" data-i18n="fx_filter_blur">ব্লার</option>
+            <option value="pixelate" data-i18n="fx_filter_pixelate">পিক্সেলেট</option>
+          </select>
+        </div>
+        <div class="control"><label id="intensityLabel"><span data-i18n="fx_intensity">তীব্রতা</span> <b id="intensityVal" class="mono">0</b></label><input type="range" id="intensityRange" min="0" max="100" value="0"></div>
+        <div class="control"><label><span data-i18n="fx_brightness">উজ্জ্বলতা</span> <b id="brightVal" class="mono">100%</b></label><input type="range" id="brightRange" min="40" max="200" value="100"></div>
+        <div class="control"><label><span data-i18n="fx_contrast">কনট্রাস্ট</span> <b id="contrastVal" class="mono">100%</b></label><input type="range" id="contrastRange" min="40" max="200" value="100"></div>
+        <div class="control"><label><span data-i18n="fx_saturation">স্যাচুরেশন</span> <b id="satVal" class="mono">100%</b></label><input type="range" id="satRange" min="0" max="200" value="100"></div>
+        <div class="control"><label><span data-i18n="c_output_width">আউটপুট প্রস্থ</span> <b id="widthVal" class="mono">360px</b></label><input type="range" id="widthRange" min="100" max="720" step="10" value="360"></div>
+        <div class="control"><label><span data-i18n="c_frame_speed">ফ্রেম গতি (ms)</span> <b id="delayVal" class="mono">100ms</b></label><input type="range" id="delayRange" min="30" max="500" step="10" value="100"></div>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:2px 0;">
+
+        <div class="field"><label data-i18n="fx_text_caption">টেক্সট / ক্যাপশন</label><input type="text" id="textContent" data-i18n-ph="fx_text_placeholder" placeholder="এখানে লিখুন..."></div>
+        <div class="control"><label><span data-i18n="fx_font_size">ফন্ট সাইজ</span> <b id="fontSizeVal" class="mono">28px</b></label><input type="range" id="fontSizeRange" min="12" max="72" value="28"></div>
+        <div class="row">
+          <div class="field"><label data-i18n="fx_color">রং</label><input type="color" id="textColor" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px; background:var(--panel-2);"></div>
+          <div class="field">
+            <label data-i18n="fx_position">পজিশন</label>
+            <select id="textPosition">
+              <option value="top-center" data-i18n="fx_pos_top_center">উপরে মাঝে</option>
+              <option value="bottom-center" selected data-i18n="fx_pos_bottom_center">নিচে মাঝে</option>
+              <option value="top-left" data-i18n="fx_pos_top_left">উপরে বামে</option>
+              <option value="top-right" data-i18n="fx_pos_top_right">উপরে ডানে</option>
+              <option value="bottom-left" data-i18n="fx_pos_bottom_left">নিচে বামে</option>
+              <option value="bottom-right" data-i18n="fx_pos_bottom_right">নিচে ডানে</option>
+              <option value="center" data-i18n="fx_pos_center">মাঝখানে</option>
+            </select>
+          </div>
+        </div>
+        <div class="toggle-row"><span data-i18n="fx_stroke">কালো আউটলাইন</span><input type="checkbox" id="strokeCheck" checked style="width:18px; height:18px;"></div>
+
+        <button class="btn" id="generateBtn" data-i18n="c_generate_gif">GIF বানান</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">৩</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="তৈরি হওয়া GIF">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="gif-lab-effect.gif" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let frames = [];
+
+  const tabImages = document.getElementById('tabImages');
+  const tabVideo = document.getElementById('tabVideo');
+  const imageSource = document.getElementById('imageSource');
+  const videoSource = document.getElementById('videoSource');
+  tabImages.onclick = () => { tabImages.classList.add('active'); tabVideo.classList.remove('active'); imageSource.style.display='block'; videoSource.style.display='none'; };
+  tabVideo.onclick = () => { tabVideo.classList.add('active'); tabImages.classList.remove('active'); videoSource.style.display='block'; imageSource.style.display='none'; };
+
+  const dropzoneImages = document.getElementById('dropzoneImages');
+  const imageInput = document.getElementById('imageInput');
+  dropzoneImages.onclick = () => imageInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzoneImages.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzoneImages.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop') loadImageFilesAsFrames(e.dataTransfer.files, f => { frames.push(f); refreshThumbs(); });
+    });
+  });
+  imageInput.onchange = () => loadImageFilesAsFrames(imageInput.files, f => { frames.push(f); refreshThumbs(); });
+
+  const dropzoneVideo = document.getElementById('dropzoneVideo');
+  const videoInput = document.getElementById('videoInput');
+  const videoControls = document.getElementById('videoControls');
+  const videoPreview = document.getElementById('videoPreview');
+  const startTimeInput = document.getElementById('startTime');
+  const endTimeInput = document.getElementById('endTime');
+  const fpsRange = document.getElementById('fpsRange');
+  const fpsVal = document.getElementById('fpsVal');
+  const extractBtn = document.getElementById('extractBtn');
+  const videoStatus = document.getElementById('videoStatus');
+  dropzoneVideo.onclick = () => videoInput.click();
+  fpsRange.oninput = () => fpsVal.textContent = fpsRange.value;
+  videoInput.onchange = () => {
+    const file = videoInput.files[0];
+    if(!file) return;
+    videoPreview.src = URL.createObjectURL(file);
+    videoControls.style.display = 'block';
+    videoPreview.onloadedmetadata = () => {
+      startTimeInput.value = 0;
+      endTimeInput.value = Math.min(videoPreview.duration, 3).toFixed(1);
+    };
+  };
+  extractBtn.onclick = async () => {
+    const start = parseFloat(startTimeInput.value)||0;
+    const end = parseFloat(endTimeInput.value)|| (start+1);
+    const fps = parseInt(fpsRange.value,10);
+    if(end <= start){ videoStatus.textContent = 'শেষ সময় শুরু সময়ের চেয়ে বেশি হতে হবে।'; return; }
+    extractBtn.disabled = true;
+    frames = await extractVideoFrames(videoPreview, start, end, fps, (done,total)=>{
+      videoStatus.textContent = `${t('c_extracting')} ${done}/${total}`;
+    });
+    videoStatus.textContent = `${t('c_extract_done')} ${frames.length} ${t('c_frames_found')}`;
+    extractBtn.disabled = false;
+    refreshThumbs();
+  };
+
+  const thumbsEl = document.getElementById('thumbs');
+  const emptyNote = document.getElementById('emptyNote');
+  const step2 = document.getElementById('step2');
+  function refreshThumbs(){
+    renderThumbs(thumbsEl, frames, () => {
+      emptyNote.style.display = frames.length ? 'none' : 'block';
+      step2.style.display = frames.length ? 'block' : 'none';
+      if(frames.length) updatePreview();
+    });
+  }
+
+  const effectSelect = document.getElementById('effectSelect');
+  const intensityRange = document.getElementById('intensityRange');
+  const intensityLabel = document.getElementById('intensityLabel');
+  const intensityVal = document.getElementById('intensityVal');
+  const brightRange = document.getElementById('brightRange');
+  const contrastRange = document.getElementById('contrastRange');
+  const satRange = document.getElementById('satRange');
+  const widthRange = document.getElementById('widthRange');
+  const delayRange = document.getElementById('delayRange');
+  const textContent = document.getElementById('textContent');
+  const fontSizeRange = document.getElementById('fontSizeRange');
+  const textColor = document.getElementById('textColor');
+  const textPosition = document.getElementById('textPosition');
+  const strokeCheck = document.getElementById('strokeCheck');
+  const previewCanvas = document.getElementById('previewCanvas');
+
+  const effectDefaults = {
+    none: {min:0,max:100,val:0,labelKey:'fx_intensity'},
+    grayscale: {min:0,max:100,val:100,labelKey:'fx_intensity'},
+    sepia: {min:0,max:100,val:100,labelKey:'fx_intensity'},
+    invert: {min:0,max:100,val:100,labelKey:'fx_intensity'},
+    blur: {min:0,max:20,val:4,labelKey:'fx_intensity'},
+    pixelate: {min:2,max:40,val:10,labelKey:'fx_intensity'}
+  };
+  effectSelect.onchange = () => {
+    const d = effectDefaults[effectSelect.value];
+    intensityRange.min = d.min; intensityRange.max = d.max; intensityRange.value = d.val;
+    updatePreview();
+  };
+
+  [intensityRange,brightRange,contrastRange,satRange,widthRange,delayRange,textContent,fontSizeRange,textColor,textPosition,strokeCheck]
+    .forEach(el => el.addEventListener('input', updatePreview));
+
+  function buildCssFilter(){
+    const effect = effectSelect.value;
+    const parts = [`brightness(${brightRange.value}%)`, `contrast(${contrastRange.value}%)`, `saturate(${satRange.value}%)`];
+    if(effect==='grayscale') parts.push(`grayscale(${intensityRange.value}%)`);
+    if(effect==='sepia') parts.push(`sepia(${intensityRange.value}%)`);
+    if(effect==='invert') parts.push(`invert(${intensityRange.value}%)`);
+    if(effect==='blur') parts.push(`blur(${intensityRange.value}px)`);
+    return parts.join(' ');
+  }
+
+  function applyPixelate(ctx, w, h, blockSize){
+    const factor = Math.max(1, parseInt(blockSize,10));
+    const small = document.createElement('canvas');
+    small.width = Math.max(1, Math.round(w/factor));
+    small.height = Math.max(1, Math.round(h/factor));
+    small.getContext('2d').drawImage(ctx.canvas, 0, 0, small.width, small.height);
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0,0,w,h);
+    ctx.drawImage(small, 0, 0, small.width, small.height, 0, 0, w, h);
+    ctx.imageSmoothingEnabled = true;
+  }
+
+  function drawTextOverlay(ctx, w, h){
+    const content = textContent.value;
+    if(!content) return;
+    const size = parseInt(fontSizeRange.value,10);
+    ctx.save();
+    ctx.font = `bold ${size}px 'Hind Siliguri', sans-serif`;
+    ctx.textBaseline = 'alphabetic';
+    const textW = ctx.measureText(content).width;
+    const pad = size*0.5;
+    const pos = textPosition.value;
+    let x,y;
+    if(pos.includes('left')) x = pad; else if(pos.includes('right')) x = w-textW-pad; else x = (w-textW)/2;
+    if(pos.includes('top')) y = size+pad*0.4; else if(pos.includes('bottom')) y = h-pad*0.4; else y = (h+size*0.35)/2;
+    if(strokeCheck.checked){
+      ctx.strokeStyle = '#000'; ctx.lineWidth = Math.max(2, size/10); ctx.strokeText(content, x, y);
+    }
+    ctx.fillStyle = textColor.value;
+    ctx.fillText(content, x, y);
+    ctx.restore();
+  }
+
+  function drawFrame(frameCanvas, outCanvas){
+    const ctx = outCanvas.getContext('2d');
+    ctx.clearRect(0,0,outCanvas.width,outCanvas.height);
+    ctx.filter = effectSelect.value==='pixelate' ? `brightness(${brightRange.value}%) contrast(${contrastRange.value}%) saturate(${satRange.value}%)` : buildCssFilter();
+    ctx.drawImage(frameCanvas, 0, 0, outCanvas.width, outCanvas.height);
+    ctx.filter = 'none';
+    if(effectSelect.value==='pixelate') applyPixelate(ctx, outCanvas.width, outCanvas.height, intensityRange.value);
+    drawTextOverlay(ctx, outCanvas.width, outCanvas.height);
+  }
+
+  function updatePreview(){
+    intensityVal.textContent = intensityRange.value;
+    document.getElementById('brightVal').textContent = brightRange.value+'%';
+    document.getElementById('contrastVal').textContent = contrastRange.value+'%';
+    document.getElementById('satVal').textContent = satRange.value+'%';
+    document.getElementById('widthVal').textContent = widthRange.value+'px';
+    document.getElementById('delayVal').textContent = delayRange.value+'ms';
+    document.getElementById('fontSizeVal').textContent = fontSizeRange.value+'px';
+    if(!frames.length) return;
+    const first = frames[0].canvas;
+    const targetW = parseInt(widthRange.value,10);
+    const targetH = Math.max(1, Math.round(targetW * first.height/first.width));
+    previewCanvas.width = targetW; previewCanvas.height = targetH;
+    drawFrame(first, previewCanvas);
+  }
+
+  const generateBtn = document.getElementById('generateBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  generateBtn.onclick = () => {
+    if(!frames.length) return;
+    const first = frames[0].canvas;
+    const targetW = parseInt(widthRange.value,10);
+    const targetH = Math.max(1, Math.round(targetW * first.height/first.width));
+    const delay = parseInt(delayRange.value,10);
+
+    generateBtn.disabled = true;
+    progressWrap.classList.add('show');
+    progressBar.style.width = '0%';
+    genStatus.textContent = t('c_gif_generating');
+    resultEl.classList.remove('show');
+
+    const gif = new GIF({ workers:2, quality:10, width: targetW, height: targetH,
+      workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js' });
+
+    frames.forEach(f=>{
+      const tmp = document.createElement('canvas');
+      tmp.width = targetW; tmp.height = targetH;
+      drawFrame(f.canvas, tmp);
+      gif.addFrame(tmp, {delay: delay, copy:true});
+    });
+
+    gif.on('progress', p=>{ progressBar.style.width = Math.round(p*100)+'%'; });
+    gif.on('finished', blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${targetW}×${targetH}px · ${frames.length} ${t('c_frames_label')}`;
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+      generateBtn.disabled = false;
+      progressWrap.classList.remove('show');
+    });
+    gif.render();
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    frames = [];
+    imageInput.value=''; videoInput.value='';
+    videoControls.style.display='none';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    refreshThumbs();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  refreshThumbs();
+})();
+</script>
+</body>
+</html>

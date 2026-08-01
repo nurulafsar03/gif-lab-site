@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR কোড জেনারেটর — গিফল্যাব</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">গিফ<span>ল্যাব</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" class="active" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="qr_title">QR কোড জেনারেটর</h1>
+  <p data-i18n="qr_sub">লিংক বা টেক্সট থেকে QR কোড বানান, PNG ডাউনলোড করুন</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage" style="background:#fff; padding:16px; border-radius:10px;">
+          <div id="qrContainer"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="field"><label data-i18n="qr_text_label">টেক্সট বা URL</label><textarea id="qrText" rows="4" placeholder="https://example.com">https://ezgif.com</textarea></div>
+        <div class="control"><label><span data-i18n="qr_size_label">সাইজ</span> <b id="qrSizeVal" class="mono">240px</b></label><input type="range" id="qrSize" min="100" max="500" step="20" value="240"></div>
+        <div class="row">
+          <div class="field"><label data-i18n="qr_color_label">রং</label><input type="color" id="qrColor" value="#000000" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+          <div class="field"><label data-i18n="qr_bg_label">ব্যাকগ্রাউন্ড</label><input type="color" id="qrBg" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+        </div>
+        <button class="btn" id="qrGenerateBtn" data-i18n="qr_generate_btn">QR বানান</button>
+        <div class="result-actions" style="margin-top:6px;">
+          <a class="btn ghost" id="qrDownload" style="display:none;" data-i18n="qr_download_btn">⬇ PNG ডাউনলোড</a>
+        </div>
+        <div class="status" id="qrStatus"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+const qrContainer = document.getElementById('qrContainer');
+const qrText = document.getElementById('qrText');
+const qrSize = document.getElementById('qrSize');
+const qrColor = document.getElementById('qrColor');
+const qrBg = document.getElementById('qrBg');
+const qrStatus = document.getElementById('qrStatus');
+const qrDownload = document.getElementById('qrDownload');
+
+qrSize.oninput = () => document.getElementById('qrSizeVal').textContent = qrSize.value+'px';
+
+function generate(){
+  qrContainer.innerHTML = '';
+  qrDownload.style.display = 'none';
+  const text = qrText.value.trim();
+  if(!text){ qrStatus.textContent = t('qr_empty_warn'); return; }
+  try{
+    new QRCode(qrContainer, {
+      text: text,
+      width: parseInt(qrSize.value,10),
+      height: parseInt(qrSize.value,10),
+      colorDark: qrColor.value,
+      colorLight: qrBg.value,
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    qrStatus.textContent = '';
+    setTimeout(()=>{
+      const canvas = qrContainer.querySelector('canvas');
+      const img = qrContainer.querySelector('img');
+      if(canvas){
+        qrDownload.href = canvas.toDataURL('image/png');
+        qrDownload.download = 'qrcode.png';
+        qrDownload.style.display = 'inline-block';
+      } else if(img){
+        qrDownload.href = img.src;
+        qrDownload.download = 'qrcode.png';
+        qrDownload.style.display = 'inline-block';
+      }
+    }, 80);
+  } catch(e){
+    qrStatus.textContent = t('qr_error');
+  }
+}
+
+document.getElementById('qrGenerateBtn').onclick = generate;
+window.addEventListener('DOMContentLoaded', generate);
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>গিফল্যাব — অনলাইন GIF ও ইমেজ টুলস</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="index.html" class="logo">গিফ<span>ল্যাব</span></a>
+  <nav>
+    <a href="tools/gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="tools/effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="tools/image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="tools/qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="tools/analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="home_hero_title">ব্রাউজারেই GIF ও ছবি এডিট করুন</h1>
+  <p data-i18n="home_hero_sub">কোনো ফাইল সার্ভারে যায় না — সব প্রসেসিং আপনার ডিভাইসেই হয়</p>
+</div>
+
+<div class="app">
+
+  <div class="category">
+    <h3 data-i18n="cat_gif_tools">GIF টুলস</h3>
+    <div class="tool-grid">
+      <a class="tool-card" href="tools/gif-maker.html"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🖼️</span><span class="name" data-i18n="tool_gifmaker_name">GIF মেকার</span><span class="desc" data-i18n="tool_gifmaker_desc">ছবি বা ভিডিও থেকে GIF বানান, ক্রপ/রিসাইজ/স্পিড/রিভার্স সহ</span></a>
+      <a class="tool-card" href="tools/analyzer.html"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🔍</span><span class="name" data-i18n="tool_analyzer_name">GIF অ্যানালাইজার</span><span class="desc" data-i18n="tool_analyzer_desc">ফ্রেম সংখ্যা, সাইজ, ডাইমেনশন, লুপ কাউন্ট দেখুন</span></a>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">✂️</span><span class="name" data-i18n="tool_split_name">Split GIF</span><span class="desc" data-i18n="tool_split_desc">GIF-কে আলাদা আলাদা ফ্রেমে ভাগ করুন</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🎬</span><span class="name" data-i18n="tool_gif2video_name">GIF ↔ MP4/WebM</span><span class="desc" data-i18n="tool_gif2video_desc">ভিডিও ফরম্যাটে রূপান্তর (ffmpeg.wasm)</span></span>
+    </div>
+  </div>
+
+  <div class="category">
+    <h3 data-i18n="cat_edit_effects">এডিট ও ইফেক্ট</h3>
+    <div class="tool-grid">
+      <a class="tool-card" href="tools/effects-text.html"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🎨</span><span class="name" data-i18n="tool_effects_name">ইফেক্ট ও টেক্সট</span><span class="desc" data-i18n="tool_effects_desc">গ্রেস্কেল, সেপিয়া, ব্লার, পিক্সেলেট, টেক্সট/ওয়াটারমার্ক</span></a>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">⬛</span><span class="name" data-i18n="tool_censor_name">সেন্সর টুল</span><span class="desc" data-i18n="tool_censor_desc">অংশবিশেষ ব্লার/ব্ল্যাকআউট করুন</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🔘</span><span class="name" data-i18n="tool_round_name">রাউন্ড কর্নার</span><span class="desc" data-i18n="tool_round_desc">GIF/ছবির কোণা গোল করুন</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🔗</span><span class="name" data-i18n="tool_combine_name">কম্বাইন GIF</span><span class="desc" data-i18n="tool_combine_desc">একাধিক GIF পাশাপাশি জোড়া লাগান</span></span>
+    </div>
+  </div>
+
+  <div class="category">
+    <h3 data-i18n="cat_image_utils">ইমেজ ইউটিলিটি</h3>
+    <div class="tool-grid">
+      <a class="tool-card" href="tools/image-utils.html"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🔄</span><span class="name" data-i18n="tool_convert_name">ফরম্যাট কনভার্টার</span><span class="desc" data-i18n="tool_convert_desc">PNG ↔ JPG ↔ WebP ↔ BMP</span></a>
+      <a class="tool-card" href="tools/image-utils.html#datauri"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🧬</span><span class="name" data-i18n="tool_datauri_name">Data URI কনভার্টার</span><span class="desc" data-i18n="tool_datauri_desc">ছবিকে বেস৬৪ কোডে রূপান্তর করুন</span></a>
+      <a class="tool-card" href="tools/image-utils.html#exif"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">🗂️</span><span class="name" data-i18n="tool_exif_name">EXIF দেখুন/মুছুন</span><span class="desc" data-i18n="tool_exif_desc">মেটাডেটা দেখা ও রিমুভ করা</span></a>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">📄</span><span class="name" data-i18n="tool_heicavif_name">HEIC/AVIF কনভার্টার</span><span class="desc" data-i18n="tool_heicavif_desc">এক্সটিক ফরম্যাট সাপোর্ট</span></span>
+    </div>
+  </div>
+
+  <div class="category">
+    <h3 data-i18n="cat_generators">জেনারেটর</h3>
+    <div class="tool-grid">
+      <a class="tool-card" href="tools/qr-generator.html"><span class="badge live" data-i18n="badge_live">চালু</span><span class="emoji">▦</span><span class="name" data-i18n="tool_qr_name">QR কোড জেনারেটর</span><span class="desc" data-i18n="tool_qr_desc">টেক্সট/লিংক থেকে QR কোড বানান</span></a>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">📇</span><span class="name" data-i18n="tool_passport_name">পাসপোর্ট ফটো মেকার</span><span class="desc" data-i18n="tool_passport_desc">স্ট্যান্ডার্ড সাইজে ছবি কাটুন</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🖇️</span><span class="name" data-i18n="tool_collage_name">কোলাজ মেকার</span><span class="desc" data-i18n="tool_collage_desc">একাধিক ছবি দিয়ে কোলাজ বানান</span></span>
+    </div>
+  </div>
+
+  <div class="category">
+    <h3><span data-i18n="cat_video_audio">ভিডিও ও অডিও</span> <span style="color:var(--muted); font-weight:400; text-transform:none;" data-i18n="cat_video_audio_note">(পরের ধাপে)</span></h3>
+    <div class="tool-grid">
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">✂️</span><span class="name" data-i18n="tool_videocut_name">ভিডিও কাটার</span><span class="desc" data-i18n="tool_videocut_desc">ভিডিও ট্রিম/কাট করুন</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🔁</span><span class="name" data-i18n="tool_videoreverse_name">ভিডিও রিভার্স/স্পিড</span><span class="desc" data-i18n="tool_videoreverse_desc">ffmpeg.wasm দিয়ে</span></span>
+      <span class="tool-card" style="opacity:.55; cursor:default;"><span class="badge" data-i18n="badge_soon">শীঘ্রই</span><span class="emoji">🔊</span><span class="name" data-i18n="tool_audioextract_name">অডিও এক্সট্র্যাক্ট</span><span class="desc" data-i18n="tool_audioextract_desc">ভিডিও থেকে অডিও বের করুন</span></span>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="about.html" data-i18n="c_footer_about">About</a> · <a href="privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং ব্রাউজারে হয় — কোনো ফাইল আপলোড/স্টোর হয় না</span>
+</footer>
+</body>
+</html>
