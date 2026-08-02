@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">ব্লগ — VeloraGif</title>
+<meta id="pageDescription" name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/blog-posts.js"></script>
+<style>
+.doc{ max-width:760px; margin:0 auto; line-height:1.9; font-size:15.5px; color:var(--ink); }
+.doc h2{ color:var(--amber); font-size:19px; margin:32px 0 12px; }
+.doc p{ margin:0 0 16px; }
+.doc ul, .doc ol{ margin:0 0 16px; padding-left:22px; }
+.doc li{ margin-bottom:8px; }
+.byline{ color:var(--muted); font-size:13px; margin-bottom:28px; }
+.cta-box{ background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:24px 0; }
+.cta-box a{ color:var(--teal); font-weight:600; }
+.note-box{ background: rgba(232,163,61,.08); border:1px solid rgba(232,163,61,.3); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--muted); margin:20px 0; }
+.kv-table{ width:100%; border-collapse:collapse; font-size:14.5px; margin:16px 0; }
+.kv-table th, .kv-table td{ padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; }
+.kv-table th{ color:var(--amber); }
+</style>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="../tools/gif-maker.html">GIF মেকার</a>
+    <a href="../tools/effects-text.html">ইফেক্ট ও টেক্সট</a>
+    <a href="../tools/image-utils.html">ইমেজ ইউটিলিটি</a>
+    <a href="../tools/qr-generator.html">QR জেনারেটর</a>
+    <a href="../tools/analyzer.html">GIF অ্যানালাইজার</a>
+    <a href="index.html">ব্লগ</a>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 id="postTitle">লোড হচ্ছে...</h1>
+</div>
+
+<div class="app">
+  <div class="card">
+    <p class="byline" id="postByline" style="max-width:760px; margin:0 auto 28px;"></p>
+    <div class="doc" id="postContent"></div>
+    <div id="notFoundBox" style="display:none; text-align:center; padding:20px;">
+      <p>এই পোস্টটা খুঁজে পাওয়া যায়নি।</p>
+      <a class="btn" href="index.html">← ব্লগে ফিরে যান</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a> · <a href="../contact.html">Contact</a> · <a href="index.html">ব্লগ</a><br>
+  সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না
+</footer>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  const posts = (typeof BLOG_POSTS !== 'undefined') ? BLOG_POSTS : [];
+  const post = posts.find(p => p.slug === slug);
+
+  if(!post){
+    document.getElementById('postTitle').textContent = 'পোস্ট পাওয়া যায়নি';
+    document.getElementById('notFoundBox').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('pageTitle').textContent = post.title + ' — VeloraGif';
+  document.getElementById('pageDescription').setAttribute('content', post.description || '');
+  document.getElementById('postTitle').textContent = post.title;
+  document.getElementById('postByline').textContent = 'VeloraGif ব্লগ';
+  document.getElementById('postContent').innerHTML = post.content;
+})();
+</script>
+</body>
+</html>
