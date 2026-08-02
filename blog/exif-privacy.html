@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ছবি থেকে EXIF মেটাডেটা কেন মুছে ফেলা উচিত — VeloraGif</title>
+<meta name="description" content="EXIF মেটাডেটা কী, এতে GPS লোকেশন ও ডিভাইসের তথ্য কীভাবে লুকানো থাকে, এবং অনলাইনে ছবি শেয়ার করার আগে কেন এটা মুছে ফেলা উচিত।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.doc{ max-width:760px; margin:0 auto; line-height:1.9; font-size:15.5px; color:var(--ink); }
+.doc h2{ color:var(--amber); font-size:19px; margin:32px 0 12px; }
+.doc p{ margin:0 0 16px; }
+.doc ul, .doc ol{ margin:0 0 16px; padding-left:22px; }
+.doc li{ margin-bottom:8px; }
+.byline{ color:var(--muted); font-size:13px; margin-bottom:28px; }
+.cta-box{ background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:24px 0; }
+.cta-box a{ color:var(--teal); font-weight:600; }
+.note-box{ background: rgba(232,163,61,.08); border:1px solid rgba(232,163,61,.3); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--muted); margin:20px 0; }
+.kv-table{ width:100%; border-collapse:collapse; font-size:14.5px; margin:16px 0; }
+.kv-table th, .kv-table td{ padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; }
+.kv-table th{ color:var(--amber); }
+</style>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="../tools/gif-maker.html">GIF মেকার</a>
+    <a href="../tools/effects-text.html">ইফেক্ট ও টেক্সট</a>
+    <a href="../tools/image-utils.html">ইমেজ ইউটিলিটি</a>
+    <a href="../tools/qr-generator.html">QR জেনারেটর</a>
+    <a href="../tools/analyzer.html">GIF অ্যানালাইজার</a>
+    <a href="index.html">ব্লগ</a>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1>ছবি থেকে EXIF মেটাডেটা কেন মুছে ফেলা উচিত</h1>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="doc">
+      <p class="byline">গিফল্যাব ব্লগ · পড়তে সময় লাগবে ~৬ মিনিট</p>
+
+      <p>আপনি হয়তো জানেনই না যে আপনার ফোন বা ক্যামেরা দিয়ে তোলা প্রতিটা ছবির ভেতরে একটা "অদৃশ্য" তথ্যের স্তর লুকিয়ে থাকে — কোন লোকেশনে ছবিটা তোলা হয়েছে, কোন ডিভাইস দিয়ে, কখন, এমনকি কোন ক্যামেরা সেটিংসে। এই তথ্যকে বলা হয় **EXIF মেটাডেটা**, এবং এটা না জেনেই আপনি অনলাইনে শেয়ার করে ফেলতে পারেন এমন কিছু যা আপনি আসলে কাউকে জানাতে চাননি।</p>
+
+      <h2>EXIF মেটাডেটা আসলে কী</h2>
+      <p>EXIF (Exchangeable Image File Format) হলো একটা স্ট্যান্ডার্ড যেটা ছবির ফাইলের ভেতরেই বাড়তি তথ্য সংরক্ষণ করে — ছবির পিক্সেল ডেটার পাশাপাশি, কিন্তু আলাদা একটা অংশে। এই তথ্য সাধারণত ছবিটা খুললে দেখা যায় না, কিন্তু সঠিক টুল দিয়ে সহজেই বের করা যায়। বেশিরভাগ স্মার্টফোন ও ডিজিটাল ক্যামেরা স্বয়ংক্রিয়ভাবে এই তথ্য প্রতিটা ছবিতে যোগ করে দেয়।</p>
+
+      <h2>EXIF-এ সাধারণত কী কী তথ্য থাকে</h2>
+      <table class="kv-table">
+        <tr><th>তথ্যের ধরন</th><th>উদাহরণ</th></tr>
+        <tr><td>GPS লোকেশন</td><td>ছবিটা ঠিক কোন অক্ষাংশ-দ্রাঘিমাংশে তোলা হয়েছে</td></tr>
+        <tr><td>তারিখ ও সময়</td><td>ছবি তোলার সঠিক দিন ও মুহূর্ত</td></tr>
+        <tr><td>ডিভাইসের তথ্য</td><td>ক্যামেরা/ফোনের মডেল, ব্র্যান্ড</td></tr>
+        <tr><td>ক্যামেরা সেটিংস</td><td>অ্যাপারচার, শাটার স্পিড, ISO, ফোকাল লেংথ</td></tr>
+        <tr><td>সফটওয়্যার তথ্য</td><td>ছবি কোন অ্যাপ/সফটওয়্যার দিয়ে এডিট হয়েছে</td></tr>
+      </table>
+      <p>সবচেয়ে বেশি উদ্বেগের বিষয় হলো GPS লোকেশন ডেটা — কারণ এটা থাকলে যে কেউ ছবিটা দেখে ঠিক কোন বাড়ি, অফিস বা জায়গায় সেটা তোলা হয়েছিল তা মানচিত্রে বের করে ফেলতে পারে।</p>
+
+      <h2>এটা কেন সমস্যার কারণ হতে পারে</h2>
+      <ul>
+        <li><strong>বাড়ির ঠিকানা ফাঁস</strong> — ঘরে তোলা ছবিতে GPS ডেটা থাকলে সেটা থেকে বাসার সঠিক অবস্থান জানা যেতে পারে</li>
+        <li><strong>রুটিন ট্র্যাক করা</strong> — একাধিক ছবির লোকেশন ও সময় মিলিয়ে কেউ বুঝে ফেলতে পারে আপনি সাধারণত কখন কোথায় থাকেন</li>
+        <li><strong>ডিভাইস শনাক্তকরণ</strong> — নির্দিষ্ট ডিভাইস মডেলের তথ্য কখনো কখনো ব্যক্তিকে শনাক্ত করতে সাহায্য করতে পারে</li>
+        <li><strong>অনিচ্ছাকৃত তথ্য শেয়ার</strong> — অনেকেই জানেনই না এই তথ্য ছবির সাথে যুক্ত থাকে, তাই না বুঝেই শেয়ার করে ফেলেন</li>
+      </ul>
+
+      <div class="note-box">
+        <strong>ভালো খবর:</strong> বেশিরভাগ বড় সোশ্যাল মিডিয়া প্ল্যাটফর্ম (Facebook, Instagram, WhatsApp) আপলোড করার সময় স্বয়ংক্রিয়ভাবে EXIF ডেটা মুছে ফেলে। কিন্তু ইমেইল, ক্লাউড স্টোরেজ, ব্যক্তিগত ওয়েবসাইট বা সরাসরি ফাইল শেয়ারিং-এ পাঠানো ছবিতে এই তথ্য প্রায়ই অক্ষত থেকে যায়।
+      </div>
+
+      <h2>কখন EXIF রাখা দরকারি হতে পারে</h2>
+      <p>সবসময় যে EXIF খারাপ তা না — ফটোগ্রাফারদের জন্য ক্যামেরা সেটিংস (অ্যাপারচার, ISO) মনে রাখা কাজে লাগে, আর ব্যক্তিগত ফটো লাইব্রেরিতে তারিখ/লোকেশন অনুযায়ী ছবি খোঁজার জন্যও এটা সহায়ক। সমস্যাটা তখনই হয় যখন আপনি ছবিটা **পাবলিকলি বা অপরিচিত কারো সাথে শেয়ার করছেন** অথচ সেই মেটাডেটার কথা মাথায় নেই।</p>
+
+      <h2>কীভাবে বুঝবেন আপনার ছবিতে EXIF আছে কিনা</h2>
+      <p>আমাদের <a href="../tools/image-utils.html#exif" style="color:var(--teal);">EXIF দেখুন/মুছুন টুলে</a> যেকোনো JPG ছবি আপলোড করলেই এতে কী কী মেটাডেটা লুকানো আছে তা টেবিল আকারে দেখা যায় — GPS কো-অর্ডিনেট, ডিভাইসের নাম, তারিখ, সবকিছু। এটা সম্পূর্ণ ব্রাউজারেই হয়, ছবিটা কোথাও আপলোড হয় না।</p>
+
+      <h2>কীভাবে মুছে ফেলবেন</h2>
+      <p>একই টুলে "মেটাডেটা মুছে ফেলুন" বাটনে চাপলেই ছবিটা ক্যানভাসে পুনরায় আঁকা হয় এবং নতুন একটা কপি তৈরি হয় যেখানে কোনো EXIF তথ্য থাকে না — শুধু আসল পিক্সেল ডেটা। এই পদ্ধতি নির্ভরযোগ্য, কারণ ক্যানভাসে ছবি নতুন করে আঁকলে মূল ফাইলের মেটাডেটা স্বয়ংক্রিয়ভাবেই বাদ পড়ে যায়।</p>
+
+      <div class="cta-box">
+        এখনই চেক করুন → <a href="../tools/image-utils.html#exif">EXIF দেখুন/মুছুন টুল খুলুন</a>
+      </div>
+
+      <h2>একটা সহজ অভ্যাস</h2>
+      <p>বিশেষ করে নিচের পরিস্থিতিতে ছবি শেয়ার করার আগে EXIF চেক করে নেওয়া ভালো:</p>
+      <ol>
+        <li>বাসা বা অফিসের ভেতরে তোলা ছবি অপরিচিত কারো সাথে শেয়ার করার আগে</li>
+        <li>অনলাইন মার্কেটপ্লেসে (পণ্য বিক্রির জন্য) ছবি আপলোডের আগে</li>
+        <li>ব্যক্তিগত ব্লগ বা পোর্টফোলিও ওয়েবসাইটে ছবি যোগ করার আগে</li>
+        <li>শিশুদের ছবি পাবলিকলি শেয়ার করার আগে</li>
+      </ol>
+      <p>এই ছোট্ট অভ্যাসটা আপনার প্রাইভেসি রক্ষায় অনেকখানি সাহায্য করতে পারে — আর এতে সময় লাগে মাত্র কয়েক সেকেন্ড।</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a> · <a href="../contact.html">Contact</a> · <a href="index.html">ব্লগ</a><br>
+  সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না
+</footer>
+</body>
+</html>
