@@ -10,7 +10,7 @@ const LANGS = [
 
 const TR = {
 bn:{
-c_nav_gif:"GIF মেকার", c_nav_fx:"ইফেক্ট ও টেক্সট", c_nav_iu:"ইমেজ ইউটিলিটি", c_nav_qr:"QR জেনারেটর", c_nav_an:"GIF অ্যানালাইজার",
+c_nav_gif:"GIF মেকার", c_nav_fx:"ইফেক্ট ও টেক্সট", c_nav_iu:"ইমেজ ইউটিলিটি", c_nav_qr:"QR জেনারেটর", c_nav_an:"GIF অ্যানালাইজার", c_nav_blog:"ব্লগ",
 c_footer_about:"About", c_footer_privacy:"Privacy", c_footer_contact:"Contact",
 c_footer_note:"সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না",
 c_step1:"সোর্স বেছে নিন", c_step3:"ফলাফল",
@@ -147,7 +147,7 @@ va_gv_to_video:"🎬 GIF → ভিডিও", va_gv_to_gif:"🖼️ ভিড�
 },
 
 en:{
-c_nav_gif:"GIF Maker", c_nav_fx:"Effects & Text", c_nav_iu:"Image Utilities", c_nav_qr:"QR Generator", c_nav_an:"GIF Analyzer",
+c_nav_gif:"GIF Maker", c_nav_fx:"Effects & Text", c_nav_iu:"Image Utilities", c_nav_qr:"QR Generator", c_nav_an:"GIF Analyzer", c_nav_blog:"Blog",
 c_footer_about:"About", c_footer_privacy:"Privacy", c_footer_contact:"Contact",
 c_footer_note:"All processing happens in your browser — no file is ever sent to a server",
 c_step1:"Choose a source", c_step3:"Result",
@@ -284,7 +284,7 @@ va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_dr
 },
 
 de:{
-c_nav_gif:"GIF-Ersteller", c_nav_fx:"Effekte & Text", c_nav_iu:"Bild-Werkzeuge", c_nav_qr:"QR-Generator", c_nav_an:"GIF-Analyzer",
+c_nav_gif:"GIF-Ersteller", c_nav_fx:"Effekte & Text", c_nav_iu:"Bild-Werkzeuge", c_nav_qr:"QR-Generator", c_nav_an:"GIF-Analyzer", c_nav_blog:"Blog",
 c_footer_about:"Über uns", c_footer_privacy:"Datenschutz", c_footer_contact:"Kontakt",
 c_footer_note:"Die gesamte Verarbeitung erfolgt in Ihrem Browser — es wird keine Datei an einen Server gesendet",
 c_step1:"Quelle auswählen", c_step3:"Ergebnis",
@@ -421,7 +421,7 @@ va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_dr
 },
 
 hi:{
-c_nav_gif:"GIF मेकर", c_nav_fx:"इफ़ेक्ट्स और टेक्स्ट", c_nav_iu:"इमेज यूटिलिटीज़", c_nav_qr:"QR जनरेटर", c_nav_an:"GIF एनालाइज़र",
+c_nav_gif:"GIF मेकर", c_nav_fx:"इफ़ेक्ट्स और टेक्स्ट", c_nav_iu:"इमेज यूटिलिटीज़", c_nav_qr:"QR जनरेटर", c_nav_an:"GIF एनालाइज़र", c_nav_blog:"ब्लॉग",
 c_footer_about:"About", c_footer_privacy:"Privacy", c_footer_contact:"Contact",
 c_footer_note:"सारी प्रोसेसिंग आपके ब्राउज़र में होती है — कोई फ़ाइल कभी सर्वर पर नहीं जाती",
 c_step1:"सोर्स चुनें", c_step3:"परिणाम",
@@ -558,7 +558,7 @@ va_gv_to_video:"🎬 GIF → वीडियो", va_gv_to_gif:"🖼️ वी�
 },
 
 ur:{
-c_nav_gif:"GIF میکر", c_nav_fx:"ایفیکٹس اور ٹیکسٹ", c_nav_iu:"امیج یوٹیلیٹیز", c_nav_qr:"QR جنریٹر", c_nav_an:"GIF اینالائزر",
+c_nav_gif:"GIF میکر", c_nav_fx:"ایفیکٹس اور ٹیکسٹ", c_nav_iu:"امیج یوٹیلیٹیز", c_nav_qr:"QR جنریٹر", c_nav_an:"GIF اینالائزر", c_nav_blog:"بلاگ",
 c_footer_about:"About", c_footer_privacy:"Privacy", c_footer_contact:"Contact",
 c_footer_note:"تمام پروسیسنگ آپ کے براؤزر میں ہوتی ہے — کوئی فائل کبھی سرور پر نہیں بھیجی جاتی",
 c_step1:"سورس منتخب کریں", c_step3:"نتیجہ",
@@ -695,7 +695,7 @@ va_gv_to_video:"🎬 GIF → ویڈیو", va_gv_to_gif:"🖼️ ویڈیو → G
 },
 
 ar:{
-c_nav_gif:"صانع GIF", c_nav_fx:"التأثيرات والنص", c_nav_iu:"أدوات الصور", c_nav_qr:"مولّد QR", c_nav_an:"محلّل GIF",
+c_nav_gif:"صانع GIF", c_nav_fx:"التأثيرات والنص", c_nav_iu:"أدوات الصور", c_nav_qr:"مولّد QR", c_nav_an:"محلّل GIF", c_nav_blog:"المدونة",
 c_footer_about:"About", c_footer_privacy:"Privacy", c_footer_contact:"Contact",
 c_footer_note:"تتم كل المعالجة داخل متصفحك — لا تُرسل أي ملف إلى أي خادم",
 c_step1:"اختر المصدر", c_step3:"النتيجة",
