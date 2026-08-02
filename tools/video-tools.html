@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ভিডিও ও অডিও টুলস — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="va_title">ভিডিও ও অডিও টুলস</h1>
+  <p data-i18n="va_sub">কাট/ট্রিম, রিভার্স/স্পিড, অডিও এক্সট্র্যাক্ট ও GIF↔ভিডিও — সব ব্রাউজারেই</p>
+</div>
+
+<div class="app">
+
+  <div class="card">
+    <p style="font-size:13px; color:var(--muted); margin:0 0 14px; line-height:1.7;" data-i18n="va_notice">এই টুলগুলো প্রথমবার ব্যবহারের সময় একটা ভিডিও-প্রসেসিং ইঞ্জিন (প্রায় ৩০-৭০ MB) ডাউনলোড করে — একটু সময় লাগতে পারে। বড় ভিডিওতে সময় বেশি লাগে; ৩০ সেকেন্ডের কম ছোট ক্লিপ দিয়ে শুরু করুন।</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="trim" data-i18n="va_tab_trim">✂️ কাট/ট্রিম</button>
+      <button class="tab-btn" data-tab="speed" data-i18n="va_tab_speed">🔁 রিভার্স/স্পিড</button>
+      <button class="tab-btn" data-tab="audio" data-i18n="va_tab_audio">🔊 অডিও এক্সট্র্যাক্ট</button>
+      <button class="tab-btn" data-tab="gifvideo" data-i18n="va_tab_gifvideo">🎬 GIF ↔ ভিডিও</button>
+    </div>
+
+    <div class="status mono" id="engineStatus" style="margin-bottom:14px;"></div>
+
+    <!-- TRIM -->
+    <div class="tabpanel active" id="panel-trim">
+      <div class="dropzone" id="dz-trim">
+        <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="input-trim" accept="video/*">
+      </div>
+      <div id="trim-body" style="display:none; margin-top:16px;">
+        <video id="trim-preview" controls style="width:100%; max-height:260px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+        <div class="row">
+          <div class="field"><label data-i18n="c_start_time">শুরু (সেকেন্ড)</label><input type="number" id="trim-start" min="0" step="0.1" value="0"></div>
+          <div class="field"><label data-i18n="c_end_time">শেষ (সেকেন্ড)</label><input type="number" id="trim-end" min="0" step="0.1" value="5"></div>
+        </div>
+        <button class="btn" id="trim-btn" data-i18n="va_trim_btn">কাট করুন</button>
+      </div>
+    </div>
+
+    <!-- SPEED/REVERSE -->
+    <div class="tabpanel" id="panel-speed">
+      <div class="dropzone" id="dz-speed">
+        <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="input-speed" accept="video/*">
+      </div>
+      <div id="speed-body" style="display:none; margin-top:16px;">
+        <video id="speed-preview" controls style="width:100%; max-height:260px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+        <div class="control"><label><span data-i18n="va_speed_label">গতি</span> <b id="speedVal" class="mono">1.0x</b></label><input type="range" id="speedRange" min="0.5" max="2" step="0.1" value="1"></div>
+        <div class="toggle-row" style="margin-bottom:14px;"><span data-i18n="c_reverse_frames">ফ্রেম রিভার্স করুন</span><input type="checkbox" id="reverseCheck" style="width:18px; height:18px;"></div>
+        <button class="btn" id="speed-btn" data-i18n="va_apply_btn">প্রয়োগ করুন</button>
+      </div>
+    </div>
+
+    <!-- AUDIO EXTRACT -->
+    <div class="tabpanel" id="panel-audio">
+      <div class="dropzone" id="dz-audio">
+        <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="input-audio" accept="video/*">
+      </div>
+      <div id="audio-body" style="display:none; margin-top:16px;">
+        <video id="audio-preview" controls style="width:100%; max-height:260px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+        <button class="btn" id="audio-btn" data-i18n="va_extract_btn">অডিও বের করুন</button>
+      </div>
+    </div>
+
+    <!-- GIF <-> VIDEO -->
+    <div class="tabpanel" id="panel-gifvideo">
+      <div class="source-toggle">
+        <button id="gvModeToVideo" class="active" data-i18n="va_gv_to_video">🎬 GIF → ভিডিও</button>
+        <button id="gvModeToGif" data-i18n="va_gv_to_gif">🖼️ ভিডিও → GIF</button>
+      </div>
+      <div id="dz-gv-gif">
+        <div class="dropzone" id="dropzone-gv-gif">
+          <div><strong data-i18n="va_drop_gif_title">GIF ফাইল টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+          <input type="file" id="input-gv-gif" accept="image/gif">
+        </div>
+      </div>
+      <div id="dz-gv-video" style="display:none;">
+        <div class="dropzone" id="dropzone-gv-video">
+          <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+          <input type="file" id="input-gv-video" accept="video/*">
+        </div>
+        <div id="gv-video-controls" style="display:none; margin-top:14px;">
+          <video id="gv-video-preview" controls style="width:100%; max-height:220px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+          <div class="row">
+            <div class="field"><label data-i18n="c_start_time">শুরু (সেকেন্ড)</label><input type="number" id="gv-start" min="0" step="0.1" value="0"></div>
+            <div class="field"><label data-i18n="c_end_time">শেষ (সেকেন্ড)</label><input type="number" id="gv-end" min="0" step="0.1" value="3"></div>
+            <div class="field"><label><span data-i18n="c_fps_label">FPS</span> — <b id="gvFpsVal" class="mono">10</b></label><input type="range" id="gv-fps" min="4" max="20" value="10"></div>
+          </div>
+        </div>
+      </div>
+      <div id="gv-preview-wrap" style="display:none; margin-top:14px;">
+        <img id="gv-gif-preview" style="max-width:100%; border-radius:10px;">
+      </div>
+      <button class="btn" id="gv-btn" style="margin-top:14px; display:none;" data-i18n="va_convert_btn">কনভার্ট করুন</button>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <h2><span class="num">✓</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <video id="resultVideo" controls style="max-width:100%; display:none; border-radius:10px;"></video>
+      <img id="resultImg" alt="ফলাফল" style="display:none;">
+      <audio id="resultAudio" controls style="width:100%; display:none;"></audio>
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  // ---- tabs ----
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn=>{
+    btn.onclick = () => {
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    };
+  });
+  (function activateFromHash(){
+    const h = location.hash.replace('#','');
+    if(h){ const btn = document.querySelector(`.tab-btn[data-tab="${h}"]`); if(btn) btn.click(); }
+  })();
+
+  // ---- ffmpeg lazy loader (single-thread core, no COOP/COEP headers needed) ----
+  let ffmpegInstance = null;
+  let ffmpegUtil = null;
+  const engineStatus = document.getElementById('engineStatus');
+
+  async function ensureFFmpeg(){
+    if(ffmpegInstance) return ffmpegInstance;
+    engineStatus.textContent = 'ভিডিও ইঞ্জিন ডাউনলোড হচ্ছে... (প্রথমবার একটু সময় লাগবে)';
+    const { FFmpeg } = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js');
+    const util = await import('https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.js');
+    ffmpegUtil = util;
+    const ffmpeg = new FFmpeg();
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+    ffmpeg.on('log', ({message}) => { /* console.log(message); */ });
+    ffmpeg.on('progress', ({progress}) => {
+      const bar = document.getElementById('progressBar');
+      const wrap = document.getElementById('progressWrap');
+      if(bar && wrap){ wrap.classList.add('show'); bar.style.width = Math.min(100, Math.round(progress*100))+'%'; }
+    });
+    await ffmpeg.load({
+      coreURL: await util.toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+      wasmURL: await util.toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+    });
+    ffmpegInstance = ffmpeg;
+    engineStatus.textContent = 'ইঞ্জিন প্রস্তুত ✓';
+    return ffmpeg;
+  }
+
+  function extOf(file){
+    const name = file.name || '';
+    const dot = name.lastIndexOf('.');
+    return dot>=0 ? name.slice(dot) : '.mp4';
+  }
+
+  function setupDropzone(dzId, inputId, onFile){
+    const dz = document.getElementById(dzId);
+    const input = document.getElementById(inputId);
+    dz.onclick = () => input.click();
+    input.onchange = () => { if(input.files[0]) onFile(input.files[0]); };
+    ['dragover','dragleave','drop'].forEach(evt=>{
+      dz.addEventListener(evt, e=>{
+        e.preventDefault();
+        dz.classList.toggle('drag', evt==='dragover');
+        if(evt==='drop' && e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]);
+      });
+    });
+  }
+
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultVideo = document.getElementById('resultVideo');
+  const resultImg = document.getElementById('resultImg');
+  const resultAudio = document.getElementById('resultAudio');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  function showResult(blob, kind, filename){
+    const url = URL.createObjectURL(blob);
+    resultVideo.style.display = 'none'; resultImg.style.display = 'none'; resultAudio.style.display = 'none';
+    if(kind==='video'){ resultVideo.src = url; resultVideo.style.display = 'block'; }
+    else if(kind==='image'){ resultImg.src = url; resultImg.style.display = 'block'; }
+    else if(kind==='audio'){ resultAudio.src = url; resultAudio.style.display = 'block'; }
+    downloadLink.href = url; downloadLink.download = filename;
+    resultMeta.textContent = `${filename} · ${(blob.size/1024/1024).toFixed(2)} MB`;
+    resultEl.classList.add('show');
+    genStatus.textContent = 'সম্পন্ন!';
+    progressWrap.classList.remove('show');
+  }
+
+  function showError(msg){
+    genStatus.textContent = 'সমস্যা হয়েছে: ' + msg;
+    progressWrap.classList.remove('show');
+  }
+
+  // ---- TRIM ----
+  let trimFile = null;
+  setupDropzone('dz-trim','input-trim', file=>{
+    trimFile = file;
+    document.getElementById('trim-preview').src = URL.createObjectURL(file);
+    document.getElementById('trim-body').style.display = 'block';
+  });
+  document.getElementById('trim-btn').onclick = async () => {
+    if(!trimFile) return;
+    const start = document.getElementById('trim-start').value;
+    const end = document.getElementById('trim-end').value;
+    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    try{
+      const ffmpeg = await ensureFFmpeg();
+      const inName = 'in' + extOf(trimFile);
+      await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(trimFile));
+      await ffmpeg.exec(['-i', inName, '-ss', String(start), '-to', String(end), '-c', 'copy', 'out.mp4']);
+      const data = await ffmpeg.readFile('out.mp4');
+      showResult(new Blob([data.buffer], {type:'video/mp4'}), 'video', 'trimmed.mp4');
+    } catch(e){ showError(e.message || String(e)); }
+  };
+
+  // ---- SPEED/REVERSE ----
+  let speedFile = null;
+  setupDropzone('dz-speed','input-speed', file=>{
+    speedFile = file;
+    document.getElementById('speed-preview').src = URL.createObjectURL(file);
+    document.getElementById('speed-body').style.display = 'block';
+  });
+  const speedRange = document.getElementById('speedRange');
+  speedRange.oninput = () => document.getElementById('speedVal').textContent = parseFloat(speedRange.value).toFixed(1)+'x';
+  document.getElementById('speed-btn').onclick = async () => {
+    if(!speedFile) return;
+    const speed = parseFloat(speedRange.value);
+    const reverse = document.getElementById('reverseCheck').checked;
+    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে... (রিভার্সে সময় বেশি লাগতে পারে)';
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    try{
+      const ffmpeg = await ensureFFmpeg();
+      const inName = 'in' + extOf(speedFile);
+      await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(speedFile));
+      const vf = reverse ? `reverse,setpts=PTS/${speed}` : `setpts=PTS/${speed}`;
+      const af = reverse ? `areverse,atempo=${speed}` : `atempo=${speed}`;
+      await ffmpeg.exec(['-i', inName, '-vf', vf, '-af', af, 'out.mp4']);
+      const data = await ffmpeg.readFile('out.mp4');
+      showResult(new Blob([data.buffer], {type:'video/mp4'}), 'video', 'speed-changed.mp4');
+    } catch(e){ showError(e.message || String(e)); }
+  };
+
+  // ---- AUDIO EXTRACT ----
+  let audioFile = null;
+  setupDropzone('dz-audio','input-audio', file=>{
+    audioFile = file;
+    document.getElementById('audio-preview').src = URL.createObjectURL(file);
+    document.getElementById('audio-body').style.display = 'block';
+  });
+  document.getElementById('audio-btn').onclick = async () => {
+    if(!audioFile) return;
+    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    try{
+      const ffmpeg = await ensureFFmpeg();
+      const inName = 'in' + extOf(audioFile);
+      await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(audioFile));
+      await ffmpeg.exec(['-i', inName, '-vn', '-acodec', 'libmp3lame', '-q:a', '2', 'out.mp3']);
+      const data = await ffmpeg.readFile('out.mp3');
+      showResult(new Blob([data.buffer], {type:'audio/mp3'}), 'audio', 'audio.mp3');
+    } catch(e){ showError(e.message || String(e)); }
+  };
+
+  // ---- GIF <-> VIDEO ----
+  const gvModeToVideo = document.getElementById('gvModeToVideo');
+  const gvModeToGif = document.getElementById('gvModeToGif');
+  const dzGvGif = document.getElementById('dz-gv-gif');
+  const dzGvVideo = document.getElementById('dz-gv-video');
+  const gvBtn = document.getElementById('gv-btn');
+  let gvGifFile = null, gvVideoFile = null;
+  let gvMode = 'togif_input'; // 'togif_input' means input is GIF -> output video; 'fromvideo' means input video -> output gif
+
+  gvModeToVideo.onclick = () => {
+    gvModeToVideo.classList.add('active'); gvModeToGif.classList.remove('active');
+    dzGvGif.style.display='block'; dzGvVideo.style.display='none';
+    gvMode = 'gif-to-video';
+    gvBtn.style.display = gvGifFile ? 'inline-block' : 'none';
+  };
+  gvModeToGif.onclick = () => {
+    gvModeToGif.classList.add('active'); gvModeToVideo.classList.remove('active');
+    dzGvVideo.style.display='block'; dzGvGif.style.display='none';
+    gvMode = 'video-to-gif';
+    gvBtn.style.display = gvVideoFile ? 'inline-block' : 'none';
+  };
+  gvMode = 'gif-to-video';
+
+  setupDropzone('dropzone-gv-gif','input-gv-gif', file=>{
+    gvGifFile = file;
+    document.getElementById('gv-preview-wrap').style.display = 'block';
+    document.getElementById('gv-gif-preview').src = URL.createObjectURL(file);
+    gvBtn.style.display = 'inline-block';
+  });
+  setupDropzone('dropzone-gv-video','input-gv-video', file=>{
+    gvVideoFile = file;
+    document.getElementById('gv-video-controls').style.display = 'block';
+    const vp = document.getElementById('gv-video-preview');
+    vp.src = URL.createObjectURL(file);
+    vp.onloadedmetadata = () => {
+      document.getElementById('gv-start').value = 0;
+      document.getElementById('gv-end').value = Math.min(vp.duration, 3).toFixed(1);
+    };
+    gvBtn.style.display = 'inline-block';
+  });
+  document.getElementById('gv-fps').oninput = function(){ document.getElementById('gvFpsVal').textContent = this.value; };
+
+  gvBtn.onclick = async () => {
+    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    try{
+      const ffmpeg = await ensureFFmpeg();
+      if(gvMode === 'gif-to-video'){
+        if(!gvGifFile) return;
+        await ffmpeg.writeFile('in.gif', await ffmpegUtil.fetchFile(gvGifFile));
+        await ffmpeg.exec(['-i','in.gif','-movflags','faststart','-pix_fmt','yuv420p','-vf','scale=trunc(iw/2)*2:trunc(ih/2)*2','out.mp4']);
+        const data = await ffmpeg.readFile('out.mp4');
+        showResult(new Blob([data.buffer], {type:'video/mp4'}), 'video', 'converted.mp4');
+      } else {
+        if(!gvVideoFile) return;
+        const start = document.getElementById('gv-start').value;
+        const end = document.getElementById('gv-end').value;
+        const fps = document.getElementById('gv-fps').value;
+        const inName = 'in' + extOf(gvVideoFile);
+        await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(gvVideoFile));
+        await ffmpeg.exec(['-i', inName, '-ss', String(start), '-to', String(end), '-vf', `fps=${fps},scale=320:-1:flags=lanczos`, 'out.gif']);
+        const data = await ffmpeg.readFile('out.gif');
+        showResult(new Blob([data.buffer], {type:'image/gif'}), 'image', 'converted.gif');
+      }
+    } catch(e){ showError(e.message || String(e)); }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    progressWrap.classList.remove('show');
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>
