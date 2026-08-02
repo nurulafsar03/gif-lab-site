@@ -137,7 +137,13 @@ pp_preset_bd:"বাংলাদেশ (35×45mm)", pp_preset_custom:"কাস�
 pp_generate_btn:"ছবি তৈরি করুন", pp_disclaimer:"এটা একটা সাধারণ গাইড — আনুষ্ঠানিকভাবে জমা দেওয়ার আগে নিজ দেশের অফিসিয়াল নিয়ম যাচাই করে নিন।",
 cl_title:"কোলাজ মেকার", cl_sub:"একাধিক ছবি দিয়ে একটা গ্রিড কোলাজ বানান", cl_step2_title:"লেআউট ঠিক করুন", cl_layout_label:"লেআউট",
 cl_layout_2x2:"গ্রিড ২×২ (৪ ছবি)", cl_layout_3x3:"গ্রিড ৩×৩ (৯ ছবি)", cl_layout_1x2:"পাশাপাশি (২ ছবি)", cl_layout_2x1:"উপর-নিচ (২ ছবি)",
-cl_gap_label:"ফাঁক", cl_bg_label:"ব্যাকগ্রাউন্ড রং", cl_generate_btn:"কোলাজ বানান"
+cl_gap_label:"ফাঁক", cl_bg_label:"ব্যাকগ্রাউন্ড রং", cl_generate_btn:"কোলাজ বানান",
+
+va_title:"ভিডিও ও অডিও টুলস", va_sub:"কাট/ট্রিম, রিভার্স/স্পিড, অডিও এক্সট্র্যাক্ট ও GIF↔ভিডিও — সব ব্রাউজারেই",
+va_notice:"এই টুলগুলো প্রথমবার ব্যবহারের সময় একটা ভিডিও-প্রসেসিং ইঞ্জিন (প্রায় ৩০-৭০ MB) ডাউনলোড করে — একটু সময় লাগতে পারে। বড় ভিডিওতে সময় বেশি লাগে; ৩০ সেকেন্ডের কম ছোট ক্লিপ দিয়ে শুরু করুন।",
+va_tab_trim:"✂️ কাট/ট্রিম", va_tab_speed:"🔁 রিভার্স/স্পিড", va_tab_audio:"🔊 অডিও এক্সট্র্যাক্ট", va_tab_gifvideo:"🎬 GIF ↔ ভিডিও",
+va_trim_btn:"কাট করুন", va_speed_label:"গতি", va_apply_btn:"প্রয়োগ করুন", va_extract_btn:"অডিও বের করুন",
+va_gv_to_video:"🎬 GIF → ভিডিও", va_gv_to_gif:"🖼️ ভিডিও → GIF", va_drop_gif_title:"GIF ফাইল টেনে আনুন", va_convert_btn:"কনভার্ট করুন"
 },
 
 en:{
@@ -268,7 +274,13 @@ pp_preset_bd:"Bangladesh (35×45mm)", pp_preset_custom:"Custom size (mm)", pp_zo
 pp_generate_btn:"Create photo", pp_disclaimer:"This is a general guide — verify your country's official requirements before final submission.",
 cl_title:"Collage Maker", cl_sub:"Make a grid collage from multiple images", cl_step2_title:"Adjust the layout", cl_layout_label:"Layout",
 cl_layout_2x2:"2×2 grid (4 photos)", cl_layout_3x3:"3×3 grid (9 photos)", cl_layout_1x2:"Side by side (2 photos)", cl_layout_2x1:"Stacked (2 photos)",
-cl_gap_label:"Gap", cl_bg_label:"Background color", cl_generate_btn:"Create collage"
+cl_gap_label:"Gap", cl_bg_label:"Background color", cl_generate_btn:"Create collage",
+
+va_title:"Video & Audio Tools", va_sub:"Trim, reverse/speed, extract audio, and GIF↔video — all in your browser",
+va_notice:"These tools download a video-processing engine (about 30-70 MB) the first time you use them — this can take a moment. Larger videos take longer; start with a short clip (under 30 seconds).",
+va_tab_trim:"✂️ Trim/Cut", va_tab_speed:"🔁 Reverse/Speed", va_tab_audio:"🔊 Extract Audio", va_tab_gifvideo:"🎬 GIF ↔ Video",
+va_trim_btn:"Cut", va_speed_label:"Speed", va_apply_btn:"Apply", va_extract_btn:"Extract Audio",
+va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"Drag a GIF file here", va_convert_btn:"Convert"
 },
 
 de:{
@@ -399,7 +411,13 @@ pp_preset_bd:"Bangladesch (35×45mm)", pp_preset_custom:"Benutzerdefinierte Grö
 pp_generate_btn:"Foto erstellen", pp_disclaimer:"Dies ist eine allgemeine Orientierung — prüfen Sie vor der offiziellen Einreichung die Vorgaben Ihres Landes.",
 cl_title:"Collagen-Ersteller", cl_sub:"Erstellen Sie eine Raster-Collage aus mehreren Bildern", cl_step2_title:"Layout anpassen", cl_layout_label:"Layout",
 cl_layout_2x2:"2×2 Raster (4 Fotos)", cl_layout_3x3:"3×3 Raster (9 Fotos)", cl_layout_1x2:"Nebeneinander (2 Fotos)", cl_layout_2x1:"Übereinander (2 Fotos)",
-cl_gap_label:"Abstand", cl_bg_label:"Hintergrundfarbe", cl_generate_btn:"Collage erstellen"
+cl_gap_label:"Abstand", cl_bg_label:"Hintergrundfarbe", cl_generate_btn:"Collage erstellen",
+
+va_title:"Video- & Audio-Werkzeuge", va_sub:"Schneiden, Umkehren/Tempo, Audio extrahieren und GIF↔Video — alles im Browser",
+va_notice:"Diese Werkzeuge laden beim ersten Gebrauch eine Video-Verarbeitungs-Engine (ca. 30-70 MB) herunter — das kann einen Moment dauern. Größere Videos brauchen länger; beginnen Sie mit einem kurzen Clip (unter 30 Sekunden).",
+va_tab_trim:"✂️ Schneiden", va_tab_speed:"🔁 Umkehren/Tempo", va_tab_audio:"🔊 Audio extrahieren", va_tab_gifvideo:"🎬 GIF ↔ Video",
+va_trim_btn:"Schneiden", va_speed_label:"Tempo", va_apply_btn:"Anwenden", va_extract_btn:"Audio extrahieren",
+va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"GIF-Datei hierher ziehen", va_convert_btn:"Konvertieren"
 },
 
 hi:{
@@ -530,7 +548,13 @@ pp_preset_bd:"बांग्लादेश (35×45mm)", pp_preset_custom:"क�
 pp_generate_btn:"फोटो बनाएँ", pp_disclaimer:"यह एक सामान्य गाइड है — आधिकारिक तौर पर जमा करने से पहले अपने देश के नियम ज़रूर जांच लें।",
 cl_title:"कोलाज मेकर", cl_sub:"कई इमेज से एक ग्रिड कोलाज बनाएँ", cl_step2_title:"लेआउट सेट करें", cl_layout_label:"लेआउट",
 cl_layout_2x2:"ग्रिड 2×2 (4 फोटो)", cl_layout_3x3:"ग्रिड 3×3 (9 फोटो)", cl_layout_1x2:"साथ-साथ (2 फोटो)", cl_layout_2x1:"ऊपर-नीचे (2 फोटो)",
-cl_gap_label:"गैप", cl_bg_label:"बैकग्राउंड रंग", cl_generate_btn:"कोलाज बनाएँ"
+cl_gap_label:"गैप", cl_bg_label:"बैकग्राउंड रंग", cl_generate_btn:"कोलाज बनाएँ",
+
+va_title:"वीडियो और ऑडियो टूल्स", va_sub:"ट्रिम/कट, रिवर्स/स्पीड, ऑडियो एक्सट्रैक्ट और GIF↔वीडियो — सब ब्राउज़र में",
+va_notice:"ये टूल्स पहली बार इस्तेमाल करने पर एक वीडियो-प्रोसेसिंग इंजन (लगभग 30-70 MB) डाउनलोड करते हैं — इसमें थोड़ा समय लग सकता है। बड़े वीडियो में ज़्यादा समय लगता है; 30 सेकंड से छोटा क्लिप लेकर शुरू करें।",
+va_tab_trim:"✂️ ट्रिम/कट", va_tab_speed:"🔁 रिवर्स/स्पीड", va_tab_audio:"🔊 ऑडियो एक्सट्रैक्ट", va_tab_gifvideo:"🎬 GIF ↔ वीडियो",
+va_trim_btn:"कट करें", va_speed_label:"स्पीड", va_apply_btn:"लागू करें", va_extract_btn:"ऑडियो निकालें",
+va_gv_to_video:"🎬 GIF → वीडियो", va_gv_to_gif:"🖼️ वीडियो → GIF", va_drop_gif_title:"GIF फ़ाइल यहाँ खींचें", va_convert_btn:"कन्वर्ट करें"
 },
 
 ur:{
@@ -661,7 +685,13 @@ pp_preset_bd:"بنگلہ دیش (35×45mm)", pp_preset_custom:"کسٹم سائز
 pp_generate_btn:"تصویر بنائیں", pp_disclaimer:"یہ ایک عمومی رہنما ہے — حتمی جمع کرانے سے پہلے اپنے ملک کے سرکاری قواعد ضرور چیک کریں۔",
 cl_title:"کولاژ میکر", cl_sub:"کئی تصاویر سے ایک گرڈ کولاژ بنائیں", cl_step2_title:"لے آؤٹ سیٹ کریں", cl_layout_label:"لے آؤٹ",
 cl_layout_2x2:"گرڈ 2×2 (4 تصاویر)", cl_layout_3x3:"گرڈ 3×3 (9 تصاویر)", cl_layout_1x2:"ساتھ ساتھ (2 تصاویر)", cl_layout_2x1:"اوپر نیچے (2 تصاویر)",
-cl_gap_label:"فاصلہ", cl_bg_label:"بیک گراؤنڈ رنگ", cl_generate_btn:"کولاژ بنائیں"
+cl_gap_label:"فاصلہ", cl_bg_label:"بیک گراؤنڈ رنگ", cl_generate_btn:"کولاژ بنائیں",
+
+va_title:"ویڈیو اور آڈیو ٹولز", va_sub:"ٹرم/کٹ، ریورس/اسپیڈ، آڈیو ایکسٹریکٹ اور GIF↔ویڈیو — سب براؤزر میں",
+va_notice:"یہ ٹولز پہلی بار استعمال کرنے پر ایک ویڈیو پروسیسنگ انجن (تقریباً 30-70 MB) ڈاؤن لوڈ کرتے ہیں — اس میں تھوڑا وقت لگ سکتا ہے۔ بڑی ویڈیوز میں زیادہ وقت لگتا ہے؛ 30 سیکنڈ سے چھوٹی کلپ سے شروع کریں۔",
+va_tab_trim:"✂️ ٹرم/کٹ", va_tab_speed:"🔁 ریورس/اسپیڈ", va_tab_audio:"🔊 آڈیو ایکسٹریکٹ", va_tab_gifvideo:"🎬 GIF ↔ ویڈیو",
+va_trim_btn:"کٹ کریں", va_speed_label:"اسپیڈ", va_apply_btn:"لاگو کریں", va_extract_btn:"آڈیو نکالیں",
+va_gv_to_video:"🎬 GIF → ویڈیو", va_gv_to_gif:"🖼️ ویڈیو → GIF", va_drop_gif_title:"GIF فائل یہاں لائیں", va_convert_btn:"کنورٹ کریں"
 },
 
 ar:{
@@ -792,7 +822,13 @@ pp_preset_bd:"بنغلاديش (35×45mm)", pp_preset_custom:"مقاس مخصص 
 pp_generate_btn:"إنشاء الصورة", pp_disclaimer:"هذا دليل عام — تحقق من المتطلبات الرسمية لبلدك قبل التقديم النهائي.",
 cl_title:"صانع الكولاج", cl_sub:"أنشئ كولاجًا شبكيًا من عدة صور", cl_step2_title:"اضبط التخطيط", cl_layout_label:"التخطيط",
 cl_layout_2x2:"شبكة 2×2 (4 صور)", cl_layout_3x3:"شبكة 3×3 (9 صور)", cl_layout_1x2:"جنبًا إلى جنب (صورتان)", cl_layout_2x1:"فوق بعض (صورتان)",
-cl_gap_label:"الفجوة", cl_bg_label:"لون الخلفية", cl_generate_btn:"إنشاء الكولاج"
+cl_gap_label:"الفجوة", cl_bg_label:"لون الخلفية", cl_generate_btn:"إنشاء الكولاج",
+
+va_title:"أدوات الفيديو والصوت", va_sub:"قص/تشذيب، عكس/سرعة، استخراج الصوت، وGIF↔فيديو — كل ذلك في المتصفح",
+va_notice:"تقوم هذه الأدوات بتنزيل محرك معالجة فيديو (حوالي 30-70 ميجابايت) عند أول استخدام — قد يستغرق ذلك بعض الوقت. مقاطع الفيديو الأكبر تستغرق وقتًا أطول؛ ابدأ بمقطع قصير (أقل من 30 ثانية).",
+va_tab_trim:"✂️ قص/تشذيب", va_tab_speed:"🔁 عكس/سرعة", va_tab_audio:"🔊 استخراج الصوت", va_tab_gifvideo:"🎬 GIF ↔ فيديو",
+va_trim_btn:"قص", va_speed_label:"السرعة", va_apply_btn:"تطبيق", va_extract_btn:"استخراج الصوت",
+va_gv_to_video:"🎬 GIF → فيديو", va_gv_to_gif:"🖼️ فيديو → GIF", va_drop_gif_title:"اسحب ملف GIF هنا", va_convert_btn:"تحويل"
 }
 };
 
