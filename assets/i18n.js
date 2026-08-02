@@ -1,4 +1,4 @@
-// গিফল্যাব — i18n (multi-language support)
+// VeloraGif — i18n (multi-language support)
 const LANGS = [
   {code:'bn', label:'বাংলা', dir:'ltr'},
   {code:'en', label:'English', dir:'ltr'},
@@ -86,9 +86,9 @@ tool_videocut_name:"ভিডিও কাটার", tool_videocut_desc:"ভি
 tool_videoreverse_name:"ভিডিও রিভার্স/স্পিড", tool_videoreverse_desc:"ffmpeg.wasm দিয়ে",
 tool_audioextract_name:"অডিও এক্সট্র্যাক্ট", tool_audioextract_desc:"ভিডিও থেকে অডিও বের করুন",
 
-ab_title:"গিফল্যাব সম্পর্কে", ab_sub:"একটা সাদামাটা লক্ষ্য: GIF ও ছবি এডিট করা সহজ ও প্রাইভেট রাখা",
+ab_title:"VeloraGif সম্পর্কে", ab_sub:"একটা সাদামাটা লক্ষ্য: GIF ও ছবি এডিট করা সহজ ও প্রাইভেট রাখা",
 ab_h_what:"আমরা কী বানাচ্ছি",
-ab_p_what:"গিফল্যাব একটা ফ্রি, ব্রাউজার-বেসড টুলসেট যেখানে ছবি ও অ্যানিমেটেড GIF তৈরি, এডিট ও কনভার্ট করা যায় — কোনো অ্যাকাউন্ট, ইনস্টলেশন বা ফাইল আপলোড ছাড়াই। প্রতিটা টুল সরাসরি আপনার ব্রাউজারে চলে, যাতে কাজটা দ্রুত এবং প্রাইভেট থাকে।",
+ab_p_what:"VeloraGif একটা ফ্রি, ব্রাউজার-বেসড টুলসেট যেখানে ছবি ও অ্যানিমেটেড GIF তৈরি, এডিট ও কনভার্ট করা যায় — কোনো অ্যাকাউন্ট, ইনস্টলেশন বা ফাইল আপলোড ছাড়াই। প্রতিটা টুল সরাসরি আপনার ব্রাউজারে চলে, যাতে কাজটা দ্রুত এবং প্রাইভেট থাকে।",
 ab_h_why:"কেন বানানো হলো",
 ab_p_why:"অনলাইনে GIF/ইমেজ এডিটিং টুলের বেশিরভাগই ফাইল সার্ভারে আপলোড করে প্রসেস করে, যা কখনো কখনো ধীর, এবং প্রাইভেসি নিয়ে প্রশ্ন তোলে। আমরা চেয়েছিলাম এমন একটা বিকল্প বানাতে যেখানে সাধারণ কাজগুলো কোনো সার্ভার ছাড়াই, শুধু ব্রাউজারের ক্ষমতা ব্যবহার করে করা যায়।",
 ab_h_now:"এখন যা যা করা যায়",
@@ -105,7 +105,7 @@ ab_p_contact:'মতামত, বাগ রিপোর্ট বা ফিচ�
 pv_title:"প্রাইভেসি পলিসি", pv_sub:"আপনার ফাইল ও গোপনীয়তা নিয়ে আমরা কী করি — আর কী করি না",
 pv_updated:"সর্বশেষ হালনাগাদ: আগস্ট ২০২৬",
 pv_h1:"সংক্ষেপে",
-pv_p1:"গিফল্যাবের সব টুল ব্রাউজারেই (client-side) কাজ করে। আপনি যে ছবি, ভিডিও বা GIF ফাইল আপলোড করেন, সেটা কখনও আমাদের বা কোনো তৃতীয় পক্ষের সার্ভারে পাঠানো হয় না। সব প্রসেসিং আপনার নিজের ডিভাইসের ব্রাউজারেই ঘটে।",
+pv_p1:"VeloraGif-এর সব টুল ব্রাউজারেই (client-side) কাজ করে। আপনি যে ছবি, ভিডিও বা GIF ফাইল আপলোড করেন, সেটা কখনও আমাদের বা কোনো তৃতীয় পক্ষের সার্ভারে পাঠানো হয় না। সব প্রসেসিং আপনার নিজের ডিভাইসের ব্রাউজারেই ঘটে।",
 pv_h2:"আমরা কী সংগ্রহ করি না",
 pv_li1:"আপনার আপলোড করা কোনো ছবি, ভিডিও বা GIF ফাইল",
 pv_li2:"আপনার তৈরি করা কোনো আউটপুট ফাইল",
@@ -125,7 +125,19 @@ ct_title:"যোগাযোগ", ct_sub:"মতামত, বাগ রিপ�
 ct_p1:'এই সাইটের কোনো ব্যাকএন্ড সার্ভার নেই, তাই নিচের ফর্মটা পূরণ করে "মেসেজ পাঠান" চাপলে সরাসরি আপনার ইমেইল অ্যাপ খুলে যাবে। অথবা সরাসরি ইমেইল করুন:',
 ct_email_note:"(এই ইমেইলটা আপনার নিজের ডোমেইনের ঠিকানা দিয়ে বদলে নিন)",
 ct_name:"আপনার নাম", ct_email:"ইমেইল", ct_subject:"বিষয়", ct_subject_ph:"যেমন: বাগ রিপোর্ট, ফিচার রিকোয়েস্ট, সাধারণ প্রশ্ন",
-ct_message:"মেসেজ", ct_send:"✉ মেসেজ পাঠান", ct_opening:"আপনার ইমেইল অ্যাপ খোলা হচ্ছে..."
+ct_message:"মেসেজ", ct_send:"✉ মেসেজ পাঠান", ct_opening:"আপনার ইমেইল অ্যাপ খোলা হচ্ছে...",
+
+rc_title:"রাউন্ড কর্নার", rc_sub:"ছবি বা GIF-এর কোণা গোল করে দিন", rc_step2_title:"কোণা ও সাইজ ঠিক করুন", rc_radius:"কোণার ব্যাসার্ধ",
+cs_title:"সেন্সর টুল", cs_sub:"ছবি বা GIF-এর একটা অংশ ব্লার বা ব্ল্যাকআউট করুন", cs_step2_title:"সেন্সর এলাকা ঠিক করুন",
+cs_region_x:"বাম থেকে অবস্থান", cs_region_y:"উপর থেকে অবস্থান", cs_region_w:"প্রস্থ", cs_region_h:"উচ্চতা",
+cs_mode_label:"ধরন", cs_mode_blur:"ব্লার", cs_mode_black:"ব্ল্যাকআউট",
+pp_title:"পাসপোর্ট ফটো মেকার", pp_sub:"স্ট্যান্ডার্ড সাইজে ছবি ক্রপ করুন — প্রিন্ট-রেডি রেজোলিউশনে", pp_step2_title:"সাইজ ও পজিশন ঠিক করুন",
+pp_preset_label:"সাইজ প্রিসেট", pp_preset_us2x2:"US / ইন্ডিয়া 2x2 ইঞ্চি (51×51mm)", pp_preset_uk:"UK / শেঞ্জেন (35×45mm)",
+pp_preset_bd:"বাংলাদেশ (35×45mm)", pp_preset_custom:"কাস্টম সাইজ (mm)", pp_zoom:"জুম", pp_pan_x:"বামে/ডানে সরান", pp_pan_y:"উপরে/নিচে সরান",
+pp_generate_btn:"ছবি তৈরি করুন", pp_disclaimer:"এটা একটা সাধারণ গাইড — আনুষ্ঠানিকভাবে জমা দেওয়ার আগে নিজ দেশের অফিসিয়াল নিয়ম যাচাই করে নিন।",
+cl_title:"কোলাজ মেকার", cl_sub:"একাধিক ছবি দিয়ে একটা গ্রিড কোলাজ বানান", cl_step2_title:"লেআউট ঠিক করুন", cl_layout_label:"লেআউট",
+cl_layout_2x2:"গ্রিড ২×২ (৪ ছবি)", cl_layout_3x3:"গ্রিড ৩×৩ (৯ ছবি)", cl_layout_1x2:"পাশাপাশি (২ ছবি)", cl_layout_2x1:"উপর-নিচ (২ ছবি)",
+cl_gap_label:"ফাঁক", cl_bg_label:"ব্যাকগ্রাউন্ড রং", cl_generate_btn:"কোলাজ বানান"
 },
 
 en:{
@@ -205,9 +217,9 @@ tool_videocut_name:"Video cutter", tool_videocut_desc:"Trim/cut a video",
 tool_videoreverse_name:"Video reverse/speed", tool_videoreverse_desc:"Using ffmpeg.wasm",
 tool_audioextract_name:"Audio extractor", tool_audioextract_desc:"Extract audio from a video",
 
-ab_title:"About GifLab", ab_sub:"One simple goal: make editing GIFs and images easy and private",
+ab_title:"About VeloraGif", ab_sub:"One simple goal: make editing GIFs and images easy and private",
 ab_h_what:"What we're building",
-ab_p_what:"GifLab is a free, browser-based toolset for creating, editing and converting images and animated GIFs — no account, install, or file upload required. Every tool runs right in your browser, so it stays fast and private.",
+ab_p_what:"VeloraGif is a free, browser-based toolset for creating, editing and converting images and animated GIFs — no account, install, or file upload required. Every tool runs right in your browser, so it stays fast and private.",
 ab_h_why:"Why we built it",
 ab_p_why:"Most online GIF/image editing tools upload your file to a server to process it, which can be slow and raises privacy questions. We wanted an alternative where common tasks can be done using only the browser's own power, without any server.",
 ab_h_now:"What you can do now",
@@ -224,7 +236,7 @@ ab_p_contact:'For feedback, bug reports, or feature requests, see the <a href="c
 pv_title:"Privacy Policy", pv_sub:"What we do — and don't do — with your files and data",
 pv_updated:"Last updated: August 2026",
 pv_h1:"In short",
-pv_p1:"Every GifLab tool works client-side, in your browser. Any image, video or GIF file you upload is never sent to us or any third-party server. All processing happens on your own device.",
+pv_p1:"Every VeloraGif tool works client-side, in your browser. Any image, video or GIF file you upload is never sent to us or any third-party server. All processing happens on your own device.",
 pv_h2:"What we don't collect",
 pv_li1:"Any image, video, or GIF file you upload",
 pv_li2:"Any output file you create",
@@ -244,7 +256,19 @@ ct_title:"Contact", ct_sub:"Feedback, bug reports, or questions — we'd like to
 ct_p1:'This site has no backend server, so filling in the form below and pressing "Send message" will open your own email app with a draft ready. Or email directly:',
 ct_email_note:"(replace this with your own domain's email address)",
 ct_name:"Your name", ct_email:"Email", ct_subject:"Subject", ct_subject_ph:"e.g. bug report, feature request, general question",
-ct_message:"Message", ct_send:"✉ Send message", ct_opening:"Opening your email app..."
+ct_message:"Message", ct_send:"✉ Send message", ct_opening:"Opening your email app...",
+
+rc_title:"Round Corners", rc_sub:"Round the corners of an image or GIF", rc_step2_title:"Adjust corner radius and size", rc_radius:"Corner radius",
+cs_title:"Censor Tool", cs_sub:"Blur or black out part of an image or GIF", cs_step2_title:"Adjust the censor area",
+cs_region_x:"Position from left", cs_region_y:"Position from top", cs_region_w:"Width", cs_region_h:"Height",
+cs_mode_label:"Type", cs_mode_blur:"Blur", cs_mode_black:"Black out",
+pp_title:"Passport Photo Maker", pp_sub:"Crop a photo to standard sizes — at print-ready resolution", pp_step2_title:"Adjust size and position",
+pp_preset_label:"Size preset", pp_preset_us2x2:"US / India 2x2 in (51×51mm)", pp_preset_uk:"UK / Schengen (35×45mm)",
+pp_preset_bd:"Bangladesh (35×45mm)", pp_preset_custom:"Custom size (mm)", pp_zoom:"Zoom", pp_pan_x:"Move left/right", pp_pan_y:"Move up/down",
+pp_generate_btn:"Create photo", pp_disclaimer:"This is a general guide — verify your country's official requirements before final submission.",
+cl_title:"Collage Maker", cl_sub:"Make a grid collage from multiple images", cl_step2_title:"Adjust the layout", cl_layout_label:"Layout",
+cl_layout_2x2:"2×2 grid (4 photos)", cl_layout_3x3:"3×3 grid (9 photos)", cl_layout_1x2:"Side by side (2 photos)", cl_layout_2x1:"Stacked (2 photos)",
+cl_gap_label:"Gap", cl_bg_label:"Background color", cl_generate_btn:"Create collage"
 },
 
 de:{
@@ -324,9 +348,9 @@ tool_videocut_name:"Video-Schneider", tool_videocut_desc:"Video zuschneiden/schn
 tool_videoreverse_name:"Video umkehren/Tempo", tool_videoreverse_desc:"Mit ffmpeg.wasm",
 tool_audioextract_name:"Audio extrahieren", tool_audioextract_desc:"Audio aus einem Video extrahieren",
 
-ab_title:"Über GifLab", ab_sub:"Ein einfaches Ziel: GIFs und Bilder einfach und privat bearbeiten",
+ab_title:"Über VeloraGif", ab_sub:"Ein einfaches Ziel: GIFs und Bilder einfach und privat bearbeiten",
 ab_h_what:"Was wir bauen",
-ab_p_what:"GifLab ist ein kostenloses, browserbasiertes Toolset zum Erstellen, Bearbeiten und Konvertieren von Bildern und animierten GIFs — ohne Konto, Installation oder Datei-Upload. Jedes Werkzeug läuft direkt in Ihrem Browser, sodass es schnell und privat bleibt.",
+ab_p_what:"VeloraGif ist ein kostenloses, browserbasiertes Toolset zum Erstellen, Bearbeiten und Konvertieren von Bildern und animierten GIFs — ohne Konto, Installation oder Datei-Upload. Jedes Werkzeug läuft direkt in Ihrem Browser, sodass es schnell und privat bleibt.",
 ab_h_why:"Warum wir es gebaut haben",
 ab_p_why:"Die meisten Online-Tools für GIF-/Bildbearbeitung laden Ihre Datei zur Verarbeitung auf einen Server hoch, was manchmal langsam ist und Datenschutzfragen aufwirft. Wir wollten eine Alternative, bei der übliche Aufgaben nur mit der Leistung des Browsers erledigt werden können, ganz ohne Server.",
 ab_h_now:"Was jetzt möglich ist",
@@ -343,7 +367,7 @@ ab_p_contact:'Für Feedback, Fehlerberichte oder Feature-Wünsche siehe die <a h
 pv_title:"Datenschutzerklärung", pv_sub:"Was wir mit Ihren Dateien und Daten tun — und was nicht",
 pv_updated:"Zuletzt aktualisiert: August 2026",
 pv_h1:"Kurzfassung",
-pv_p1:"Jedes GifLab-Werkzeug läuft clientseitig, in Ihrem Browser. Jede Bild-, Video- oder GIF-Datei, die Sie hochladen, wird niemals an uns oder einen Drittserver gesendet. Die gesamte Verarbeitung erfolgt auf Ihrem eigenen Gerät.",
+pv_p1:"Jedes VeloraGif-Werkzeug läuft clientseitig, in Ihrem Browser. Jede Bild-, Video- oder GIF-Datei, die Sie hochladen, wird niemals an uns oder einen Drittserver gesendet. Die gesamte Verarbeitung erfolgt auf Ihrem eigenen Gerät.",
 pv_h2:"Was wir nicht sammeln",
 pv_li1:"Jede von Ihnen hochgeladene Bild-, Video- oder GIF-Datei",
 pv_li2:"Jede von Ihnen erstellte Ausgabedatei",
@@ -363,7 +387,19 @@ ct_title:"Kontakt", ct_sub:"Feedback, Fehlerberichte oder Fragen — wir freuen 
 ct_p1:'Diese Seite hat keinen Backend-Server. Wenn Sie das Formular unten ausfüllen und auf "Nachricht senden" klicken, öffnet sich Ihre eigene E-Mail-App mit einem fertigen Entwurf. Oder schreiben Sie direkt eine E-Mail:',
 ct_email_note:"(ersetzen Sie dies durch die E-Mail-Adresse Ihrer eigenen Domain)",
 ct_name:"Ihr Name", ct_email:"E-Mail", ct_subject:"Betreff", ct_subject_ph:"z. B. Fehlerbericht, Feature-Wunsch, allgemeine Frage",
-ct_message:"Nachricht", ct_send:"✉ Nachricht senden", ct_opening:"Ihre E-Mail-App wird geöffnet..."
+ct_message:"Nachricht", ct_send:"✉ Nachricht senden", ct_opening:"Ihre E-Mail-App wird geöffnet...",
+
+rc_title:"Abgerundete Ecken", rc_sub:"Runden Sie die Ecken eines Bildes oder GIFs ab", rc_step2_title:"Eckenradius und Größe anpassen", rc_radius:"Eckenradius",
+cs_title:"Zensur-Werkzeug", cs_sub:"Teile eines Bildes oder GIFs weichzeichnen oder schwärzen", cs_step2_title:"Zensurbereich anpassen",
+cs_region_x:"Position von links", cs_region_y:"Position von oben", cs_region_w:"Breite", cs_region_h:"Höhe",
+cs_mode_label:"Art", cs_mode_blur:"Weichzeichnen", cs_mode_black:"Schwärzen",
+pp_title:"Passfoto-Ersteller", pp_sub:"Foto auf Standardgrößen zuschneiden — in druckfertiger Auflösung", pp_step2_title:"Größe und Position anpassen",
+pp_preset_label:"Größenvorlage", pp_preset_us2x2:"USA / Indien 2x2 Zoll (51×51mm)", pp_preset_uk:"UK / Schengen (35×45mm)",
+pp_preset_bd:"Bangladesch (35×45mm)", pp_preset_custom:"Benutzerdefinierte Größe (mm)", pp_zoom:"Zoom", pp_pan_x:"Nach links/rechts verschieben", pp_pan_y:"Nach oben/unten verschieben",
+pp_generate_btn:"Foto erstellen", pp_disclaimer:"Dies ist eine allgemeine Orientierung — prüfen Sie vor der offiziellen Einreichung die Vorgaben Ihres Landes.",
+cl_title:"Collagen-Ersteller", cl_sub:"Erstellen Sie eine Raster-Collage aus mehreren Bildern", cl_step2_title:"Layout anpassen", cl_layout_label:"Layout",
+cl_layout_2x2:"2×2 Raster (4 Fotos)", cl_layout_3x3:"3×3 Raster (9 Fotos)", cl_layout_1x2:"Nebeneinander (2 Fotos)", cl_layout_2x1:"Übereinander (2 Fotos)",
+cl_gap_label:"Abstand", cl_bg_label:"Hintergrundfarbe", cl_generate_btn:"Collage erstellen"
 },
 
 hi:{
@@ -443,9 +479,9 @@ tool_videocut_name:"वीडियो कटर", tool_videocut_desc:"वीड
 tool_videoreverse_name:"वीडियो रिवर्स/स्पीड", tool_videoreverse_desc:"ffmpeg.wasm से",
 tool_audioextract_name:"ऑडियो एक्सट्रैक्ट", tool_audioextract_desc:"वीडियो से ऑडियो निकालें",
 
-ab_title:"GifLab के बारे में", ab_sub:"एक सीधा लक्ष्य: GIF और इमेज एडिट करना आसान और प्राइवेट बनाना",
+ab_title:"VeloraGif के बारे में", ab_sub:"एक सीधा लक्ष्य: GIF और इमेज एडिट करना आसान और प्राइवेट बनाना",
 ab_h_what:"हम क्या बना रहे हैं",
-ab_p_what:"GifLab एक मुफ़्त, ब्राउज़र-आधारित टूलसेट है जहाँ इमेज और एनिमेटेड GIF बनाना, एडिट करना और कन्वर्ट करना संभव है — बिना अकाउंट, इंस्टॉल या फ़ाइल अपलोड के। हर टूल सीधे आपके ब्राउज़र में चलता है, इसलिए यह तेज़ और प्राइवेट रहता है।",
+ab_p_what:"VeloraGif एक मुफ़्त, ब्राउज़र-आधारित टूलसेट है जहाँ इमेज और एनिमेटेड GIF बनाना, एडिट करना और कन्वर्ट करना संभव है — बिना अकाउंट, इंस्टॉल या फ़ाइल अपलोड के। हर टूल सीधे आपके ब्राउज़र में चलता है, इसलिए यह तेज़ और प्राइवेट रहता है।",
 ab_h_why:"यह क्यों बनाया",
 ab_p_why:"ज़्यादातर ऑनलाइन GIF/इमेज एडिटिंग टूल फ़ाइल को प्रोसेस करने के लिए सर्वर पर अपलोड करते हैं, जो कभी-कभी धीमा होता है और प्राइवेसी को लेकर सवाल खड़े करता है। हम एक ऐसा विकल्प बनाना चाहते थे जहाँ आम काम सिर्फ़ ब्राउज़र की क्षमता का इस्तेमाल करके, बिना किसी सर्वर के किए जा सकें।",
 ab_h_now:"अभी क्या किया जा सकता है",
@@ -462,7 +498,7 @@ ab_p_contact:'फ़ीडबैक, बग रिपोर्ट या फ़�
 pv_title:"प्राइवेसी पॉलिसी", pv_sub:"आपकी फ़ाइलों और डेटा के साथ हम क्या करते हैं — और क्या नहीं करते",
 pv_updated:"आख़िरी अपडेट: अगस्त 2026",
 pv_h1:"संक्षेप में",
-pv_p1:"GifLab के सभी टूल्स क्लाइंट-साइड, यानी आपके ब्राउज़र में ही काम करते हैं। आप जो भी इमेज, वीडियो या GIF फ़ाइल अपलोड करते हैं, वह कभी हमारे या किसी तीसरे पक्ष के सर्वर पर नहीं भेजी जाती। सारी प्रोसेसिंग आपके अपने डिवाइस पर ही होती है।",
+pv_p1:"VeloraGif के सभी टूल्स क्लाइंट-साइड, यानी आपके ब्राउज़र में ही काम करते हैं। आप जो भी इमेज, वीडियो या GIF फ़ाइल अपलोड करते हैं, वह कभी हमारे या किसी तीसरे पक्ष के सर्वर पर नहीं भेजी जाती। सारी प्रोसेसिंग आपके अपने डिवाइस पर ही होती है।",
 pv_h2:"हम क्या इकट्ठा नहीं करते",
 pv_li1:"आपकी अपलोड की गई कोई भी इमेज, वीडियो या GIF फ़ाइल",
 pv_li2:"आपकी बनाई गई कोई भी आउटपुट फ़ाइल",
@@ -482,7 +518,19 @@ ct_title:"संपर्क करें", ct_sub:"फ़ीडबैक, ब�
 ct_p1:'इस साइट का कोई बैकएंड सर्वर नहीं है, इसलिए नीचे दिया गया फ़ॉर्म भरकर "मेसेज भेजें" दबाने पर सीधे आपकी ईमेल ऐप खुल जाएगी, एक तैयार ड्राफ़्ट के साथ। या सीधे ईमेल करें:',
 ct_email_note:"(इसे अपने खुद के डोमेन के ईमेल पते से बदल लें)",
 ct_name:"आपका नाम", ct_email:"ईमेल", ct_subject:"विषय", ct_subject_ph:"जैसे: बग रिपोर्ट, फ़ीचर रिक्वेस्ट, सामान्य सवाल",
-ct_message:"मेसेज", ct_send:"✉ मेसेज भेजें", ct_opening:"आपकी ईमेल ऐप खोली जा रही है..."
+ct_message:"मेसेज", ct_send:"✉ मेसेज भेजें", ct_opening:"आपकी ईमेल ऐप खोली जा रही है...",
+
+rc_title:"राउंड कॉर्नर", rc_sub:"इमेज या GIF के कोने गोल करें", rc_step2_title:"कॉर्नर रेडियस और साइज़ सेट करें", rc_radius:"कॉर्नर रेडियस",
+cs_title:"सेंसर टूल", cs_sub:"इमेज या GIF के किसी हिस्से को ब्लर या ब्लैकआउट करें", cs_step2_title:"सेंसर एरिया सेट करें",
+cs_region_x:"बाएँ से पोज़िशन", cs_region_y:"ऊपर से पोज़िशन", cs_region_w:"चौड़ाई", cs_region_h:"ऊँचाई",
+cs_mode_label:"प्रकार", cs_mode_blur:"ब्लर", cs_mode_black:"ब्लैकआउट",
+pp_title:"पासपोर्ट फोटो मेकर", pp_sub:"फोटो को स्टैंडर्ड साइज़ में क्रॉप करें — प्रिंट-रेडी रिज़ॉल्यूशन में", pp_step2_title:"साइज़ और पोज़िशन सेट करें",
+pp_preset_label:"साइज़ प्रीसेट", pp_preset_us2x2:"US / इंडिया 2x2 इंच (51×51mm)", pp_preset_uk:"UK / शेंगेन (35×45mm)",
+pp_preset_bd:"बांग्लादेश (35×45mm)", pp_preset_custom:"कस्टम साइज़ (mm)", pp_zoom:"ज़ूम", pp_pan_x:"बाएँ/दाएँ खिसकाएँ", pp_pan_y:"ऊपर/नीचे खिसकाएँ",
+pp_generate_btn:"फोटो बनाएँ", pp_disclaimer:"यह एक सामान्य गाइड है — आधिकारिक तौर पर जमा करने से पहले अपने देश के नियम ज़रूर जांच लें।",
+cl_title:"कोलाज मेकर", cl_sub:"कई इमेज से एक ग्रिड कोलाज बनाएँ", cl_step2_title:"लेआउट सेट करें", cl_layout_label:"लेआउट",
+cl_layout_2x2:"ग्रिड 2×2 (4 फोटो)", cl_layout_3x3:"ग्रिड 3×3 (9 फोटो)", cl_layout_1x2:"साथ-साथ (2 फोटो)", cl_layout_2x1:"ऊपर-नीचे (2 फोटो)",
+cl_gap_label:"गैप", cl_bg_label:"बैकग्राउंड रंग", cl_generate_btn:"कोलाज बनाएँ"
 },
 
 ur:{
@@ -562,9 +610,9 @@ tool_videocut_name:"ویڈیو کٹر", tool_videocut_desc:"ویڈیو ٹرim/ک
 tool_videoreverse_name:"ویڈیو ریورس/اسپیڈ", tool_videoreverse_desc:"ffmpeg.wasm کے ذریعے",
 tool_audioextract_name:"آڈیو ایکسٹریکٹ", tool_audioextract_desc:"ویڈیو سے آڈیو نکالیں",
 
-ab_title:"GifLab کے بارے میں", ab_sub:"ایک سادہ مقصد: GIF اور تصاویر ایڈٹ کرنا آسان اور نجی بنانا",
+ab_title:"VeloraGif کے بارے میں", ab_sub:"ایک سادہ مقصد: GIF اور تصاویر ایڈٹ کرنا آسان اور نجی بنانا",
 ab_h_what:"ہم کیا بنا رہے ہیں",
-ab_p_what:"GifLab ایک مفت، براؤزر پر مبنی ٹول سیٹ ہے جہاں تصاویر اور اینیمیٹڈ GIF بنانا، ایڈٹ کرنا اور کنورٹ کرنا ممکن ہے — بغیر اکاؤنٹ، انسٹال یا فائل اپ لوڈ کے۔ ہر ٹول براہِ راست آپ کے براؤزر میں چلتا ہے، اس لیے یہ تیز اور نجی رہتا ہے۔",
+ab_p_what:"VeloraGif ایک مفت، براؤزر پر مبنی ٹول سیٹ ہے جہاں تصاویر اور اینیمیٹڈ GIF بنانا، ایڈٹ کرنا اور کنورٹ کرنا ممکن ہے — بغیر اکاؤنٹ، انسٹال یا فائل اپ لوڈ کے۔ ہر ٹول براہِ راست آپ کے براؤزر میں چلتا ہے، اس لیے یہ تیز اور نجی رہتا ہے۔",
 ab_h_why:"یہ کیوں بنایا",
 ab_p_why:"زیادہ تر آن لائن GIF/امیج ایڈیٹنگ ٹولز پروسیسنگ کے لیے فائل کو سرور پر اپ لوڈ کرتے ہیں، جو کبھی کبھار سست ہوتا ہے اور رازداری کے سوالات اٹھاتا ہے۔ ہم ایک ایسا متبادل بنانا چاہتے تھے جہاں عام کام صرف براؤزر کی طاقت استعمال کر کے، بغیر کسی سرور کے کیے جا سکیں۔",
 ab_h_now:"ابھی کیا کیا جا سکتا ہے",
@@ -581,7 +629,7 @@ ab_p_contact:'رائے، بگ رپورٹ یا فیچر ریکویسٹ کے لی�
 pv_title:"پرائیویسی پالیسی", pv_sub:"آپ کی فائلوں اور ڈیٹا کے ساتھ ہم کیا کرتے ہیں — اور کیا نہیں کرتے",
 pv_updated:"آخری اپ ڈیٹ: اگست 2026",
 pv_h1:"مختصراً",
-pv_p1:"GifLab کے تمام ٹولز کلائنٹ سائیڈ، یعنی آپ کے براؤزر میں ہی کام کرتے ہیں۔ آپ جو بھی تصویر، ویڈیو یا GIF فائل اپ لوڈ کرتے ہیں، وہ کبھی ہمارے یا کسی تیسرے فریق کے سرور پر نہیں بھیجی جاتی۔ تمام پروسیسنگ آپ کے اپنے ڈیوائس پر ہی ہوتی ہے۔",
+pv_p1:"VeloraGif کے تمام ٹولز کلائنٹ سائیڈ، یعنی آپ کے براؤزر میں ہی کام کرتے ہیں۔ آپ جو بھی تصویر، ویڈیو یا GIF فائل اپ لوڈ کرتے ہیں، وہ کبھی ہمارے یا کسی تیسرے فریق کے سرور پر نہیں بھیجی جاتی۔ تمام پروسیسنگ آپ کے اپنے ڈیوائس پر ہی ہوتی ہے۔",
 pv_h2:"ہم کیا اکٹھا نہیں کرتے",
 pv_li1:"آپ کی اپ لوڈ کردہ کوئی بھی تصویر، ویڈیو یا GIF فائل",
 pv_li2:"آپ کی بنائی گئی کوئی بھی آؤٹ پٹ فائل",
@@ -601,7 +649,19 @@ ct_title:"رابطہ کریں", ct_sub:"رائے، بگ رپورٹ یا سوال
 ct_p1:'اس سائٹ کا کوئی بیک اینڈ سرور نہیں ہے، اس لیے نیچے دیا گیا فارم بھر کر "پیغام بھیجیں" دبانے پر براہِ راست آپ کی ای میل ایپ کھل جائے گی، ایک تیار ڈرافٹ کے ساتھ۔ یا براہِ راست ای میل کریں:',
 ct_email_note:"(اسے اپنے ڈومین کے ای میل ایڈریس سے بدل لیں)",
 ct_name:"آپ کا نام", ct_email:"ای میل", ct_subject:"موضوع", ct_subject_ph:"جیسے: بگ رپورٹ، فیچر ریکویسٹ، عمومی سوال",
-ct_message:"پیغام", ct_send:"✉ پیغام بھیجیں", ct_opening:"آپ کی ای میل ایپ کھولی جا رہی ہے..."
+ct_message:"پیغام", ct_send:"✉ پیغام بھیجیں", ct_opening:"آپ کی ای میل ایپ کھولی جا رہی ہے...",
+
+rc_title:"راؤنڈ کارنر", rc_sub:"تصویر یا GIF کے کونے گول کریں", rc_step2_title:"کارنر ریڈیس اور سائز سیٹ کریں", rc_radius:"کارنر ریڈیس",
+cs_title:"سنسر ٹول", cs_sub:"تصویر یا GIF کے کسی حصے کو بلر یا بلیک آؤٹ کریں", cs_step2_title:"سنسر ایریا سیٹ کریں",
+cs_region_x:"بائیں سے پوزیشن", cs_region_y:"اوپر سے پوزیشن", cs_region_w:"چوڑائی", cs_region_h:"اونچائی",
+cs_mode_label:"قسم", cs_mode_blur:"بلر", cs_mode_black:"بلیک آؤٹ",
+pp_title:"پاسپورٹ فوٹو میکر", pp_sub:"تصویر کو معیاری سائز میں کراپ کریں — پرنٹ کے لیے تیار ریزولوشن میں", pp_step2_title:"سائز اور پوزیشن سیٹ کریں",
+pp_preset_label:"سائز پریسیٹ", pp_preset_us2x2:"US / انڈیا 2x2 انچ (51×51mm)", pp_preset_uk:"UK / شینگن (35×45mm)",
+pp_preset_bd:"بنگلہ دیش (35×45mm)", pp_preset_custom:"کسٹم سائز (mm)", pp_zoom:"زوم", pp_pan_x:"بائیں/دائیں منتقل کریں", pp_pan_y:"اوپر/نیچے منتقل کریں",
+pp_generate_btn:"تصویر بنائیں", pp_disclaimer:"یہ ایک عمومی رہنما ہے — حتمی جمع کرانے سے پہلے اپنے ملک کے سرکاری قواعد ضرور چیک کریں۔",
+cl_title:"کولاژ میکر", cl_sub:"کئی تصاویر سے ایک گرڈ کولاژ بنائیں", cl_step2_title:"لے آؤٹ سیٹ کریں", cl_layout_label:"لے آؤٹ",
+cl_layout_2x2:"گرڈ 2×2 (4 تصاویر)", cl_layout_3x3:"گرڈ 3×3 (9 تصاویر)", cl_layout_1x2:"ساتھ ساتھ (2 تصاویر)", cl_layout_2x1:"اوپر نیچے (2 تصاویر)",
+cl_gap_label:"فاصلہ", cl_bg_label:"بیک گراؤنڈ رنگ", cl_generate_btn:"کولاژ بنائیں"
 },
 
 ar:{
@@ -681,9 +741,9 @@ tool_videocut_name:"قاطع الفيديو", tool_videocut_desc:"قص/تشذي�
 tool_videoreverse_name:"عكس/سرعة الفيديو", tool_videoreverse_desc:"باستخدام ffmpeg.wasm",
 tool_audioextract_name:"استخراج الصوت", tool_audioextract_desc:"استخراج الصوت من فيديو",
 
-ab_title:"حول GifLab", ab_sub:"هدف بسيط: جعل تحرير ملفات GIF والصور سهلاً وخاصًا",
+ab_title:"حول VeloraGif", ab_sub:"هدف بسيط: جعل تحرير ملفات GIF والصور سهلاً وخاصًا",
 ab_h_what:"ما الذي نبنيه",
-ab_p_what:"GifLab هي مجموعة أدوات مجانية تعمل داخل المتصفح لإنشاء وتحرير وتحويل الصور وملفات GIF المتحركة — دون حساب أو تثبيت أو رفع ملفات. تعمل كل أداة مباشرة في متصفحك، مما يجعلها سريعة وخاصة.",
+ab_p_what:"VeloraGif هي مجموعة أدوات مجانية تعمل داخل المتصفح لإنشاء وتحرير وتحويل الصور وملفات GIF المتحركة — دون حساب أو تثبيت أو رفع ملفات. تعمل كل أداة مباشرة في متصفحك، مما يجعلها سريعة وخاصة.",
 ab_h_why:"لماذا بنيناها",
 ab_p_why:"معظم أدوات تحرير GIF/الصور عبر الإنترنت ترفع ملفك إلى خادم لمعالجته، وهو ما قد يكون بطيئًا ويثير تساؤلات حول الخصوصية. أردنا بديلاً يمكن فيه إنجاز المهام الشائعة باستخدام قدرة المتصفح فقط، دون أي خادم.",
 ab_h_now:"ما يمكنك فعله الآن",
@@ -700,7 +760,7 @@ ab_p_contact:'للملاحظات أو تقارير الأخطاء أو طلبا�
 pv_title:"سياسة الخصوصية", pv_sub:"ما نفعله — وما لا نفعله — بملفاتك وبياناتك",
 pv_updated:"آخر تحديث: أغسطس 2026",
 pv_h1:"باختصار",
-pv_p1:"تعمل كل أدوات GifLab من جانب العميل، أي داخل متصفحك. أي صورة أو فيديو أو ملف GIF تقوم برفعه لا يُرسل أبدًا إلينا أو إلى أي خادم تابع لجهة أخرى. تتم كل المعالجة على جهازك الخاص.",
+pv_p1:"تعمل كل أدوات VeloraGif من جانب العميل، أي داخل متصفحك. أي صورة أو فيديو أو ملف GIF تقوم برفعه لا يُرسل أبدًا إلينا أو إلى أي خادم تابع لجهة أخرى. تتم كل المعالجة على جهازك الخاص.",
 pv_h2:"ما لا نجمعه",
 pv_li1:"أي صورة أو فيديو أو ملف GIF تقوم برفعه",
 pv_li2:"أي ملف إخراج تقوم بإنشائه",
@@ -720,7 +780,19 @@ ct_title:"تواصل معنا", ct_sub:"ملاحظات أو تقارير أخط�
 ct_p1:'لا يمتلك هذا الموقع خادمًا خلفيًا، لذا فإن ملء النموذج أدناه والضغط على "إرسال الرسالة" سيفتح تطبيق البريد الإلكتروني الخاص بك مع مسودة جاهزة. أو راسلنا مباشرة عبر البريد:',
 ct_email_note:"(استبدل هذا بعنوان بريد نطاقك الخاص)",
 ct_name:"اسمك", ct_email:"البريد الإلكتروني", ct_subject:"الموضوع", ct_subject_ph:"مثال: تقرير خطأ، طلب ميزة، سؤال عام",
-ct_message:"الرسالة", ct_send:"✉ إرسال الرسالة", ct_opening:"جارٍ فتح تطبيق البريد الإلكتروني..."
+ct_message:"الرسالة", ct_send:"✉ إرسال الرسالة", ct_opening:"جارٍ فتح تطبيق البريد الإلكتروني...",
+
+rc_title:"زوايا مستديرة", rc_sub:"دوّر زوايا صورة أو GIF", rc_step2_title:"اضبط نصف قطر الزاوية والحجم", rc_radius:"نصف قطر الزاوية",
+cs_title:"أداة الحجب", cs_sub:"تمويه أو إخفاء جزء من صورة أو GIF", cs_step2_title:"اضبط منطقة الحجب",
+cs_region_x:"الموضع من اليسار", cs_region_y:"الموضع من الأعلى", cs_region_w:"العرض", cs_region_h:"الارتفاع",
+cs_mode_label:"النوع", cs_mode_blur:"تمويه", cs_mode_black:"إخفاء بالأسود",
+pp_title:"صانع صورة جواز السفر", pp_sub:"اقصص الصورة إلى مقاسات قياسية — بدقة جاهزة للطباعة", pp_step2_title:"اضبط الحجم والموضع",
+pp_preset_label:"مقاس جاهز", pp_preset_us2x2:"أمريكا / الهند 2×2 إنش (51×51mm)", pp_preset_uk:"بريطانيا / شنغن (35×45mm)",
+pp_preset_bd:"بنغلاديش (35×45mm)", pp_preset_custom:"مقاس مخصص (mm)", pp_zoom:"تكبير", pp_pan_x:"تحريك يمين/يسار", pp_pan_y:"تحريك أعلى/أسفل",
+pp_generate_btn:"إنشاء الصورة", pp_disclaimer:"هذا دليل عام — تحقق من المتطلبات الرسمية لبلدك قبل التقديم النهائي.",
+cl_title:"صانع الكولاج", cl_sub:"أنشئ كولاجًا شبكيًا من عدة صور", cl_step2_title:"اضبط التخطيط", cl_layout_label:"التخطيط",
+cl_layout_2x2:"شبكة 2×2 (4 صور)", cl_layout_3x3:"شبكة 3×3 (9 صور)", cl_layout_1x2:"جنبًا إلى جنب (صورتان)", cl_layout_2x1:"فوق بعض (صورتان)",
+cl_gap_label:"الفجوة", cl_bg_label:"لون الخلفية", cl_generate_btn:"إنشاء الكولاج"
 }
 };
 
