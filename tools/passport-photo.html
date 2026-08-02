@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পাসপোর্ট ফটো মেকার — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="pp_title">পাসপোর্ট ফটো মেকার</h1>
+  <p data-i18n="pp_sub">স্ট্যান্ডার্ড সাইজে ছবি ক্রপ করুন — প্রিন্ট-রেডি রেজোলিউশনে</p>
+</div>
+
+<div class="app">
+
+  <div class="card" id="step1">
+    <h2><span class="num">১</span> <span data-i18n="c_step1">সোর্স বেছে নিন</span></h2>
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="c_drop_images_title">ছবি টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <input type="file" id="imageInput" accept="image/*">
+    </div>
+    <div class="empty-note" id="emptyNote" data-i18n="c_empty_note">এখনও কোনো ফ্রেম যোগ হয়নি।</div>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h2><span class="num">২</span> <span data-i18n="pp_step2_title">সাইজ ও পজিশন ঠিক করুন</span></h2>
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage"><canvas id="previewCanvas"></canvas></div>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label data-i18n="pp_preset_label">সাইজ প্রিসেট</label>
+          <select id="presetSelect">
+            <option value="us2x2" data-i18n="pp_preset_us2x2">US / ইন্ডিয়া 2x2 ইঞ্চি (51×51mm)</option>
+            <option value="uk" data-i18n="pp_preset_uk">UK / শেঞ্জেন (35×45mm)</option>
+            <option value="bd" data-i18n="pp_preset_bd">বাংলাদেশ (35×45mm)</option>
+            <option value="custom" data-i18n="pp_preset_custom">কাস্টম সাইজ (mm)</option>
+          </select>
+        </div>
+        <div class="row" id="customSizeRow" style="display:none;">
+          <div class="field"><label>Width (mm)</label><input type="number" id="customW" value="35" min="10" max="150"></div>
+          <div class="field"><label>Height (mm)</label><input type="number" id="customH" value="45" min="10" max="150"></div>
+        </div>
+        <div class="control"><label><span data-i18n="pp_zoom">জুম</span> <b id="zoomVal" class="mono">100%</b></label><input type="range" id="zoomRange" min="100" max="300" value="100"></div>
+        <div class="control"><label><span data-i18n="pp_pan_x">বামে/ডানে সরান</span> <b id="panXVal" class="mono">0%</b></label><input type="range" id="panXRange" min="-50" max="50" value="0"></div>
+        <div class="control"><label><span data-i18n="pp_pan_y">উপরে/নিচে সরান</span> <b id="panYVal" class="mono">0%</b></label><input type="range" id="panYRange" min="-50" max="50" value="0"></div>
+        <div class="status mono" id="outputInfo"></div>
+        <button class="btn" id="generateBtn" data-i18n="pp_generate_btn">ছবি তৈরি করুন</button>
+        <p style="font-size:12px; color:var(--muted); margin:6px 0 0;" data-i18n="pp_disclaimer">এটা একটা সাধারণ গাইড — আনুষ্ঠানিকভাবে জমা দেওয়ার আগে নিজ দেশের অফিসিয়াল নিয়ম যাচাই করে নিন।</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">৩</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="passport-photo.png" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let img = null;
+  const dropzone = document.getElementById('dropzone');
+  const imageInput = document.getElementById('imageInput');
+  const emptyNote = document.getElementById('emptyNote');
+  const step2 = document.getElementById('step2');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const presetSelect = document.getElementById('presetSelect');
+  const customSizeRow = document.getElementById('customSizeRow');
+  const customW = document.getElementById('customW');
+  const customH = document.getElementById('customH');
+  const zoomRange = document.getElementById('zoomRange');
+  const panXRange = document.getElementById('panXRange');
+  const panYRange = document.getElementById('panYRange');
+  const outputInfo = document.getElementById('outputInfo');
+
+  const PRESETS = {
+    us2x2: {w:51, h:51},
+    uk: {w:35, h:45},
+    bd: {w:35, h:45},
+  };
+  const DPI = 300;
+  function mmToPx(mm){ return Math.round(mm/25.4*DPI); }
+
+  function currentSizeMm(){
+    if(presetSelect.value === 'custom'){
+      return {w: parseFloat(customW.value)||35, h: parseFloat(customH.value)||45};
+    }
+    return PRESETS[presetSelect.value];
+  }
+
+  dropzone.onclick = () => imageInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop' && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+  });
+  imageInput.onchange = () => { if(imageInput.files[0]) handleFile(imageInput.files[0]); };
+
+  function handleFile(file){
+    const image = new Image();
+    image.onload = () => {
+      img = image;
+      emptyNote.style.display = 'none';
+      step2.style.display = 'block';
+      updatePreview();
+    };
+    image.src = URL.createObjectURL(file);
+  }
+
+  presetSelect.onchange = () => {
+    customSizeRow.style.display = presetSelect.value === 'custom' ? 'flex' : 'none';
+    updatePreview();
+  };
+  [customW, customH, zoomRange, panXRange, panYRange].forEach(el => el.addEventListener('input', updatePreview));
+
+  function drawPassport(image, canvas, zoom, panXPct, panYPct){
+    const ctx = canvas.getContext('2d');
+    const cw = canvas.width, ch = canvas.height;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,cw,ch);
+    const iw = image.naturalWidth, ih = image.naturalHeight;
+    const canvasAspect = cw/ch, imgAspect = iw/ih;
+    const baseScale = imgAspect > canvasAspect ? ch/ih : cw/iw;
+    const scale = baseScale * (zoom/100);
+    const drawW = iw*scale, drawH = ih*scale;
+    const maxOffsetX = Math.max(0, (drawW-cw)/2);
+    const maxOffsetY = Math.max(0, (drawH-ch)/2);
+    const offsetX = (panXPct/50) * maxOffsetX;
+    const offsetY = (panYPct/50) * maxOffsetY;
+    const dx = (cw-drawW)/2 - offsetX;
+    const dy = (ch-drawH)/2 - offsetY;
+    ctx.drawImage(image, dx, dy, drawW, drawH);
+  }
+
+  function updatePreview(){
+    document.getElementById('zoomVal').textContent = zoomRange.value+'%';
+    document.getElementById('panXVal').textContent = panXRange.value+'%';
+    document.getElementById('panYVal').textContent = panYRange.value+'%';
+    if(!img) return;
+    const mm = currentSizeMm();
+    const previewW = 260;
+    const previewH = Math.round(previewW * (mm.h/mm.w));
+    previewCanvas.width = previewW; previewCanvas.height = previewH;
+    drawPassport(img, previewCanvas, parseInt(zoomRange.value,10), parseInt(panXRange.value,10), parseInt(panYRange.value,10));
+    const pxW = mmToPx(mm.w), pxH = mmToPx(mm.h);
+    outputInfo.textContent = `${mm.w}×${mm.h}mm → ${pxW}×${pxH}px @ 300dpi`;
+  }
+
+  const generateBtn = document.getElementById('generateBtn');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  generateBtn.onclick = () => {
+    if(!img) return;
+    const mm = currentSizeMm();
+    const pxW = mmToPx(mm.w), pxH = mmToPx(mm.h);
+    const out = document.createElement('canvas');
+    out.width = pxW; out.height = pxH;
+    drawPassport(img, out, parseInt(zoomRange.value,10), parseInt(panXRange.value,10), parseInt(panYRange.value,10));
+    out.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${pxW}×${pxH}px`;
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+    }, 'image/png');
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    img = null;
+    imageInput.value = '';
+    step2.style.display = 'none';
+    emptyNote.style.display = 'block';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>

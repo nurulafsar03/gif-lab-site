@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>কোলাজ মেকার — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="cl_title">কোলাজ মেকার</h1>
+  <p data-i18n="cl_sub">একাধিক ছবি দিয়ে একটা গ্রিড কোলাজ বানান</p>
+</div>
+
+<div class="app">
+
+  <div class="card" id="step1">
+    <h2><span class="num">১</span> <span data-i18n="c_step1">সোর্স বেছে নিন</span></h2>
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="c_drop_images_title">ছবি টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <div style="font-size:12.5px; margin-top:6px;" data-i18n="c_drop_images_hint">একাধিক ছবি বেছে নেওয়া যাবে (যে ক্রমে দেবেন সেই ক্রমেই ফ্রেম হবে)</div>
+      <input type="file" id="imageInput" accept="image/*" multiple>
+    </div>
+    <div class="thumbs" id="thumbs"></div>
+    <div class="empty-note" id="emptyNote" data-i18n="c_empty_note">এখনও কোনো ফ্রেম যোগ হয়নি।</div>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h2><span class="num">২</span> <span data-i18n="cl_step2_title">লেআউট ঠিক করুন</span></h2>
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage"><canvas id="previewCanvas"></canvas></div>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label data-i18n="cl_layout_label">লেআউট</label>
+          <select id="layoutSelect">
+            <option value="2x2" data-i18n="cl_layout_2x2">গ্রিড ২×২ (৪ ছবি)</option>
+            <option value="3x3" data-i18n="cl_layout_3x3">গ্রিড ৩×৩ (৯ ছবি)</option>
+            <option value="1x2" data-i18n="cl_layout_1x2">পাশাপাশি (২ ছবি)</option>
+            <option value="2x1" data-i18n="cl_layout_2x1">উপর-নিচ (২ ছবি)</option>
+          </select>
+        </div>
+        <div class="control"><label><span data-i18n="cl_gap_label">ফাঁক</span> <b id="gapVal" class="mono">8px</b></label><input type="range" id="gapRange" min="0" max="40" value="8"></div>
+        <div class="field"><label data-i18n="cl_bg_label">ব্যাকগ্রাউন্ড রং</label><input type="color" id="bgColor" value="#15141a" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+        <button class="btn" id="generateBtn" data-i18n="cl_generate_btn">কোলাজ বানান</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">৩</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="collage.png" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let images = [];
+  const dropzone = document.getElementById('dropzone');
+  const imageInput = document.getElementById('imageInput');
+  const thumbsEl = document.getElementById('thumbs');
+  const emptyNote = document.getElementById('emptyNote');
+  const step2 = document.getElementById('step2');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const layoutSelect = document.getElementById('layoutSelect');
+  const gapRange = document.getElementById('gapRange');
+  const bgColor = document.getElementById('bgColor');
+
+  const LAYOUTS = {
+    '2x2': {rows:2, cols:2},
+    '3x3': {rows:3, cols:3},
+    '1x2': {rows:1, cols:2},
+    '2x1': {rows:2, cols:1},
+  };
+
+  dropzone.onclick = () => imageInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop') handleFiles(e.dataTransfer.files);
+    });
+  });
+  imageInput.onchange = () => handleFiles(imageInput.files);
+
+  function handleFiles(fileList){
+    const files = Array.from(fileList).filter(f=>f.type.startsWith('image/'));
+    files.forEach(file=>{
+      const img = new Image();
+      img.onload = () => { images.push(img); refreshThumbs(); };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  function refreshThumbs(){
+    thumbsEl.innerHTML = '';
+    images.forEach((img, idx)=>{
+      const div = document.createElement('div');
+      div.className = 'thumb';
+      const el = document.createElement('img');
+      el.src = img.src;
+      const btn = document.createElement('button');
+      btn.textContent = '×';
+      btn.onclick = () => { images.splice(idx,1); refreshThumbs(); };
+      div.appendChild(el); div.appendChild(btn);
+      thumbsEl.appendChild(div);
+    });
+    emptyNote.style.display = images.length ? 'none' : 'block';
+    step2.style.display = images.length ? 'block' : 'none';
+    if(images.length) updatePreview();
+  }
+
+  [layoutSelect, gapRange, bgColor].forEach(el => el.addEventListener('input', updatePreview));
+
+  function drawCover(ctx, img, x, y, w, h){
+    const imgAspect = img.naturalWidth/img.naturalHeight;
+    const cellAspect = w/h;
+    let sx, sy, sw, sh;
+    if(imgAspect > cellAspect){
+      sh = img.naturalHeight;
+      sw = sh * cellAspect;
+      sx = (img.naturalWidth - sw)/2;
+      sy = 0;
+    } else {
+      sw = img.naturalWidth;
+      sh = sw / cellAspect;
+      sx = 0;
+      sy = (img.naturalHeight - sh)/2;
+    }
+    ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  }
+
+  function renderCollage(canvas, cellSize){
+    const {rows, cols} = LAYOUTS[layoutSelect.value];
+    const gap = parseInt(gapRange.value,10);
+    const cellW = cellSize, cellH = cellSize;
+    canvas.width = cols*cellW + (cols+1)*gap;
+    canvas.height = rows*cellH + (rows+1)*gap;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = bgColor.value;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    const total = rows*cols;
+    for(let i=0;i<total;i++){
+      const r = Math.floor(i/cols), c = i%cols;
+      const x = gap + c*(cellW+gap);
+      const y = gap + r*(cellH+gap);
+      if(images[i]) drawCover(ctx, images[i], x, y, cellW, cellH);
+      else { ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fillRect(x,y,cellW,cellH); ctx.fillStyle = bgColor.value; }
+    }
+  }
+
+  function updatePreview(){
+    document.getElementById('gapVal').textContent = gapRange.value+'px';
+    if(!images.length) return;
+    renderCollage(previewCanvas, 120);
+  }
+
+  const generateBtn = document.getElementById('generateBtn');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  generateBtn.onclick = () => {
+    if(!images.length) return;
+    const out = document.createElement('canvas');
+    renderCollage(out, 500);
+    out.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${out.width}×${out.height}px`;
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+    }, 'image/png');
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    images = [];
+    imageInput.value = '';
+    refreshThumbs();
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+
+  refreshThumbs();
+})();
+</script>
+</body>
+</html>
