@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ব্লগ — VeloraGif</title>
+<meta name="description" content="GIF, ছবি এডিটিং ও পাসপোর্ট ফটো নিয়ে গাইড ও টিপস।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/blog-posts.js"></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="../tools/gif-maker.html">GIF মেকার</a>
+    <a href="../tools/effects-text.html">ইফেক্ট ও টেক্সট</a>
+    <a href="../tools/image-utils.html">ইমেজ ইউটিলিটি</a>
+    <a href="../tools/qr-generator.html">QR জেনারেটর</a>
+    <a href="../tools/analyzer.html">GIF অ্যানালাইজার</a>
+    <a href="index.html">ব্লগ</a>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1>ব্লগ ও গাইড</h1>
+  <p>GIF, ছবি এডিটিং ও পাসপোর্ট ফটো নিয়ে বিস্তারিত লেখা</p>
+</div>
+
+<div class="app">
+  <div class="category">
+    <div class="tool-grid" id="postGrid"></div>
+    <div class="empty-note" id="emptyNote" style="display:none;">এখনও কোনো পোস্ট যোগ করা হয়নি।</div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html">About</a> · <a href="../privacy.html">Privacy</a> · <a href="../contact.html">Contact</a> · <a href="index.html">ব্লগ</a><br>
+  সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না
+</footer>
+
+<script>
+(function(){
+  const grid = document.getElementById('postGrid');
+  const emptyNote = document.getElementById('emptyNote');
+  if(typeof BLOG_POSTS === 'undefined' || !BLOG_POSTS.length){
+    emptyNote.style.display = 'block';
+    return;
+  }
+  grid.innerHTML = BLOG_POSTS.map(post => `
+    <a class="tool-card" href="post.html?slug=${encodeURIComponent(post.slug)}">
+      <span class="emoji">${post.emoji || '📝'}</span>
+      <span class="name">${post.title}</span>
+      <span class="desc">${post.description}</span>
+    </a>
+  `).join('');
+})();
+</script>
+</body>
+</html>
