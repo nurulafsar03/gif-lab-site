@@ -71,6 +71,7 @@
         <video id="speed-preview" controls style="width:100%; max-height:260px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
         <div class="control"><label><span data-i18n="va_speed_label">গতি</span> <b id="speedVal" class="mono">1.0x</b></label><input type="range" id="speedRange" min="0.5" max="2" step="0.1" value="1"></div>
         <div class="toggle-row" style="margin-bottom:14px;"><span data-i18n="c_reverse_frames">ফ্রেম রিভার্স করুন</span><input type="checkbox" id="reverseCheck" style="width:18px; height:18px;"></div>
+        <p style="font-size:12.5px; color:var(--muted); margin:-6px 0 14px; line-height:1.6;" data-i18n="va_speed_warning">"রিভার্স" চালু থাকলে পুরো ভিডিও ডিকোড করতে হয় — ১ মিনিটের বেশি ভিডিওতে কয়েক মিনিট পর্যন্ত সময় লাগতে পারে। বড় ভিডিও হলে আগে "কাট/ট্রিম" ট্যাব দিয়ে ছোট করে নিন।</p>
         <button class="btn" id="speed-btn" data-i18n="va_apply_btn">প্রয়োগ করুন</button>
       </div>
     </div>
@@ -305,7 +306,8 @@
       const ffmpeg = await ensureFFmpeg();
       const inName = 'in' + extOf(speedFile);
       await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(speedFile));
-      const vf = reverse ? `reverse,setpts=PTS/${speed}` : `setpts=PTS/${speed}`;
+      const scale = `scale='min(854,iw)':-2`;
+      const vf = reverse ? `${scale},reverse,setpts=PTS/${speed}` : `${scale},setpts=PTS/${speed}`;
       const af = reverse ? `areverse,atempo=${speed}` : `atempo=${speed}`;
       await ffmpeg.exec(['-i', inName, '-vf', vf, '-af', af, 'out.mp4']);
       const data = await ffmpeg.readFile('out.mp4');
