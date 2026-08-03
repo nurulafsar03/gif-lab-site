@@ -153,7 +153,7 @@ va_title:"ভিডিও ও অডিও টুলস", va_sub:"কাট/ট�
 va_notice:"এই টুলগুলো প্রথমবার ব্যবহারের সময় একটা ভিডিও-প্রসেসিং ইঞ্জিন (প্রায় ৩০-৭০ MB) ডাউনলোড করে — একটু সময় লাগতে পারে। বড় ভিডিওতে সময় বেশি লাগে; ৩০ সেকেন্ডের কম ছোট ক্লিপ দিয়ে শুরু করুন। কাট/ট্রিমের ক্ষেত্রে শুরুর সময়টা কাছাকাছি একটা কীফ্রেমে সামান্য এদিক-ওদিক হতে পারে (এটা স্বাভাবিক, দ্রুত প্রসেসিংয়ের জন্য)।",
 va_tab_trim:"✂️ কাট/ট্রিম", va_tab_speed:"🔁 রিভার্স/স্পিড", va_tab_audio:"🔊 অডিও এক্সট্র্যাক্ট", va_tab_gifvideo:"🎬 GIF ↔ ভিডিও",
 va_trim_btn:"কাট করুন", va_speed_label:"গতি", va_apply_btn:"প্রয়োগ করুন", va_extract_btn:"অডিও বের করুন",
-va_gv_to_video:"🎬 GIF → ভিডিও", va_gv_to_gif:"🖼️ ভিডিও → GIF", va_drop_gif_title:"GIF ফাইল টেনে আনুন", va_convert_btn:"কনভার্ট করুন"
+va_gv_to_video:"🎬 GIF → ভিডিও", va_gv_to_gif:"🖼️ ভিডিও → GIF", va_drop_gif_title:"GIF ফাইল টেনে আনুন", va_convert_btn:"কনভার্ট করুন", va_speed_warning:"\"রিভার্স\" চালু থাকলে পুরো ভিডিও ডিকোড করতে হয় — ১ মিনিটের বেশি ভিডিওতে কয়েক মিনিট পর্যন্ত সময় লাগতে পারে। বড় ভিডিও হলে আগে \"কাট/ট্রিম\" ট্যাব দিয়ে ছোট করে নিন।"
 },
 
 en:{
@@ -290,7 +290,7 @@ va_title:"Video & Audio Tools", va_sub:"Trim, reverse/speed, extract audio, and 
 va_notice:"These tools download a video-processing engine (about 30-70 MB) the first time you use them — this can take a moment. Larger videos take longer; start with a short clip (under 30 seconds). For trim/cut, the start point may shift slightly to the nearest keyframe (normal, for faster processing).",
 va_tab_trim:"✂️ Trim/Cut", va_tab_speed:"🔁 Reverse/Speed", va_tab_audio:"🔊 Extract Audio", va_tab_gifvideo:"🎬 GIF ↔ Video",
 va_trim_btn:"Cut", va_speed_label:"Speed", va_apply_btn:"Apply", va_extract_btn:"Extract Audio",
-va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"Drag a GIF file here", va_convert_btn:"Convert"
+va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"Drag a GIF file here", va_convert_btn:"Convert", va_speed_warning:"With \"Reverse\" on, the whole video must be decoded — clips over 1 minute can take several minutes. For long videos, shorten them first with the Trim/Cut tab."
 },
 
 de:{
@@ -427,7 +427,7 @@ va_title:"Video- & Audio-Werkzeuge", va_sub:"Schneiden, Umkehren/Tempo, Audio ex
 va_notice:"Diese Werkzeuge laden beim ersten Gebrauch eine Video-Verarbeitungs-Engine (ca. 30-70 MB) herunter — das kann einen Moment dauern. Größere Videos brauchen länger; beginnen Sie mit einem kurzen Clip (unter 30 Sekunden). Beim Schneiden kann der Startpunkt leicht zum nächsten Keyframe verschoben werden (normal, für schnellere Verarbeitung).",
 va_tab_trim:"✂️ Schneiden", va_tab_speed:"🔁 Umkehren/Tempo", va_tab_audio:"🔊 Audio extrahieren", va_tab_gifvideo:"🎬 GIF ↔ Video",
 va_trim_btn:"Schneiden", va_speed_label:"Tempo", va_apply_btn:"Anwenden", va_extract_btn:"Audio extrahieren",
-va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"GIF-Datei hierher ziehen", va_convert_btn:"Konvertieren"
+va_gv_to_video:"🎬 GIF → Video", va_gv_to_gif:"🖼️ Video → GIF", va_drop_gif_title:"GIF-Datei hierher ziehen", va_convert_btn:"Konvertieren", va_speed_warning:"Mit aktiviertem \"Umkehren\" muss das gesamte Video decodiert werden — bei Clips über 1 Minute kann dies mehrere Minuten dauern. Kürzen Sie lange Videos zuerst mit dem Tab \"Schneiden\"."
 },
 
 hi:{
@@ -564,7 +564,7 @@ va_title:"वीडियो और ऑडियो टूल्स", va_sub:"�
 va_notice:"ये टूल्स पहली बार इस्तेमाल करने पर एक वीडियो-प्रोसेसिंग इंजन (लगभग 30-70 MB) डाउनलोड करते हैं — इसमें थोड़ा समय लग सकता है। बड़े वीडियो में ज़्यादा समय लगता है; 30 सेकंड से छोटा क्लिप लेकर शुरू करें। ट्रिम/कट में शुरुआती समय नज़दीकी कीफ्रेम पर थोड़ा खिसक सकता है (यह सामान्य है, तेज़ प्रोसेसिंग के लिए)।",
 va_tab_trim:"✂️ ट्रिम/कट", va_tab_speed:"🔁 रिवर्स/स्पीड", va_tab_audio:"🔊 ऑडियो एक्सट्रैक्ट", va_tab_gifvideo:"🎬 GIF ↔ वीडियो",
 va_trim_btn:"कट करें", va_speed_label:"स्पीड", va_apply_btn:"लागू करें", va_extract_btn:"ऑडियो निकालें",
-va_gv_to_video:"🎬 GIF → वीडियो", va_gv_to_gif:"🖼️ वीडियो → GIF", va_drop_gif_title:"GIF फ़ाइल यहाँ खींचें", va_convert_btn:"कन्वर्ट करें"
+va_gv_to_video:"🎬 GIF → वीडियो", va_gv_to_gif:"🖼️ वीडियो → GIF", va_drop_gif_title:"GIF फ़ाइल यहाँ खींचें", va_convert_btn:"कन्वर्ट करें", va_speed_warning:"\"रिवर्स\" चालू होने पर पूरे वीडियो को डीकोड करना पड़ता है — 1 मिनट से बड़े क्लिप में कई मिनट लग सकते हैं। बड़े वीडियो को पहले \"ट्रिम/कट\" टैब से छोटा कर लें।"
 },
 
 ur:{
@@ -701,7 +701,7 @@ va_title:"ویڈیو اور آڈیو ٹولز", va_sub:"ٹرم/کٹ، ریورس
 va_notice:"یہ ٹولز پہلی بار استعمال کرنے پر ایک ویڈیو پروسیسنگ انجن (تقریباً 30-70 MB) ڈاؤن لوڈ کرتے ہیں — اس میں تھوڑا وقت لگ سکتا ہے۔ بڑی ویڈیوز میں زیادہ وقت لگتا ہے؛ 30 سیکنڈ سے چھوٹی کلپ سے شروع کریں۔ ٹرم/کٹ میں شروع کا وقت قریب ترین کی فریم پر تھوڑا شفٹ ہو سکتا ہے (یہ معمول ہے، تیز پروسیسنگ کے لیے)۔",
 va_tab_trim:"✂️ ٹرم/کٹ", va_tab_speed:"🔁 ریورس/اسپیڈ", va_tab_audio:"🔊 آڈیو ایکسٹریکٹ", va_tab_gifvideo:"🎬 GIF ↔ ویڈیو",
 va_trim_btn:"کٹ کریں", va_speed_label:"اسپیڈ", va_apply_btn:"لاگو کریں", va_extract_btn:"آڈیو نکالیں",
-va_gv_to_video:"🎬 GIF → ویڈیو", va_gv_to_gif:"🖼️ ویڈیو → GIF", va_drop_gif_title:"GIF فائل یہاں لائیں", va_convert_btn:"کنورٹ کریں"
+va_gv_to_video:"🎬 GIF → ویڈیو", va_gv_to_gif:"🖼️ ویڈیو → GIF", va_drop_gif_title:"GIF فائل یہاں لائیں", va_convert_btn:"کنورٹ کریں", va_speed_warning:"\"ریورس\" آن ہونے پر پوری ویڈیو ڈیکوڈ کرنا پڑتی ہے — 1 منٹ سے بڑی کلپ میں کئی منٹ لگ سکتے ہیں۔ بڑی ویڈیو کو پہلے \"ٹرم/کٹ\" ٹیب سے چھوٹا کر لیں۔"
 },
 
 ar:{
@@ -838,7 +838,7 @@ va_title:"أدوات الفيديو والصوت", va_sub:"قص/تشذيب، ع�
 va_notice:"تقوم هذه الأدوات بتنزيل محرك معالجة فيديو (حوالي 30-70 ميجابايت) عند أول استخدام — قد يستغرق ذلك بعض الوقت. مقاطع الفيديو الأكبر تستغرق وقتًا أطول؛ ابدأ بمقطع قصير (أقل من 30 ثانية). عند القص، قد تتحول نقطة البداية قليلاً إلى أقرب إطار رئيسي (أمر طبيعي، لمعالجة أسرع).",
 va_tab_trim:"✂️ قص/تشذيب", va_tab_speed:"🔁 عكس/سرعة", va_tab_audio:"🔊 استخراج الصوت", va_tab_gifvideo:"🎬 GIF ↔ فيديو",
 va_trim_btn:"قص", va_speed_label:"السرعة", va_apply_btn:"تطبيق", va_extract_btn:"استخراج الصوت",
-va_gv_to_video:"🎬 GIF → فيديو", va_gv_to_gif:"🖼️ فيديو → GIF", va_drop_gif_title:"اسحب ملف GIF هنا", va_convert_btn:"تحويل"
+va_gv_to_video:"🎬 GIF → فيديو", va_gv_to_gif:"🖼️ فيديو → GIF", va_drop_gif_title:"اسحب ملف GIF هنا", va_convert_btn:"تحويل", va_speed_warning:"عند تفعيل \"العكس\"، يجب فك ترميز الفيديو بأكمله — قد تستغرق المقاطع الأطول من دقيقة عدة دقائق. للفيديوهات الطويلة، قصّرها أولاً باستخدام تبويب \"قص/تشذيب\"."
 }
 };
 
