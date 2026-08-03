@@ -221,6 +221,7 @@
   const downloadLink = document.getElementById('downloadLink');
 
   function showResult(blob, kind, filename){
+    stopTicker();
     const url = URL.createObjectURL(blob);
     resultVideo.style.display = 'none'; resultImg.style.display = 'none'; resultAudio.style.display = 'none';
     if(kind==='video'){ resultVideo.src = url; resultVideo.style.display = 'block'; }
@@ -234,23 +235,46 @@
   }
 
   function showError(msg){
+    stopTicker();
     genStatus.textContent = 'সমস্যা হয়েছে: ' + msg;
     progressWrap.classList.remove('show');
+  }
+
+  let tickerInterval = null;
+  function startTicker(baseMsg){
+    let seconds = 0;
+    genStatus.textContent = `${baseMsg} (০ সেকেন্ড)`;
+    tickerInterval = setInterval(() => {
+      seconds++;
+      genStatus.textContent = `${baseMsg} (${seconds} সেকেন্ড — বড় ভিডিওতে কয়েক মিনিট লাগতে পারে, পেজ বন্ধ করবেন না)`;
+    }, 1000);
+  }
+  function stopTicker(){
+    if(tickerInterval){ clearInterval(tickerInterval); tickerInterval = null; }
   }
 
   // ---- TRIM ----
   let trimFile = null;
   setupDropzone('dz-trim','input-trim', file=>{
     trimFile = file;
-    document.getElementById('trim-preview').src = URL.createObjectURL(file);
+    const vp = document.getElementById('trim-preview');
+    vp.src = URL.createObjectURL(file);
     document.getElementById('trim-body').style.display = 'block';
+    vp.onloadedmetadata = () => {
+      document.getElementById('trim-start').value = 0;
+      document.getElementById('trim-end').value = Math.min(vp.duration, 5).toFixed(1);
+    };
   });
   document.getElementById('trim-btn').onclick = async () => {
     if(!trimFile) return;
-    const start = document.getElementById('trim-start').value;
-    const end = document.getElementById('trim-end').value;
-    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    const start = parseFloat(document.getElementById('trim-start').value);
+    const end = parseFloat(document.getElementById('trim-end').value);
+    if(isNaN(start) || isNaN(end) || end <= start){
+      showError('শুরু ও শেষ সময় ঠিকভাবে দিন (শেষ সময় শুরুর চেয়ে বেশি হতে হবে)।');
+      return;
+    }
     progressWrap.classList.add('show'); progressBar.style.width='0%';
+    startTicker('প্রসেসিং চলছে...');
     try{
       const ffmpeg = await ensureFFmpeg();
       const inName = 'in' + extOf(trimFile);
@@ -276,6 +300,7 @@
     const reverse = document.getElementById('reverseCheck').checked;
     genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে... (রিভার্সে সময় বেশি লাগতে পারে)';
     progressWrap.classList.add('show'); progressBar.style.width='0%';
+    startTicker('প্রসেসিং চলছে...');
     try{
       const ffmpeg = await ensureFFmpeg();
       const inName = 'in' + extOf(speedFile);
@@ -297,8 +322,8 @@
   });
   document.getElementById('audio-btn').onclick = async () => {
     if(!audioFile) return;
-    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
     progressWrap.classList.add('show'); progressBar.style.width='0%';
+    startTicker('প্রসেসিং চলছে...');
     try{
       const ffmpeg = await ensureFFmpeg();
       const inName = 'in' + extOf(audioFile);
@@ -352,8 +377,16 @@
   document.getElementById('gv-fps').oninput = function(){ document.getElementById('gvFpsVal').textContent = this.value; };
 
   gvBtn.onclick = async () => {
-    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    if(gvMode === 'video-to-gif'){
+      const s = parseFloat(document.getElementById('gv-start').value);
+      const en = parseFloat(document.getElementById('gv-end').value);
+      if(isNaN(s) || isNaN(en) || en <= s){
+        showError('শুরু ও শেষ সময় ঠিকভাবে দিন (শেষ সময় শুরুর চেয়ে বেশি হতে হবে)।');
+        return;
+      }
+    }
     progressWrap.classList.add('show'); progressBar.style.width='0%';
+    startTicker('প্রসেসিং চলছে...');
     try{
       const ffmpeg = await ensureFFmpeg();
       if(gvMode === 'gif-to-video'){
