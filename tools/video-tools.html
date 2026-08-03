@@ -183,6 +183,7 @@
     await ffmpeg.load({
       coreURL: await util.toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
       wasmURL: await util.toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      classWorkerURL: await util.toBlobURL('https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/worker.js', 'text/javascript'),
     });
     ffmpegInstance = ffmpeg;
     engineStatus.textContent = 'ইঞ্জিন প্রস্তুত ✓';
