@@ -58,7 +58,7 @@
             <label data-i18n="fx_color">রং</label>
             <input type="color" id="bgColor" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px; background:var(--panel-2);">
           </div>
-          <div class="control"><label><span data-i18n="rb_edge_softness">এজ সফটনেস</span> <b id="edgeSoftVal" class="mono">3px</b></label><input type="range" id="edgeSoftRange" min="0" max="10" value="3"></div>
+          <div class="control"><label><span data-i18n="rb_edge_softness">এজ সফটনেস</span> <b id="edgeSoftVal" class="mono">5px</b></label><input type="range" id="edgeSoftRange" min="0" max="10" value="5"></div>
           <button class="btn" id="removeBtn" data-i18n="rb_button">ব্যাকগ্রাউন্ড সরান</button>
           <div class="status" id="genStatus"></div>
         </div>
@@ -158,7 +158,14 @@
       }
       const rawMaskCanvas = document.createElement('canvas');
       rawMaskCanvas.width = mw; rawMaskCanvas.height = mh;
-      rawMaskCanvas.getContext('2d').putImageData(alphaData, 0, 0);
+      const rmctx = rawMaskCanvas.getContext('2d');
+      rmctx.putImageData(alphaData, 0, 0);
+      // Despeckle: a light blur at native resolution removes isolated noisy pixels before upscaling
+      const despeckled = document.createElement('canvas');
+      despeckled.width = mw; despeckled.height = mh;
+      const dctx = despeckled.getContext('2d');
+      dctx.filter = 'blur(1px)';
+      dctx.drawImage(rawMaskCanvas, 0, 0);
 
       const softness = parseInt(document.getElementById('edgeSoftRange').value, 10);
 
@@ -167,14 +174,16 @@
       preBlur.width = mw; preBlur.height = mh;
       const pctx = preBlur.getContext('2d');
       if(softness > 0) pctx.filter = `blur(${Math.max(1, softness/2)}px)`;
-      pctx.drawImage(rawMaskCanvas, 0, 0);
+      pctx.drawImage(despeckled, 0, 0);
 
       const w = img.naturalWidth, h = img.naturalHeight;
 
-      // Scale up to the full image size, with an extra blur pass to smooth the upscale "staircase" edges
+      // Scale up to the full image size (high-quality smoothing), with an extra blur pass for the upscale "staircase" edges
       const maskCanvas = document.createElement('canvas');
       maskCanvas.width = w; maskCanvas.height = h;
       const mctx = maskCanvas.getContext('2d');
+      mctx.imageSmoothingEnabled = true;
+      mctx.imageSmoothingQuality = 'high';
       if(softness > 0) mctx.filter = `blur(${softness}px)`;
       mctx.drawImage(preBlur, 0, 0, w, h);
 
