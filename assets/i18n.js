@@ -158,6 +158,7 @@ sg_title:"Split GIF", sg_sub:"GIF-কে আলাদা আলাদা ফ্�
 cg_title:"কম্বাইন GIF", cg_sub:"দুইটা GIF পাশাপাশি বা উপর-নিচ জোড়া লাগিয়ে একটা নতুন GIF বানান", cg_step1:"দুইটা GIF বেছে নিন", cg_gif_a:"GIF ১", cg_gif_b:"GIF ২", cg_step2:"লেআউট বেছে নিন", cg_layout_h:"পাশাপাশি (⬌)", cg_layout_v:"উপর-নিচ (⬍)", cg_gap:"ফাঁক", cg_generate_btn:"কম্বাইন করুন",
 fx_presets_label:"প্রিসেট (ইনস্টাGIF)", fx_preset_normal:"স্বাভাবিক", fx_preset_vintage:"ভিনটেজ", fx_preset_vivid:"উজ্জ্বল", fx_preset_mono:"মনোক্রোম", fx_preset_dramatic:"ড্রামাটিক", fx_preset_soft:"সফট", fx_filter_halftone:"হাফটোন (ডট)", fx_overlay_label:"লোগো / ওভারলে ছবি", fx_overlay_size:"সাইজ", fx_overlay_opacity:"স্বচ্ছতা", fx_shuffle:"ফ্রেম শাফল করুন",
 rb_title:"ব্যাকগ্রাউন্ড রিমুভ", rb_sub:"মানুষের ছবি থেকে ব্যাকগ্রাউন্ড সরিয়ে ফেলুন — AI দিয়ে, ব্রাউজারেই", rb_notice:"এই টুলটা মূলত মানুষের ছবির জন্য কাজ করে (পোর্ট্রেট/সেলফি জাতীয় ছবি) — অন্য বস্তু বা প্রাণীর ছবিতে ততটা ভালো ফল নাও দিতে পারে। প্রথমবার ব্যবহারে একটা ছোট AI মডেল ডাউনলোড হবে।", rb_bg_mode:"ব্যাকগ্রাউন্ড", rb_bg_transparent:"স্বচ্ছ (PNG)", rb_bg_color:"সলিড রং", rb_button:"ব্যাকগ্রাউন্ড সরান", rb_loading_model:"AI মডেল লোড হচ্ছে...", rb_processing:"প্রসেসিং হচ্ছে...",
+rb_edge_softness:"এজ সফটনেস",
 tool_removebg_name:"ব্যাকগ্রাউন্ড রিমুভ", tool_removebg_desc:"মানুষের ছবি থেকে AI দিয়ে ব্যাকগ্রাউন্ড সরান"
 },
 
@@ -300,6 +301,7 @@ sg_title:"Split GIF", sg_sub:"Split a GIF into separate frames and download each
 cg_title:"Combine GIF", cg_sub:"Join two GIFs side by side or stacked into one new GIF", cg_step1:"Choose two GIFs", cg_gif_a:"GIF 1", cg_gif_b:"GIF 2", cg_step2:"Choose a layout", cg_layout_h:"Side by side (⬌)", cg_layout_v:"Stacked (⬍)", cg_gap:"Gap", cg_generate_btn:"Combine",
 fx_presets_label:"Presets (InstaGIF)", fx_preset_normal:"Normal", fx_preset_vintage:"Vintage", fx_preset_vivid:"Vivid", fx_preset_mono:"Monochrome", fx_preset_dramatic:"Dramatic", fx_preset_soft:"Soft", fx_filter_halftone:"Halftone (dots)", fx_overlay_label:"Logo / overlay image", fx_overlay_size:"Size", fx_overlay_opacity:"Opacity", fx_shuffle:"Shuffle frames",
 rb_title:"Remove Background", rb_sub:"Remove the background from photos of people — with AI, right in your browser", rb_notice:"This tool works mainly for photos of people (portraits/selfies) — it may not work as well for other objects or animals. A small AI model will download the first time you use it.", rb_bg_mode:"Background", rb_bg_transparent:"Transparent (PNG)", rb_bg_color:"Solid color", rb_button:"Remove Background", rb_loading_model:"Loading AI model...", rb_processing:"Processing...",
+rb_edge_softness:"Edge softness",
 tool_removebg_name:"Remove Background", tool_removebg_desc:"Remove the background from a person's photo with AI"
 },
 
@@ -442,6 +444,7 @@ sg_title:"GIF aufteilen", sg_sub:"Teilen Sie ein GIF in einzelne Bilder auf und 
 cg_title:"GIFs kombinieren", cg_sub:"Zwei GIFs nebeneinander oder übereinander zu einem neuen GIF zusammenfügen", cg_step1:"Zwei GIFs auswählen", cg_gif_a:"GIF 1", cg_gif_b:"GIF 2", cg_step2:"Layout wählen", cg_layout_h:"Nebeneinander (⬌)", cg_layout_v:"Übereinander (⬍)", cg_gap:"Abstand", cg_generate_btn:"Kombinieren",
 fx_presets_label:"Vorlagen (InstaGIF)", fx_preset_normal:"Normal", fx_preset_vintage:"Vintage", fx_preset_vivid:"Lebendig", fx_preset_mono:"Monochrom", fx_preset_dramatic:"Dramatisch", fx_preset_soft:"Weich", fx_filter_halftone:"Halbton (Punkte)", fx_overlay_label:"Logo / Overlay-Bild", fx_overlay_size:"Größe", fx_overlay_opacity:"Deckkraft", fx_shuffle:"Einzelbilder mischen",
 rb_title:"Hintergrund entfernen", rb_sub:"Entfernen Sie den Hintergrund von Personenfotos — mit KI, direkt im Browser", rb_notice:"Dieses Werkzeug funktioniert hauptsächlich für Personenfotos (Porträts/Selfies) — bei anderen Objekten oder Tieren funktioniert es möglicherweise nicht so gut. Beim ersten Gebrauch wird ein kleines KI-Modell heruntergeladen.", rb_bg_mode:"Hintergrund", rb_bg_transparent:"Transparent (PNG)", rb_bg_color:"Einfarbig", rb_button:"Hintergrund entfernen", rb_loading_model:"KI-Modell wird geladen...", rb_processing:"Wird verarbeitet...",
+rb_edge_softness:"Kantenweichheit",
 tool_removebg_name:"Hintergrund entfernen", tool_removebg_desc:"Hintergrund eines Personenfotos mit KI entfernen"
 },
 
@@ -584,6 +587,7 @@ sg_title:"GIF स्प्लिट करें", sg_sub:"GIF को अलग-
 cg_title:"GIF कॉम्बाइन करें", cg_sub:"दो GIF को साथ-साथ या ऊपर-नीचे जोड़कर एक नया GIF बनाएँ", cg_step1:"दो GIF चुनें", cg_gif_a:"GIF 1", cg_gif_b:"GIF 2", cg_step2:"लेआउट चुनें", cg_layout_h:"साथ-साथ (⬌)", cg_layout_v:"ऊपर-नीचे (⬍)", cg_gap:"गैप", cg_generate_btn:"कॉम्बाइन करें",
 fx_presets_label:"प्रीसेट (InstaGIF)", fx_preset_normal:"सामान्य", fx_preset_vintage:"विंटेज", fx_preset_vivid:"विविड", fx_preset_mono:"मोनोक्रोम", fx_preset_dramatic:"ड्रामैटिक", fx_preset_soft:"सॉफ्ट", fx_filter_halftone:"हाफ़टोन (डॉट्स)", fx_overlay_label:"लोगो / ओवरले इमेज", fx_overlay_size:"साइज़", fx_overlay_opacity:"पारदर्शिता", fx_shuffle:"फ्रेम शफल करें",
 rb_title:"बैकग्राउंड हटाएँ", rb_sub:"लोगों की तस्वीरों से बैकग्राउंड हटाएँ — AI से, ब्राउज़र में ही", rb_notice:"यह टूल मुख्य रूप से लोगों की तस्वीरों (पोर्ट्रेट/सेल्फी) के लिए काम करता है — दूसरी चीज़ों या जानवरों की तस्वीरों में उतना अच्छा नतीजा नहीं मिल सकता। पहली बार इस्तेमाल करने पर एक छोटा AI मॉडल डाउनलोड होगा।", rb_bg_mode:"बैकग्राउंड", rb_bg_transparent:"पारदर्शी (PNG)", rb_bg_color:"सॉलिड रंग", rb_button:"बैकग्राउंड हटाएँ", rb_loading_model:"AI मॉडल लोड हो रहा है...", rb_processing:"प्रोसेसिंग हो रही है...",
+rb_edge_softness:"एज सॉफ्टनेस",
 tool_removebg_name:"बैकग्राउंड हटाएँ", tool_removebg_desc:"AI से किसी व्यक्ति की तस्वीर से बैकग्राउंड हटाएँ"
 },
 
@@ -726,6 +730,7 @@ sg_title:"GIF تقسیم کریں", sg_sub:"GIF کو الگ الگ فریمز م
 cg_title:"GIF کمبائن کریں", cg_sub:"دو GIFs کو ساتھ ساتھ یا اوپر نیچے جوڑ کر ایک نئی GIF بنائیں", cg_step1:"دو GIFs منتخب کریں", cg_gif_a:"GIF 1", cg_gif_b:"GIF 2", cg_step2:"لے آؤٹ منتخب کریں", cg_layout_h:"ساتھ ساتھ (⬌)", cg_layout_v:"اوپر نیچے (⬍)", cg_gap:"فاصلہ", cg_generate_btn:"کمبائن کریں",
 fx_presets_label:"پریسیٹس (InstaGIF)", fx_preset_normal:"عام", fx_preset_vintage:"ونٹیج", fx_preset_vivid:"شوخ", fx_preset_mono:"مونوکروم", fx_preset_dramatic:"ڈرامائی", fx_preset_soft:"نرم", fx_filter_halftone:"ہاف ٹون (ڈاٹس)", fx_overlay_label:"لوگو / اوورلے تصویر", fx_overlay_size:"سائز", fx_overlay_opacity:"شفافیت", fx_shuffle:"فریمز شفل کریں",
 rb_title:"بیک گراؤنڈ ہٹائیں", rb_sub:"لوگوں کی تصاویر سے بیک گراؤنڈ ہٹائیں — AI سے، براؤزر میں ہی", rb_notice:"یہ ٹول بنیادی طور پر لوگوں کی تصاویر (پورٹریٹ/سیلفی) کے لیے کام کرتا ہے — دیگر اشیاء یا جانوروں کی تصاویر میں اتنا اچھا نتیجہ نہیں مل سکتا۔ پہلی بار استعمال کرنے پر ایک چھوٹا AI ماڈل ڈاؤن لوڈ ہوگا۔", rb_bg_mode:"بیک گراؤنڈ", rb_bg_transparent:"شفاف (PNG)", rb_bg_color:"سولڈ رنگ", rb_button:"بیک گراؤنڈ ہٹائیں", rb_loading_model:"AI ماڈل لوڈ ہو رہا ہے...", rb_processing:"پروسیسنگ ہو رہی ہے...",
+rb_edge_softness:"ایج سافٹنیس",
 tool_removebg_name:"بیک گراؤنڈ ہٹائیں", tool_removebg_desc:"AI سے کسی شخص کی تصویر سے بیک گراؤنڈ ہٹائیں"
 },
 
@@ -868,6 +873,7 @@ sg_title:"تقسيم GIF", sg_sub:"قسّم GIF إلى إطارات منفصلة
 cg_title:"دمج ملفات GIF", cg_sub:"ادمج ملفي GIF جنبًا إلى جنب أو فوق بعض لإنشاء GIF جديد", cg_step1:"اختر ملفي GIF", cg_gif_a:"GIF 1", cg_gif_b:"GIF 2", cg_step2:"اختر التخطيط", cg_layout_h:"جنبًا إلى جنب (⬌)", cg_layout_v:"فوق بعض (⬍)", cg_gap:"الفجوة", cg_generate_btn:"دمج",
 fx_presets_label:"إعدادات مسبقة (InstaGIF)", fx_preset_normal:"عادي", fx_preset_vintage:"قديم الطراز", fx_preset_vivid:"زاهي", fx_preset_mono:"أحادي اللون", fx_preset_dramatic:"درامي", fx_preset_soft:"ناعم", fx_filter_halftone:"نصف تدرج (نقاط)", fx_overlay_label:"شعار / صورة تراكب", fx_overlay_size:"الحجم", fx_overlay_opacity:"الشفافية", fx_shuffle:"خلط الإطارات",
 rb_title:"إزالة الخلفية", rb_sub:"أزل الخلفية من صور الأشخاص — بالذكاء الاصطناعي، داخل المتصفح", rb_notice:"تعمل هذه الأداة بشكل أساسي مع صور الأشخاص (البورتريه/السيلفي) — قد لا تعطي نتائج جيدة مع الأجسام أو الحيوانات الأخرى. سيتم تنزيل نموذج ذكاء اصطناعي صغير عند أول استخدام.", rb_bg_mode:"الخلفية", rb_bg_transparent:"شفافة (PNG)", rb_bg_color:"لون واحد", rb_button:"إزالة الخلفية", rb_loading_model:"جارٍ تحميل نموذج الذكاء الاصطناعي...", rb_processing:"جارٍ المعالجة...",
+rb_edge_softness:"نعومة الحواف",
 tool_removebg_name:"إزالة الخلفية", tool_removebg_desc:"إزالة خلفية صورة شخص بالذكاء الاصطناعي"
 }
 };
