@@ -7,6 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+.preset-btn{
+  background: var(--panel-2); border:1px solid var(--line); color: var(--ink);
+  padding:6px 12px; border-radius:8px; cursor:pointer; font-family:inherit;
+  font-size:12.5px; font-weight:600; flex:none; margin:3px 3px 0 0;
+}
+.preset-btn:hover{ border-color: var(--amber); color: var(--amber); }
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
 <script src="../assets/frames.js"></script>
 <script src="../assets/i18n.js" defer></script>
@@ -75,6 +83,17 @@
       </div>
       <div class="controls">
         <div class="control">
+          <label data-i18n="fx_presets_label">প্রিসেট (ইনস্টাGIF)</label>
+          <div class="source-toggle" style="flex-wrap:wrap;">
+            <button type="button" class="preset-btn" id="presetNormal" data-i18n="fx_preset_normal">স্বাভাবিক</button>
+            <button type="button" class="preset-btn" id="presetVintage" data-i18n="fx_preset_vintage">ভিনটেজ</button>
+            <button type="button" class="preset-btn" id="presetVivid" data-i18n="fx_preset_vivid">উজ্জ্বল</button>
+            <button type="button" class="preset-btn" id="presetMono" data-i18n="fx_preset_mono">মনোক্রোম</button>
+            <button type="button" class="preset-btn" id="presetDramatic" data-i18n="fx_preset_dramatic">ড্রামাটিক</button>
+            <button type="button" class="preset-btn" id="presetSoft" data-i18n="fx_preset_soft">সফট</button>
+          </div>
+        </div>
+        <div class="control">
           <label data-i18n="fx_filter_label">ফিল্টার</label>
           <select id="effectSelect">
             <option value="none" data-i18n="fx_filter_none">কোনোটি না</option>
@@ -83,6 +102,7 @@
             <option value="invert" data-i18n="fx_filter_invert">ইনভার্ট</option>
             <option value="blur" data-i18n="fx_filter_blur">ব্লার</option>
             <option value="pixelate" data-i18n="fx_filter_pixelate">পিক্সেলেট</option>
+            <option value="halftone" data-i18n="fx_filter_halftone">হাফটোন (ডট)</option>
           </select>
         </div>
         <div class="control"><label id="intensityLabel"><span data-i18n="fx_intensity">তীব্রতা</span> <b id="intensityVal" class="mono">0</b></label><input type="range" id="intensityRange" min="0" max="100" value="0"></div>
@@ -112,6 +132,29 @@
           </div>
         </div>
         <div class="toggle-row"><span data-i18n="fx_stroke">কালো আউটলাইন</span><input type="checkbox" id="strokeCheck" checked style="width:18px; height:18px;"></div>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:2px 0;">
+
+        <div class="field">
+          <label data-i18n="fx_overlay_label">লোগো / ওভারলে ছবি</label>
+          <input type="file" id="overlayInput" accept="image/*">
+        </div>
+        <div class="control"><label><span data-i18n="fx_overlay_size">সাইজ</span> <b id="overlaySizeVal" class="mono">20%</b></label><input type="range" id="overlaySizeRange" min="5" max="60" value="20"></div>
+        <div class="control"><label><span data-i18n="fx_overlay_opacity">স্বচ্ছতা</span> <b id="overlayOpacityVal" class="mono">100%</b></label><input type="range" id="overlayOpacityRange" min="10" max="100" value="100"></div>
+        <div class="field">
+          <label data-i18n="fx_position">পজিশন</label>
+          <select id="overlayPosition">
+            <option value="top-left" data-i18n="fx_pos_top_left">উপরে বামে</option>
+            <option value="top-right" selected data-i18n="fx_pos_top_right">উপরে ডানে</option>
+            <option value="bottom-left" data-i18n="fx_pos_bottom_left">নিচে বামে</option>
+            <option value="bottom-right" data-i18n="fx_pos_bottom_right">নিচে ডানে</option>
+            <option value="center" data-i18n="fx_pos_center">মাঝখানে</option>
+          </select>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:2px 0;">
+
+        <div class="toggle-row"><span data-i18n="fx_shuffle">ফ্রেম শাফল করুন</span><input type="checkbox" id="shuffleCheck" style="width:18px; height:18px;"></div>
 
         <button class="btn" id="generateBtn" data-i18n="c_generate_gif">GIF বানান</button>
       </div>
@@ -231,13 +274,50 @@
     sepia: {min:0,max:100,val:100,labelKey:'fx_intensity'},
     invert: {min:0,max:100,val:100,labelKey:'fx_intensity'},
     blur: {min:0,max:20,val:4,labelKey:'fx_intensity'},
-    pixelate: {min:2,max:40,val:10,labelKey:'fx_intensity'}
+    pixelate: {min:2,max:40,val:10,labelKey:'fx_intensity'},
+    halftone: {min:3,max:20,val:8,labelKey:'fx_intensity'}
   };
   effectSelect.onchange = () => {
     const d = effectDefaults[effectSelect.value];
     intensityRange.min = d.min; intensityRange.max = d.max; intensityRange.value = d.val;
     updatePreview();
   };
+
+  // ---- overlay/logo image ----
+  let overlayImg = null;
+  const overlayInput = document.getElementById('overlayInput');
+  const overlaySizeRange = document.getElementById('overlaySizeRange');
+  const overlayOpacityRange = document.getElementById('overlayOpacityRange');
+  const overlayPosition = document.getElementById('overlayPosition');
+  overlayInput.onchange = () => {
+    const file = overlayInput.files[0];
+    if(!file) { overlayImg = null; updatePreview(); return; }
+    const img = new Image();
+    img.onload = () => { overlayImg = img; updatePreview(); };
+    img.src = URL.createObjectURL(file);
+  };
+  [overlaySizeRange, overlayOpacityRange, overlayPosition].forEach(el => el.addEventListener('input', updatePreview));
+
+  // ---- shuffle ----
+  const shuffleCheck = document.getElementById('shuffleCheck');
+
+  // ---- InstaGIF presets ----
+  function applyPreset(effect, intensity, brightness, contrast, saturation){
+    effectSelect.value = effect;
+    const d = effectDefaults[effect];
+    intensityRange.min = d.min; intensityRange.max = d.max;
+    intensityRange.value = intensity !== null ? intensity : d.val;
+    brightRange.value = brightness;
+    contrastRange.value = contrast;
+    satRange.value = saturation;
+    updatePreview();
+  }
+  document.getElementById('presetNormal').onclick = () => applyPreset('none', 0, 100, 100, 100);
+  document.getElementById('presetVintage').onclick = () => applyPreset('sepia', 45, 100, 105, 90);
+  document.getElementById('presetVivid').onclick = () => applyPreset('none', 0, 105, 115, 150);
+  document.getElementById('presetMono').onclick = () => applyPreset('grayscale', 100, 100, 110, 100);
+  document.getElementById('presetDramatic').onclick = () => applyPreset('none', 0, 90, 140, 80);
+  document.getElementById('presetSoft').onclick = () => applyPreset('none', 0, 110, 85, 70);
 
   [intensityRange,brightRange,contrastRange,satRange,widthRange,delayRange,textContent,fontSizeRange,textColor,textPosition,strokeCheck]
     .forEach(el => el.addEventListener('input', updatePreview));
@@ -264,6 +344,54 @@
     ctx.imageSmoothingEnabled = true;
   }
 
+  function applyHalftone(ctx, w, h, cellSize){
+    cellSize = Math.max(3, parseInt(cellSize,10));
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#000000';
+    for(let cy=0; cy<h; cy+=cellSize){
+      for(let cx=0; cx<w; cx+=cellSize){
+        const cellW = Math.min(cellSize, w-cx), cellH = Math.min(cellSize, h-cy);
+        let total = 0, count = 0;
+        for(let y=0; y<cellH; y++){
+          for(let x=0; x<cellW; x++){
+            const idx = ((cy+y)*w + (cx+x)) * 4;
+            total += (data[idx] + data[idx+1] + data[idx+2]) / 3;
+            count++;
+          }
+        }
+        const avg = count ? total/count : 255;
+        const darkness = 1 - avg/255;
+        const maxR = cellSize/2;
+        const r = maxR * Math.sqrt(darkness);
+        if(r > 0.4){
+          ctx.beginPath();
+          ctx.arc(cx + cellSize/2, cy + cellSize/2, r, 0, Math.PI*2);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  function drawOverlayImage(ctx, w, h){
+    if(!overlayImg) return;
+    const sizePct = parseInt(overlaySizeRange.value,10)/100;
+    const opacity = parseInt(overlayOpacityRange.value,10)/100;
+    const ow = w * sizePct;
+    const oh = ow * (overlayImg.naturalHeight/overlayImg.naturalWidth);
+    const pad = w * 0.03;
+    const pos = overlayPosition.value;
+    let x,y;
+    if(pos.includes('left')) x = pad; else if(pos.includes('right')) x = w-ow-pad; else x = (w-ow)/2;
+    if(pos.includes('top')) y = pad; else if(pos.includes('bottom')) y = h-oh-pad; else y = (h-oh)/2;
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    ctx.drawImage(overlayImg, x, y, ow, oh);
+    ctx.restore();
+  }
+
   function drawTextOverlay(ctx, w, h){
     const content = textContent.value;
     if(!content) return;
@@ -288,10 +416,13 @@
   function drawFrame(frameCanvas, outCanvas){
     const ctx = outCanvas.getContext('2d');
     ctx.clearRect(0,0,outCanvas.width,outCanvas.height);
-    ctx.filter = effectSelect.value==='pixelate' ? `brightness(${brightRange.value}%) contrast(${contrastRange.value}%) saturate(${satRange.value}%)` : buildCssFilter();
+    const skipCssFilter = effectSelect.value==='pixelate' || effectSelect.value==='halftone';
+    ctx.filter = skipCssFilter ? `brightness(${brightRange.value}%) contrast(${contrastRange.value}%) saturate(${satRange.value}%)` : buildCssFilter();
     ctx.drawImage(frameCanvas, 0, 0, outCanvas.width, outCanvas.height);
     ctx.filter = 'none';
     if(effectSelect.value==='pixelate') applyPixelate(ctx, outCanvas.width, outCanvas.height, intensityRange.value);
+    if(effectSelect.value==='halftone') applyHalftone(ctx, outCanvas.width, outCanvas.height, intensityRange.value);
+    drawOverlayImage(ctx, outCanvas.width, outCanvas.height);
     drawTextOverlay(ctx, outCanvas.width, outCanvas.height);
   }
 
@@ -355,7 +486,16 @@
     const gif = new GIF({ workers:2, quality:10, width: targetW, height: targetH,
       workerScript: workerUrl });
 
-    frames.forEach(f=>{
+    let order = frames;
+    if(shuffleCheck.checked){
+      order = [...frames];
+      for(let i=order.length-1; i>0; i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+    }
+
+    order.forEach(f=>{
       const tmp = document.createElement('canvas');
       tmp.width = targetW; tmp.height = targetH;
       drawFrame(f.canvas, tmp);
