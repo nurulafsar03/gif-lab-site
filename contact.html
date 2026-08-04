@@ -39,7 +39,10 @@
   <div class="card">
     <div class="doc">
       <p data-i18n="ct_p1">এই সাইটের কোনো ব্যাকএন্ড সার্ভার নেই, তাই নিচের ফর্মটা পূরণ করে "মেসেজ পাঠান" চাপলে সরাসরি আপনার ইমেইল অ্যাপ (Gmail/Outlook ইত্যাদি) খুলে যাবে, একটা খসড়া মেইল রেডি অবস্থায়। অথবা সরাসরি ইমেইল করুন:</p>
-      <p style="font-size:17px;"><strong class="mono">afsar.nurul@gmail.com</strong></p>
+      <p style="font-size:17px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <strong class="mono">afsar.nurul@gmail.com</strong>
+        <button type="button" id="copyEmailBtn" class="btn ghost" style="font-size:13px; padding:6px 12px;" data-i18n="ct_copy_email">📋 কপি করুন</button>
+      </p>
     </div>
 
     <form id="contactForm" style="max-width:640px; margin:0 auto; display:flex; flex-direction:column; gap:14px;">
@@ -47,7 +50,11 @@
       <div class="field"><label data-i18n="ct_email">ইমেইল</label><input type="text" id="cf-email" required></div>
       <div class="field"><label data-i18n="ct_subject">বিষয়</label><input type="text" id="cf-subject" data-i18n-ph="ct_subject_ph" placeholder="যেমন: বাগ রিপোর্ট, ফিচার রিকোয়েস্ট, সাধারণ প্রশ্ন"></div>
       <div class="field"><label data-i18n="ct_message">মেসেজ</label><textarea id="cf-message" rows="6" required></textarea></div>
-      <button type="submit" class="btn" style="align-self:flex-start;" data-i18n="ct_send">✉ মেসেজ পাঠান</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <button type="submit" class="btn" data-i18n="ct_send">✉ মেসেজ পাঠান</button>
+        <button type="button" id="copyMessageBtn" class="btn ghost" data-i18n="ct_copy_message">📋 মেসেজ কপি করুন</button>
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin:-6px 0 0;" data-i18n="ct_copy_hint">"মেসেজ পাঠান" কাজ না করলে (ইমেইল অ্যাপ না থাকলে), "মেসেজ কপি করুন" চেপে সরাসরি Gmail/Yahoo-তে পেস্ট করে পাঠাতে পারবেন।</p>
       <div class="status" id="cf-status"></div>
     </form>
   </div>
@@ -73,6 +80,35 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
   window.location.href = mailto;
   document.getElementById('cf-status').textContent = t('ct_opening');
 });
+
+function copyToClipboard(text, statusEl, successMsg){
+  navigator.clipboard.writeText(text).then(() => {
+    statusEl.textContent = successMsg;
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); statusEl.textContent = successMsg; }
+    catch(e) { statusEl.textContent = text; }
+    document.body.removeChild(ta);
+  });
+}
+
+document.getElementById('copyEmailBtn').onclick = () => {
+  copyToClipboard(CONTACT_EMAIL, document.getElementById('cf-status'), t('ct_email_copied'));
+};
+
+document.getElementById('copyMessageBtn').onclick = () => {
+  const name = document.getElementById('cf-name').value;
+  const email = document.getElementById('cf-email').value;
+  const subject = document.getElementById('cf-subject').value || 'VeloraGif';
+  const message = document.getElementById('cf-message').value;
+  const full = `${t('ct_copy_to')}: ${CONTACT_EMAIL}\n${t('ct_subject')}: ${subject}\n\n${name}\n${email}\n\n${message}`;
+  copyToClipboard(full, document.getElementById('cf-status'), t('ct_message_copied'));
+};
 </script>
 </body>
 </html>
