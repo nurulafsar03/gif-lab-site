@@ -136,6 +136,7 @@ ct_p1:'এই সাইটের কোনো ব্যাকএন্ড সা
 ct_email_note:"(এই ইমেইলটা আপনার নিজের ডোমেইনের ঠিকানা দিয়ে বদলে নিন)",
 ct_name:"আপনার নাম", ct_email:"ইমেইল", ct_subject:"বিষয়", ct_subject_ph:"যেমন: বাগ রিপোর্ট, ফিচার রিকোয়েস্ট, সাধারণ প্রশ্ন",
 ct_message:"মেসেজ", ct_send:"✉ মেসেজ পাঠান", ct_opening:"আপনার ইমেইল অ্যাপ খোলা হচ্ছে...",
+ct_copy_email:"📋 কপি করুন", ct_copy_message:"📋 মেসেজ কপি করুন", ct_copy_hint:"\"মেসেজ পাঠান\" কাজ না করলে (ইমেইল অ্যাপ না থাকলে), \"মেসেজ কপি করুন\" চেপে সরাসরি Gmail/Yahoo-তে পেস্ট করে পাঠাতে পারবেন।", ct_email_copied:"ইমেইল ঠিকানা কপি হয়েছে!", ct_message_copied:"মেসেজ কপি হয়েছে! এবার আপনার ইমেইলে পেস্ট করুন।", ct_copy_to:"প্রাপক",
 
 rc_title:"রাউন্ড কর্নার", rc_sub:"ছবি বা GIF-এর কোণা গোল করে দিন", rc_step2_title:"কোণা ও সাইজ ঠিক করুন", rc_radius:"কোণার ব্যাসার্ধ",
 cs_title:"সেন্সর টুল", cs_sub:"ছবি বা GIF-এর একটা অংশ ব্লার বা ব্ল্যাকআউট করুন", cs_step2_title:"সেন্সর এলাকা ঠিক করুন",
@@ -284,6 +285,7 @@ ct_p1:'This site has no backend server, so filling in the form below and pressin
 ct_email_note:"(replace this with your own domain's email address)",
 ct_name:"Your name", ct_email:"Email", ct_subject:"Subject", ct_subject_ph:"e.g. bug report, feature request, general question",
 ct_message:"Message", ct_send:"✉ Send message", ct_opening:"Opening your email app...",
+ct_copy_email:"📋 Copy", ct_copy_message:"📋 Copy message", ct_copy_hint:"If \"Send message\" doesn't work (no email app installed), press \"Copy message\" and paste it directly into Gmail/Yahoo.", ct_email_copied:"Email address copied!", ct_message_copied:"Message copied! Now paste it into your email.", ct_copy_to:"To",
 
 rc_title:"Round Corners", rc_sub:"Round the corners of an image or GIF", rc_step2_title:"Adjust corner radius and size", rc_radius:"Corner radius",
 cs_title:"Censor Tool", cs_sub:"Blur or black out part of an image or GIF", cs_step2_title:"Adjust the censor area",
@@ -432,6 +434,7 @@ ct_p1:'Diese Seite hat keinen Backend-Server. Wenn Sie das Formular unten ausfü
 ct_email_note:"(ersetzen Sie dies durch die E-Mail-Adresse Ihrer eigenen Domain)",
 ct_name:"Ihr Name", ct_email:"E-Mail", ct_subject:"Betreff", ct_subject_ph:"z. B. Fehlerbericht, Feature-Wunsch, allgemeine Frage",
 ct_message:"Nachricht", ct_send:"✉ Nachricht senden", ct_opening:"Ihre E-Mail-App wird geöffnet...",
+ct_copy_email:"📋 Kopieren", ct_copy_message:"📋 Nachricht kopieren", ct_copy_hint:"Falls \"Nachricht senden\" nicht funktioniert (keine E-Mail-App installiert), klicken Sie auf \"Nachricht kopieren\" und fügen Sie sie direkt in Gmail/Yahoo ein.", ct_email_copied:"E-Mail-Adresse kopiert!", ct_message_copied:"Nachricht kopiert! Jetzt in Ihre E-Mail einfügen.", ct_copy_to:"An",
 
 rc_title:"Abgerundete Ecken", rc_sub:"Runden Sie die Ecken eines Bildes oder GIFs ab", rc_step2_title:"Eckenradius und Größe anpassen", rc_radius:"Eckenradius",
 cs_title:"Zensur-Werkzeug", cs_sub:"Teile eines Bildes oder GIFs weichzeichnen oder schwärzen", cs_step2_title:"Zensurbereich anpassen",
@@ -580,6 +583,7 @@ ct_p1:'इस साइट का कोई बैकएंड सर्वर �
 ct_email_note:"(इसे अपने खुद के डोमेन के ईमेल पते से बदल लें)",
 ct_name:"आपका नाम", ct_email:"ईमेल", ct_subject:"विषय", ct_subject_ph:"जैसे: बग रिपोर्ट, फ़ीचर रिक्वेस्ट, सामान्य सवाल",
 ct_message:"मेसेज", ct_send:"✉ मेसेज भेजें", ct_opening:"आपकी ईमेल ऐप खोली जा रही है...",
+ct_copy_email:"📋 कॉपी करें", ct_copy_message:"📋 मेसेज कॉपी करें", ct_copy_hint:"अगर \"मेसेज भेजें\" काम न करे (ईमेल ऐप न हो), तो \"मेसेज कॉपी करें\" दबाकर सीधे Gmail/Yahoo में पेस्ट करें।", ct_email_copied:"ईमेल पता कॉपी हो गया!", ct_message_copied:"मेसेज कॉपी हो गया! अब अपने ईमेल में पेस्ट करें।", ct_copy_to:"प्रति",
 
 rc_title:"राउंड कॉर्नर", rc_sub:"इमेज या GIF के कोने गोल करें", rc_step2_title:"कॉर्नर रेडियस और साइज़ सेट करें", rc_radius:"कॉर्नर रेडियस",
 cs_title:"सेंसर टूल", cs_sub:"इमेज या GIF के किसी हिस्से को ब्लर या ब्लैकआउट करें", cs_step2_title:"सेंसर एरिया सेट करें",
@@ -728,6 +732,7 @@ ct_p1:'اس سائٹ کا کوئی بیک اینڈ سرور نہیں ہے، اس
 ct_email_note:"(اسے اپنے ڈومین کے ای میل ایڈریس سے بدل لیں)",
 ct_name:"آپ کا نام", ct_email:"ای میل", ct_subject:"موضوع", ct_subject_ph:"جیسے: بگ رپورٹ، فیچر ریکویسٹ، عمومی سوال",
 ct_message:"پیغام", ct_send:"✉ پیغام بھیجیں", ct_opening:"آپ کی ای میل ایپ کھولی جا رہی ہے...",
+ct_copy_email:"📋 کاپی کریں", ct_copy_message:"📋 پیغام کاپی کریں", ct_copy_hint:"اگر \"پیغام بھیجیں\" کام نہ کرے (ای میل ایپ نہ ہو)، تو \"پیغام کاپی کریں\" دبا کر براہ راست Gmail/Yahoo میں پیسٹ کریں۔", ct_email_copied:"ای میل پتہ کاپی ہو گیا!", ct_message_copied:"پیغام کاپی ہو گیا! اب اپنی ای میل میں پیسٹ کریں۔", ct_copy_to:"بنام",
 
 rc_title:"راؤنڈ کارنر", rc_sub:"تصویر یا GIF کے کونے گول کریں", rc_step2_title:"کارنر ریڈیس اور سائز سیٹ کریں", rc_radius:"کارنر ریڈیس",
 cs_title:"سنسر ٹول", cs_sub:"تصویر یا GIF کے کسی حصے کو بلر یا بلیک آؤٹ کریں", cs_step2_title:"سنسر ایریا سیٹ کریں",
@@ -876,6 +881,7 @@ ct_p1:'لا يمتلك هذا الموقع خادمًا خلفيًا، لذا ف
 ct_email_note:"(استبدل هذا بعنوان بريد نطاقك الخاص)",
 ct_name:"اسمك", ct_email:"البريد الإلكتروني", ct_subject:"الموضوع", ct_subject_ph:"مثال: تقرير خطأ، طلب ميزة، سؤال عام",
 ct_message:"الرسالة", ct_send:"✉ إرسال الرسالة", ct_opening:"جارٍ فتح تطبيق البريد الإلكتروني...",
+ct_copy_email:"📋 نسخ", ct_copy_message:"📋 نسخ الرسالة", ct_copy_hint:"إذا لم يعمل \"إرسال الرسالة\" (لا يوجد تطبيق بريد إلكتروني)، اضغط \"نسخ الرسالة\" والصقها مباشرة في Gmail/Yahoo.", ct_email_copied:"تم نسخ عنوان البريد الإلكتروني!", ct_message_copied:"تم نسخ الرسالة! الصقها الآن في بريدك الإلكتروني.", ct_copy_to:"إلى",
 
 rc_title:"زوايا مستديرة", rc_sub:"دوّر زوايا صورة أو GIF", rc_step2_title:"اضبط نصف قطر الزاوية والحجم", rc_radius:"نصف قطر الزاوية",
 cs_title:"أداة الحجب", cs_sub:"تمويه أو إخفاء جزء من صورة أو GIF", cs_step2_title:"اضبط منطقة الحجب",
