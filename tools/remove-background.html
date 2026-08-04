@@ -58,6 +58,7 @@
             <label data-i18n="fx_color">রং</label>
             <input type="color" id="bgColor" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px; background:var(--panel-2);">
           </div>
+          <div class="control"><label><span data-i18n="rb_edge_softness">এজ সফটনেস</span> <b id="edgeSoftVal" class="mono">3px</b></label><input type="range" id="edgeSoftRange" min="0" max="10" value="3"></div>
           <button class="btn" id="removeBtn" data-i18n="rb_button">ব্যাকগ্রাউন্ড সরান</button>
           <div class="status" id="genStatus"></div>
         </div>
@@ -123,6 +124,8 @@
   }
 
   bgMode.onchange = () => { colorField.style.display = bgMode.value === 'color' ? 'block' : 'none'; };
+  const edgeSoftRange = document.getElementById('edgeSoftRange');
+  edgeSoftRange.oninput = () => document.getElementById('edgeSoftVal').textContent = edgeSoftRange.value+'px';
 
   async function ensureModel(){
     if(segmenter) return segmenter;
@@ -145,16 +148,35 @@
       const seg = await ensureModel();
       genStatus.textContent = t('rb_processing');
       const segmentation = await seg.segmentPeople(img);
-      const maskData = await bodySegmentation.toBinaryMask(
-        segmentation,
-        {r:0,g:0,b:0,a:255},
-        {r:0,g:0,b:0,a:0}
-      );
+
+      // Get the raw probability mask (grayscale, not binarized) for smoother edges
+      const rawMask = await segmentation[0].mask.toImageData();
+      const mw = rawMask.width, mh = rawMask.height;
+      const alphaData = new ImageData(mw, mh);
+      for(let i = 0; i < rawMask.data.length; i += 4){
+        alphaData.data[i+3] = rawMask.data[i]; // use grayscale value (R channel) as alpha
+      }
+      const rawMaskCanvas = document.createElement('canvas');
+      rawMaskCanvas.width = mw; rawMaskCanvas.height = mh;
+      rawMaskCanvas.getContext('2d').putImageData(alphaData, 0, 0);
+
+      const softness = parseInt(document.getElementById('edgeSoftRange').value, 10);
+
+      // Smooth the mask at its native (low) resolution first
+      const preBlur = document.createElement('canvas');
+      preBlur.width = mw; preBlur.height = mh;
+      const pctx = preBlur.getContext('2d');
+      if(softness > 0) pctx.filter = `blur(${Math.max(1, softness/2)}px)`;
+      pctx.drawImage(rawMaskCanvas, 0, 0);
 
       const w = img.naturalWidth, h = img.naturalHeight;
+
+      // Scale up to the full image size, with an extra blur pass to smooth the upscale "staircase" edges
       const maskCanvas = document.createElement('canvas');
-      maskCanvas.width = maskData.width; maskCanvas.height = maskData.height;
-      maskCanvas.getContext('2d').putImageData(maskData, 0, 0);
+      maskCanvas.width = w; maskCanvas.height = h;
+      const mctx = maskCanvas.getContext('2d');
+      if(softness > 0) mctx.filter = `blur(${softness}px)`;
+      mctx.drawImage(preBlur, 0, 0, w, h);
 
       const cutout = document.createElement('canvas');
       cutout.width = w; cutout.height = h;
