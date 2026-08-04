@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ব্যাকগ্রাউন্ড রিমুভ — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/bgremoval-lib.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="rb_title">ব্যাকগ্রাউন্ড রিমুভ</h1>
+  <p data-i18n="rb_sub">মানুষের ছবি থেকে ব্যাকগ্রাউন্ড সরিয়ে ফেলুন — AI দিয়ে, ব্রাউজারেই</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <p style="font-size:13px; color:var(--muted); margin:0 0 14px; line-height:1.7;" data-i18n="rb_notice">এই টুলটা মূলত মানুষের ছবির জন্য কাজ করে (পোর্ট্রেট/সেলফি জাতীয় ছবি) — অন্য বস্তু বা প্রাণীর ছবিতে ততটা ভালো ফল নাও দিতে পারে। প্রথমবার ব্যবহারে একটা ছোট AI মডেল ডাউনলোড হবে।</p>
+
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="c_drop_images_title">ছবি টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <input type="file" id="imageInput" accept="image/*">
+    </div>
+
+    <div id="body" style="display:none; margin-top:16px;">
+      <div class="edit-grid">
+        <div class="preview-wrap">
+          <div class="preview-stage"><canvas id="previewCanvas"></canvas></div>
+        </div>
+        <div class="controls">
+          <div class="field">
+            <label data-i18n="rb_bg_mode">ব্যাকগ্রাউন্ড</label>
+            <select id="bgMode">
+              <option value="transparent" data-i18n="rb_bg_transparent">স্বচ্ছ (PNG)</option>
+              <option value="color" data-i18n="rb_bg_color">সলিড রং</option>
+            </select>
+          </div>
+          <div class="field" id="colorField" style="display:none;">
+            <label data-i18n="fx_color">রং</label>
+            <input type="color" id="bgColor" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px; background:var(--panel-2);">
+          </div>
+          <button class="btn" id="removeBtn" data-i18n="rb_button">ব্যাকগ্রাউন্ড সরান</button>
+          <div class="status" id="genStatus"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result" id="result" style="margin-top:16px;">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="no-background.png" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let img = null;
+  let segmenter = null;
+
+  const dropzone = document.getElementById('dropzone');
+  const imageInput = document.getElementById('imageInput');
+  const bodyEl = document.getElementById('body');
+  const previewCanvas = document.getElementById('previewCanvas');
+  const bgMode = document.getElementById('bgMode');
+  const colorField = document.getElementById('colorField');
+  const bgColor = document.getElementById('bgColor');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  dropzone.onclick = () => imageInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop' && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+  });
+  imageInput.onchange = () => { if(imageInput.files[0]) handleFile(imageInput.files[0]); };
+
+  function handleFile(file){
+    const image = new Image();
+    image.onload = () => {
+      img = image;
+      bodyEl.style.display = 'block';
+      resultEl.classList.remove('show');
+      const w = Math.min(360, img.naturalWidth);
+      const h = Math.round(w * img.naturalHeight/img.naturalWidth);
+      previewCanvas.width = w; previewCanvas.height = h;
+      previewCanvas.getContext('2d').drawImage(img, 0, 0, w, h);
+    };
+    image.src = URL.createObjectURL(file);
+  }
+
+  bgMode.onchange = () => { colorField.style.display = bgMode.value === 'color' ? 'block' : 'none'; };
+
+  async function ensureModel(){
+    if(segmenter) return segmenter;
+    genStatus.textContent = t('rb_loading_model');
+    await tf.setBackend('webgl');
+    await tf.ready();
+    segmenter = await bodySegmentation.createSegmenter(
+      bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation,
+      { runtime: 'tfjs', modelType: 'general' }
+    );
+    return segmenter;
+  }
+
+  document.getElementById('removeBtn').onclick = async () => {
+    if(!img) return;
+    const btn = document.getElementById('removeBtn');
+    btn.disabled = true;
+    resultEl.classList.remove('show');
+    try{
+      const seg = await ensureModel();
+      genStatus.textContent = t('rb_processing');
+      const segmentation = await seg.segmentPeople(img);
+      const maskData = await bodySegmentation.toBinaryMask(
+        segmentation,
+        {r:0,g:0,b:0,a:255},
+        {r:0,g:0,b:0,a:0}
+      );
+
+      const w = img.naturalWidth, h = img.naturalHeight;
+      const maskCanvas = document.createElement('canvas');
+      maskCanvas.width = maskData.width; maskCanvas.height = maskData.height;
+      maskCanvas.getContext('2d').putImageData(maskData, 0, 0);
+
+      const cutout = document.createElement('canvas');
+      cutout.width = w; cutout.height = h;
+      const cctx = cutout.getContext('2d');
+      cctx.drawImage(img, 0, 0, w, h);
+      cctx.globalCompositeOperation = 'destination-in';
+      cctx.drawImage(maskCanvas, 0, 0, w, h);
+      cctx.globalCompositeOperation = 'source-over';
+
+      const out = document.createElement('canvas');
+      out.width = w; out.height = h;
+      const octx = out.getContext('2d');
+      if(bgMode.value === 'color'){
+        octx.fillStyle = bgColor.value;
+        octx.fillRect(0, 0, w, h);
+      }
+      octx.drawImage(cutout, 0, 0);
+
+      out.toBlob(blob=>{
+        const url = URL.createObjectURL(blob);
+        resultImg.src = url;
+        downloadLink.href = url;
+        resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${w}×${h}px`;
+        resultEl.classList.add('show');
+        genStatus.textContent = t('c_gif_done');
+        btn.disabled = false;
+      }, 'image/png');
+    } catch(e){
+      genStatus.textContent = 'সমস্যা হয়েছে: ' + e.message;
+      btn.disabled = false;
+    }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    img = null;
+    imageInput.value = '';
+    bodyEl.style.display = 'none';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>
