@@ -163,6 +163,7 @@ go_title:"GIF অপ্টিমাইজার", go_sub:"GIF-এর ফাই�
 ic_title:"ইমেজ কমপ্রেসর", ic_sub:"JPG, PNG, WebP ও AVIF ছবির সাইজ কমান — মান ঠিক রেখে", ic_avif_experimental:"AVIF (পরীক্ষামূলক)", ic_max_dim:"সর্বোচ্চ প্রস্থ/উচ্চতা", ic_compress_btn:"কমপ্রেস করুন", ic_unchanged:"অপরিবর্তিত", ic_format_unsupported:"এই ফরম্যাট আপনার ব্রাউজারে সাপোর্ট করে না, অন্য ফরম্যাট চেষ্টা করুন।",
 va_tab_compress:"🗜️ কমপ্রেস করুন", vc_level_label:"কমপ্রেশন লেভেল", vc_level_light:"হালকা (ভালো মান)", vc_level_medium:"মাঝারি", vc_level_heavy:"বেশি (ছোট সাইজ)", vc_scale_label:"সর্বোচ্চ প্রস্থ", vc_compress_btn:"কমপ্রেস করুন",
 tool_gifoptimizer_name:"GIF অপ্টিমাইজার", tool_gifoptimizer_desc:"GIF-এর সাইজ কমান রিসাইজ/কোয়ালিটি/ফ্রেম কমিয়ে", tool_imagecompressor_name:"ইমেজ কমপ্রেসর", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF ছবি কমপ্রেস করুন", tool_videocompressor_name:"ভিডিও কমপ্রেসর", tool_videocompressor_desc:"ভিডিওর ফাইল সাইজ কমান",
+hc_title:"HEIC/AVIF কনভার্টার", hc_sub:"আইফোনের HEIC ছবি বা AVIF ফাইল JPG/PNG/WebP-তে রূপান্তর করুন", hc_notice:"HEIC ফাইলের জন্য প্রথমবার একটা ছোট ডিকোডিং ইঞ্জিন (~1.5MB) লোড হবে। AVIF ফাইল ব্রাউজারের নিজস্ব সাপোর্ট দিয়েই কাজ করে।", hc_drop_title:"HEIC বা AVIF ফাইল টেনে আনুন", hc_convert_btn:"কনভার্ট করুন", hc_decode_failed:"ছবিটা ডিকোড করা যায়নি — ফাইলটা হয়তো সমর্থিত না।", hc_avif_unsupported:"এই AVIF ফাইলটা আপনার ব্রাউজার খুলতে পারছে না।", hc_decoding:"HEIC ফাইল ডিকোড হচ্ছে...",
 tool_removebg_name:"ব্যাকগ্রাউন্ড রিমুভ", tool_removebg_desc:"মানুষের ছবি থেকে AI দিয়ে ব্যাকগ্রাউন্ড সরান"
 },
 
@@ -310,6 +311,7 @@ go_title:"GIF Optimizer", go_sub:"Reduce a GIF's file size — via resize, quali
 ic_title:"Image Compressor", ic_sub:"Reduce the size of JPG, PNG, WebP and AVIF images — while keeping quality", ic_avif_experimental:"AVIF (experimental)", ic_max_dim:"Max width/height", ic_compress_btn:"Compress", ic_unchanged:"Unchanged", ic_format_unsupported:"This format isn't supported in your browser, try a different one.",
 va_tab_compress:"🗜️ Compress", vc_level_label:"Compression level", vc_level_light:"Light (good quality)", vc_level_medium:"Medium", vc_level_heavy:"Heavy (small size)", vc_scale_label:"Max width", vc_compress_btn:"Compress",
 tool_gifoptimizer_name:"GIF Optimizer", tool_gifoptimizer_desc:"Shrink a GIF via resize/quality/frame reduction", tool_imagecompressor_name:"Image Compressor", tool_imagecompressor_desc:"Compress JPG/PNG/WebP/AVIF images", tool_videocompressor_name:"Video Compressor", tool_videocompressor_desc:"Reduce a video's file size",
+hc_title:"HEIC/AVIF Converter", hc_sub:"Convert iPhone HEIC photos or AVIF files to JPG/PNG/WebP", hc_notice:"For HEIC files, a small decoding engine (~1.5MB) loads the first time. AVIF files work using your browser's native support.", hc_drop_title:"Drag a HEIC or AVIF file here", hc_convert_btn:"Convert", hc_decode_failed:"Couldn't decode the image — the file may not be supported.", hc_avif_unsupported:"Your browser can't open this AVIF file.", hc_decoding:"Decoding HEIC file...",
 tool_removebg_name:"Remove Background", tool_removebg_desc:"Remove the background from a person's photo with AI"
 },
 
@@ -457,6 +459,7 @@ go_title:"GIF-Optimierer", go_sub:"Verkleinern Sie ein GIF — durch Größenän
 ic_title:"Bild-Kompressor", ic_sub:"Verkleinern Sie JPG-, PNG-, WebP- und AVIF-Bilder — bei guter Qualität", ic_avif_experimental:"AVIF (experimentell)", ic_max_dim:"Max. Breite/Höhe", ic_compress_btn:"Komprimieren", ic_unchanged:"Unverändert", ic_format_unsupported:"Dieses Format wird in Ihrem Browser nicht unterstützt, versuchen Sie ein anderes.",
 va_tab_compress:"🗜️ Komprimieren", vc_level_label:"Komprimierungsstufe", vc_level_light:"Leicht (gute Qualität)", vc_level_medium:"Mittel", vc_level_heavy:"Stark (kleine Größe)", vc_scale_label:"Max. Breite", vc_compress_btn:"Komprimieren",
 tool_gifoptimizer_name:"GIF-Optimierer", tool_gifoptimizer_desc:"GIF verkleinern durch Größe/Qualität/Einzelbilder", tool_imagecompressor_name:"Bild-Kompressor", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF-Bilder komprimieren", tool_videocompressor_name:"Video-Kompressor", tool_videocompressor_desc:"Videodateigröße reduzieren",
+hc_title:"HEIC/AVIF-Konverter", hc_sub:"Konvertieren Sie iPhone-HEIC-Fotos oder AVIF-Dateien in JPG/PNG/WebP", hc_notice:"Für HEIC-Dateien wird beim ersten Mal eine kleine Decodier-Engine (~1,5MB) geladen. AVIF-Dateien funktionieren mit der nativen Unterstützung Ihres Browsers.", hc_drop_title:"HEIC- oder AVIF-Datei hierher ziehen", hc_convert_btn:"Konvertieren", hc_decode_failed:"Bild konnte nicht decodiert werden — die Datei wird möglicherweise nicht unterstützt.", hc_avif_unsupported:"Ihr Browser kann diese AVIF-Datei nicht öffnen.", hc_decoding:"HEIC-Datei wird decodiert...",
 tool_removebg_name:"Hintergrund entfernen", tool_removebg_desc:"Hintergrund eines Personenfotos mit KI entfernen"
 },
 
@@ -604,6 +607,7 @@ go_title:"GIF ऑप्टिमाइज़र", go_sub:"GIF का साइ�
 ic_title:"इमेज कम्प्रेसर", ic_sub:"JPG, PNG, WebP और AVIF इमेज का साइज़ कम करें — क्वालिटी बनाए रखते हुए", ic_avif_experimental:"AVIF (प्रायोगिक)", ic_max_dim:"अधिकतम चौड़ाई/ऊँचाई", ic_compress_btn:"कम्प्रेस करें", ic_unchanged:"अपरिवर्तित", ic_format_unsupported:"यह फ़ॉर्मेट आपके ब्राउज़र में सपोर्ट नहीं करता, दूसरा आज़माएँ।",
 va_tab_compress:"🗜️ कम्प्रेस करें", vc_level_label:"कम्प्रेशन लेवल", vc_level_light:"हल्का (अच्छी क्वालिटी)", vc_level_medium:"मध्यम", vc_level_heavy:"ज़्यादा (छोटा साइज़)", vc_scale_label:"अधिकतम चौड़ाई", vc_compress_btn:"कम्प्रेस करें",
 tool_gifoptimizer_name:"GIF ऑप्टिमाइज़र", tool_gifoptimizer_desc:"रिसाइज़/क्वालिटी/फ्रेम घटाकर GIF छोटा करें", tool_imagecompressor_name:"इमेज कम्प्रेसर", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF इमेज कम्प्रेस करें", tool_videocompressor_name:"वीडियो कम्प्रेसर", tool_videocompressor_desc:"वीडियो का फ़ाइल साइज़ कम करें",
+hc_title:"HEIC/AVIF कन्वर्टर", hc_sub:"iPhone की HEIC फ़ोटो या AVIF फ़ाइलों को JPG/PNG/WebP में बदलें", hc_notice:"HEIC फ़ाइलों के लिए पहली बार एक छोटा डिकोडिंग इंजन (~1.5MB) लोड होगा। AVIF फ़ाइलें आपके ब्राउज़र के नेटिव सपोर्ट से काम करती हैं।", hc_drop_title:"HEIC या AVIF फ़ाइल यहाँ खींचें", hc_convert_btn:"कन्वर्ट करें", hc_decode_failed:"इमेज डिकोड नहीं हो सकी — फ़ाइल शायद समर्थित नहीं है।", hc_avif_unsupported:"आपका ब्राउज़र यह AVIF फ़ाइल नहीं खोल पा रहा।", hc_decoding:"HEIC फ़ाइल डिकोड हो रही है...",
 tool_removebg_name:"बैकग्राउंड हटाएँ", tool_removebg_desc:"AI से किसी व्यक्ति की तस्वीर से बैकग्राउंड हटाएँ"
 },
 
@@ -751,6 +755,7 @@ go_title:"GIF آپٹیمائزر", go_sub:"GIF کا سائز کم کریں — �
 ic_title:"امیج کمپریسر", ic_sub:"JPG, PNG, WebP اور AVIF تصاویر کا سائز کم کریں — کوالٹی برقرار رکھتے ہوئے", ic_avif_experimental:"AVIF (تجرباتی)", ic_max_dim:"زیادہ سے زیادہ چوڑائی/اونچائی", ic_compress_btn:"کمپریس کریں", ic_unchanged:"غیر تبدیل شدہ", ic_format_unsupported:"یہ فارمیٹ آپ کے براؤزر میں سپورٹ نہیں کرتا، دوسرا آزمائیں۔",
 va_tab_compress:"🗜️ کمپریس کریں", vc_level_label:"کمپریشن لیول", vc_level_light:"ہلکا (اچھی کوالٹی)", vc_level_medium:"درمیانہ", vc_level_heavy:"زیادہ (چھوٹا سائز)", vc_scale_label:"زیادہ سے زیادہ چوڑائی", vc_compress_btn:"کمپریس کریں",
 tool_gifoptimizer_name:"GIF آپٹیمائزر", tool_gifoptimizer_desc:"ری سائز/کوالٹی/فریمز کم کر کے GIF چھوٹا کریں", tool_imagecompressor_name:"امیج کمپریسر", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF تصاویر کمپریس کریں", tool_videocompressor_name:"ویڈیو کمپریسر", tool_videocompressor_desc:"ویڈیو کا فائل سائز کم کریں",
+hc_title:"HEIC/AVIF کنورٹر", hc_sub:"آئی فون کی HEIC تصاویر یا AVIF فائلوں کو JPG/PNG/WebP میں تبدیل کریں", hc_notice:"HEIC فائلوں کے لیے پہلی بار ایک چھوٹا ڈی کوڈنگ انجن (~1.5MB) لوڈ ہوگا۔ AVIF فائلیں آپ کے براؤزر کی نیٹو سپورٹ سے کام کرتی ہیں۔", hc_drop_title:"HEIC یا AVIF فائل یہاں لائیں", hc_convert_btn:"کنورٹ کریں", hc_decode_failed:"تصویر ڈی کوڈ نہیں ہو سکی — فائل شاید سپورٹڈ نہیں ہے۔", hc_avif_unsupported:"آپ کا براؤزر یہ AVIF فائل نہیں کھول سکتا۔", hc_decoding:"HEIC فائل ڈی کوڈ ہو رہی ہے...",
 tool_removebg_name:"بیک گراؤنڈ ہٹائیں", tool_removebg_desc:"AI سے کسی شخص کی تصویر سے بیک گراؤنڈ ہٹائیں"
 },
 
@@ -898,6 +903,7 @@ go_title:"محسّن GIF", go_sub:"قلّل حجم ملف GIF — عبر تغي�
 ic_title:"ضاغط الصور", ic_sub:"قلّل حجم صور JPG وPNG وWebP وAVIF — مع الحفاظ على الجودة", ic_avif_experimental:"AVIF (تجريبي)", ic_max_dim:"أقصى عرض/ارتفاع", ic_compress_btn:"ضغط", ic_unchanged:"دون تغيير", ic_format_unsupported:"هذه الصيغة غير مدعومة في متصفحك، جرّب صيغة أخرى.",
 va_tab_compress:"🗜️ ضغط", vc_level_label:"مستوى الضغط", vc_level_light:"خفيف (جودة جيدة)", vc_level_medium:"متوسط", vc_level_heavy:"عالٍ (حجم صغير)", vc_scale_label:"أقصى عرض", vc_compress_btn:"ضغط",
 tool_gifoptimizer_name:"محسّن GIF", tool_gifoptimizer_desc:"قلّل حجم GIF عبر تغيير الحجم/الجودة/الإطارات", tool_imagecompressor_name:"ضاغط الصور", tool_imagecompressor_desc:"ضغط صور JPG/PNG/WebP/AVIF", tool_videocompressor_name:"ضاغط الفيديو", tool_videocompressor_desc:"تقليل حجم ملف الفيديو",
+hc_title:"محوّل HEIC/AVIF", hc_sub:"حوّل صور iPhone بصيغة HEIC أو ملفات AVIF إلى JPG/PNG/WebP", hc_notice:"بالنسبة لملفات HEIC، سيتم تحميل محرك فك تشفير صغير (~1.5 ميجابايت) عند أول استخدام. تعمل ملفات AVIF باستخدام الدعم الأصلي لمتصفحك.", hc_drop_title:"اسحب ملف HEIC أو AVIF هنا", hc_convert_btn:"تحويل", hc_decode_failed:"تعذر فك تشفير الصورة — قد لا يكون الملف مدعومًا.", hc_avif_unsupported:"متصفحك لا يستطيع فتح ملف AVIF هذا.", hc_decoding:"جارٍ فك تشفير ملف HEIC...",
 tool_removebg_name:"إزالة الخلفية", tool_removebg_desc:"إزالة خلفية صورة شخص بالذكاء الاصطناعي"
 }
 };
