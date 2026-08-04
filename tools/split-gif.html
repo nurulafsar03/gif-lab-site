@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split GIF — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/gifuct.js"></script>
+<script src="../assets/gif-decode.js"></script>
+<script src="../assets/i18n.js" defer></script>
+<style>
+.frame-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:12px; margin-top:16px; }
+.frame-item{ background: var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center; }
+.frame-item img{ width:100%; border-radius:6px; background: repeating-conic-gradient(#2a2733 0 25%, #221f29 0 50%) 0 0/12px 12px; }
+.frame-item .idx{ font-size:12px; color:var(--muted); margin:8px 0; }
+.frame-item .dl{ display:inline-block; font-size:12px; padding:5px 10px; }
+</style>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="sg_title">Split GIF</h1>
+  <p data-i18n="sg_sub">GIF-কে আলাদা আলাদা ফ্রেমে ভাগ করে প্রতিটা ছবি হিসেবে ডাউনলোড করুন</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="an_drop_title">GIF ফাইল টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <input type="file" id="fileInput" accept="image/gif">
+    </div>
+    <div class="status" id="status"></div>
+    <div class="result-meta mono" id="meta" style="margin-top:10px;"></div>
+    <div class="result-actions" id="downloadAllWrap" style="display:none; margin-top:12px;">
+      <button class="btn" id="downloadAllBtn" data-i18n="sg_download_all">⬇ সব ফ্রেম একে একে ডাউনলোড করুন</button>
+    </div>
+    <div class="frame-grid" id="frameGrid"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const status = document.getElementById('status');
+  const meta = document.getElementById('meta');
+  const frameGrid = document.getElementById('frameGrid');
+  const downloadAllWrap = document.getElementById('downloadAllWrap');
+
+  dropzone.onclick = () => fileInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop' && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+  });
+  fileInput.onchange = () => { if(fileInput.files[0]) handleFile(fileInput.files[0]); };
+
+  let currentFrames = [];
+
+  async function handleFile(file){
+    frameGrid.innerHTML = '';
+    downloadAllWrap.style.display = 'none';
+    meta.textContent = '';
+    status.textContent = (typeof t === 'function' ? t('sg_decoding') : 'ফ্রেম বের করা হচ্ছে...');
+    try{
+      const result = await decodeGifToFrames(file);
+      currentFrames = result.frames;
+      status.textContent = '';
+      meta.textContent = `${result.width}×${result.height}px · ${result.frames.length} ${typeof t === 'function' ? t('c_frames_label') : 'ফ্রেম'}`;
+      downloadAllWrap.style.display = currentFrames.length ? 'block' : 'none';
+      currentFrames.forEach((f, idx) => {
+        const div = document.createElement('div');
+        div.className = 'frame-item';
+        const img = document.createElement('img');
+        img.src = f.canvas.toDataURL('image/png');
+        const label = document.createElement('div');
+        label.className = 'idx mono';
+        label.textContent = `#${idx+1} · ${f.delay}ms`;
+        const dl = document.createElement('a');
+        dl.className = 'btn dl';
+        dl.textContent = typeof t === 'function' ? t('c_download') : '⬇ ডাউনলোড';
+        dl.href = img.src;
+        dl.download = `frame-${String(idx+1).padStart(3,'0')}.png`;
+        div.appendChild(img); div.appendChild(label); div.appendChild(dl);
+        frameGrid.appendChild(div);
+      });
+    } catch(e){
+      status.textContent = (typeof t === 'function' ? t('an_invalid') : 'এটা একটা বৈধ GIF ফাইল মনে হচ্ছে না।') + ' (' + e.message + ')';
+    }
+  }
+
+  document.getElementById('downloadAllBtn').onclick = async () => {
+    for(let i=0;i<currentFrames.length;i++){
+      const a = document.createElement('a');
+      a.href = currentFrames[i].canvas.toDataURL('image/png');
+      a.download = `frame-${String(i+1).padStart(3,'0')}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      await new Promise(r => setTimeout(r, 150));
+    }
+  };
+})();
+</script>
+</body>
+</html>

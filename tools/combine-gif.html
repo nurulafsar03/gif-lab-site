@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>কম্বাইন GIF — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+<script src="../assets/gifuct.js"></script>
+<script src="../assets/gif-decode.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="cg_title">কম্বাইন GIF</h1>
+  <p data-i18n="cg_sub">দুইটা GIF পাশাপাশি বা উপর-নিচ জোড়া লাগিয়ে একটা নতুন GIF বানান</p>
+</div>
+
+<div class="app">
+
+  <div class="card">
+    <h2><span class="num">১</span> <span data-i18n="cg_step1">দুইটা GIF বেছে নিন</span></h2>
+    <div class="row">
+      <div class="field" style="flex:1;">
+        <label data-i18n="cg_gif_a">GIF ১</label>
+        <div class="dropzone" id="dz-a" style="padding:16px;">
+          <div><strong data-i18n="c_drop_images_or">ক্লিক করে বেছে নিন</strong></div>
+          <input type="file" id="input-a" accept="image/gif">
+        </div>
+        <img id="preview-a" style="max-width:100%; margin-top:8px; border-radius:8px; display:none;">
+      </div>
+      <div class="field" style="flex:1;">
+        <label data-i18n="cg_gif_b">GIF ২</label>
+        <div class="dropzone" id="dz-b" style="padding:16px;">
+          <div><strong data-i18n="c_drop_images_or">ক্লিক করে বেছে নিন</strong></div>
+          <input type="file" id="input-b" accept="image/gif">
+        </div>
+        <img id="preview-b" style="max-width:100%; margin-top:8px; border-radius:8px; display:none;">
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h2><span class="num">২</span> <span data-i18n="cg_step2">লেআউট বেছে নিন</span></h2>
+    <div class="field">
+      <label data-i18n="cl_layout_label">লেআউট</label>
+      <select id="layoutSelect">
+        <option value="h" data-i18n="cg_layout_h">পাশাপাশি (⬌)</option>
+        <option value="v" data-i18n="cg_layout_v">উপর-নিচ (⬍)</option>
+      </select>
+    </div>
+    <div class="control"><label><span data-i18n="cg_gap">ফাঁক</span> <b id="gapVal" class="mono">4px</b></label><input type="range" id="gapRange" min="0" max="30" value="4"></div>
+    <button class="btn" id="generateBtn" data-i18n="cg_generate_btn">কম্বাইন করুন</button>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">৩</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="combined.gif" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let gifA = null, gifB = null;
+  const step2 = document.getElementById('step2');
+
+  function setupDropzone(dzId, inputId, onFile){
+    const dz = document.getElementById(dzId);
+    const input = document.getElementById(inputId);
+    dz.onclick = () => input.click();
+    input.onchange = () => { if(input.files[0]) onFile(input.files[0]); };
+    ['dragover','dragleave','drop'].forEach(evt=>{
+      dz.addEventListener(evt, e=>{
+        e.preventDefault();
+        dz.classList.toggle('drag', evt==='dragover');
+        if(evt==='drop' && e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]);
+      });
+    });
+  }
+
+  async function loadGif(file, slot){
+    const result = await decodeGifToFrames(file);
+    if(slot === 'a'){ gifA = result; document.getElementById('preview-a').src = result.frames[0].canvas.toDataURL(); document.getElementById('preview-a').style.display = 'block'; }
+    else { gifB = result; document.getElementById('preview-b').src = result.frames[0].canvas.toDataURL(); document.getElementById('preview-b').style.display = 'block'; }
+    step2.style.display = (gifA && gifB) ? 'block' : 'none';
+  }
+
+  setupDropzone('dz-a','input-a', file => loadGif(file, 'a'));
+  setupDropzone('dz-b','input-b', file => loadGif(file, 'b'));
+
+  const layoutSelect = document.getElementById('layoutSelect');
+  const gapRange = document.getElementById('gapRange');
+  gapRange.oninput = () => document.getElementById('gapVal').textContent = gapRange.value+'px';
+
+  const generateBtn = document.getElementById('generateBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  let workerBlobUrl = null;
+  async function getWorkerUrl(){
+    if(workerBlobUrl) return workerBlobUrl;
+    const resp = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
+    const text = await resp.text();
+    workerBlobUrl = URL.createObjectURL(new Blob([text], {type:'application/javascript'}));
+    return workerBlobUrl;
+  }
+
+  generateBtn.onclick = async () => {
+    if(!gifA || !gifB) return;
+    const layout = layoutSelect.value;
+    const gap = parseInt(gapRange.value,10);
+    const count = Math.max(gifA.frames.length, gifB.frames.length);
+
+    let targetW, targetH;
+    if(layout === 'h'){
+      const h = Math.max(gifA.height, gifB.height);
+      targetW = gifA.width + gap + gifB.width;
+      targetH = h;
+    } else {
+      const w = Math.max(gifA.width, gifB.width);
+      targetW = w;
+      targetH = gifA.height + gap + gifB.height;
+    }
+
+    generateBtn.disabled = true;
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    genStatus.textContent = t('c_gif_generating');
+    resultEl.classList.remove('show');
+
+    let workerUrl;
+    try{ workerUrl = await getWorkerUrl(); }
+    catch(e){
+      genStatus.textContent = 'ওয়ার্কার স্ক্রিপ্ট লোড করা যায়নি — ইন্টারনেট সংযোগ চেক করুন।';
+      generateBtn.disabled = false;
+      progressWrap.classList.remove('show');
+      return;
+    }
+
+    const gif = new GIF({ workers:2, quality:10, width: targetW, height: targetH, workerScript: workerUrl });
+
+    for(let i=0;i<count;i++){
+      const fa = gifA.frames[i % gifA.frames.length];
+      const fb = gifB.frames[i % gifB.frames.length];
+      const tmp = document.createElement('canvas');
+      tmp.width = targetW; tmp.height = targetH;
+      const ctx = tmp.getContext('2d');
+      if(layout === 'h'){
+        ctx.drawImage(fa.canvas, 0, 0);
+        ctx.drawImage(fb.canvas, gifA.width + gap, 0);
+      } else {
+        ctx.drawImage(fa.canvas, 0, 0);
+        ctx.drawImage(fb.canvas, 0, gifA.height + gap);
+      }
+      const delay = Math.max(fa.delay || 100, fb.delay || 100);
+      gif.addFrame(tmp, {delay, copy:true});
+    }
+
+    gif.on('progress', p=>{ progressBar.style.width = Math.round(p*100)+'%'; });
+    gif.on('finished', blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${targetW}×${targetH}px · ${count} ${t('c_frames_label')}`;
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+      generateBtn.disabled = false;
+      progressWrap.classList.remove('show');
+    });
+    try{ gif.render(); }
+    catch(e){
+      genStatus.textContent = 'তৈরি করা যায়নি: ' + e.message;
+      generateBtn.disabled = false;
+      progressWrap.classList.remove('show');
+    }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    gifA = null; gifB = null;
+    document.getElementById('input-a').value = '';
+    document.getElementById('input-b').value = '';
+    document.getElementById('preview-a').style.display = 'none';
+    document.getElementById('preview-b').style.display = 'none';
+    step2.style.display = 'none';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>
