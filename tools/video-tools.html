@@ -41,6 +41,7 @@
       <button class="tab-btn" data-tab="speed" data-i18n="va_tab_speed">🔁 রিভার্স/স্পিড</button>
       <button class="tab-btn" data-tab="audio" data-i18n="va_tab_audio">🔊 অডিও এক্সট্র্যাক্ট</button>
       <button class="tab-btn" data-tab="gifvideo" data-i18n="va_tab_gifvideo">🎬 GIF ↔ ভিডিও</button>
+      <button class="tab-btn" data-tab="compress" data-i18n="va_tab_compress">🗜️ কমপ্রেস করুন</button>
     </div>
 
     <div class="status mono" id="engineStatus" style="margin-bottom:14px;"></div>
@@ -118,6 +119,36 @@
         <img id="gv-gif-preview" style="max-width:100%; border-radius:10px;">
       </div>
       <button class="btn" id="gv-btn" style="margin-top:14px; display:none;" data-i18n="va_convert_btn">কনভার্ট করুন</button>
+    </div>
+
+    <!-- COMPRESS -->
+    <div class="tabpanel" id="panel-compress">
+      <div class="dropzone" id="dz-compress">
+        <div><strong data-i18n="c_drop_video_title">ভিডিও টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+        <input type="file" id="input-compress" accept="video/*">
+      </div>
+      <div id="compress-body" style="display:none; margin-top:16px;">
+        <video id="compress-preview" controls style="width:100%; max-height:260px; border-radius:10px; background:#000; margin-bottom:12px;"></video>
+        <div class="result-meta mono" id="compress-original-meta"></div>
+        <div class="field" style="margin-top:10px;">
+          <label data-i18n="vc_level_label">কমপ্রেশন লেভেল</label>
+          <select id="compressLevel">
+            <option value="light" data-i18n="vc_level_light">হালকা (ভালো মান)</option>
+            <option value="medium" selected data-i18n="vc_level_medium">মাঝারি</option>
+            <option value="heavy" data-i18n="vc_level_heavy">বেশি (ছোট সাইজ)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="vc_scale_label">সর্বোচ্চ প্রস্থ</label>
+          <select id="compressScale">
+            <option value="0" data-i18n="ic_unchanged">অপরিবর্তিত</option>
+            <option value="1280">1280px (720p)</option>
+            <option value="854" selected>854px (480p)</option>
+            <option value="640">640px</option>
+          </select>
+        </div>
+        <button class="btn" id="compress-btn" data-i18n="vc_compress_btn">কমপ্রেস করুন</button>
+      </div>
     </div>
 
   </div>
@@ -407,6 +438,41 @@
         await ffmpeg.exec(['-ss', String(start), '-i', inName, '-t', String(end-start), '-vf', `fps=${fps},scale=320:-1:flags=lanczos`, 'out.gif']);
         const data = await ffmpeg.readFile('out.gif');
         showResult(new Blob([data.buffer], {type:'image/gif'}), 'image', 'converted.gif');
+      }
+    } catch(e){ showError(e.message || String(e)); }
+  };
+
+  // ---- COMPRESS ----
+  let compressFile = null;
+  setupDropzone('dz-compress','input-compress', file=>{
+    compressFile = file;
+    document.getElementById('compress-preview').src = URL.createObjectURL(file);
+    document.getElementById('compress-original-meta').textContent = `${t('c_size_label')} ${(file.size/1024/1024).toFixed(2)} MB`;
+    document.getElementById('compress-body').style.display = 'block';
+  });
+  document.getElementById('compress-btn').onclick = async () => {
+    if(!compressFile) return;
+    const level = document.getElementById('compressLevel').value;
+    const crf = level==='light' ? '26' : level==='heavy' ? '34' : '30';
+    const maxW = parseInt(document.getElementById('compressScale').value,10);
+
+    genStatus.textContent = 'প্রসেসিং শুরু হচ্ছে...';
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    startTicker('প্রসেসিং চলছে...');
+    try{
+      const ffmpeg = await ensureFFmpeg();
+      const inName = 'in' + extOf(compressFile);
+      await ffmpeg.writeFile(inName, await ffmpegUtil.fetchFile(compressFile));
+      const args = ['-i', inName, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', crf, '-c:a', 'aac', '-b:a', '96k'];
+      if(maxW > 0){ args.push('-vf', `scale='min(${maxW},iw)':-2`); }
+      args.push('out.mp4');
+      await ffmpeg.exec(args);
+      const data = await ffmpeg.readFile('out.mp4');
+      const blob = new Blob([data.buffer], {type:'video/mp4'});
+      showResult(blob, 'video', 'compressed.mp4');
+      const reduction = Math.round((1 - blob.size/compressFile.size) * 100);
+      if(reduction > 0){
+        resultMeta.textContent += ` · ${t('go_size_reduced')} ${reduction}%`;
       }
     } catch(e){ showError(e.message || String(e)); }
   };

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ইমেজ কমপ্রেসর — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="ic_title">ইমেজ কমপ্রেসর</h1>
+  <p data-i18n="ic_sub">JPG, PNG, WebP ও AVIF ছবির সাইজ কমান — মান ঠিক রেখে</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="c_drop_images_title">ছবি টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <input type="file" id="imageInput" accept="image/*">
+    </div>
+
+    <div id="body" style="display:none; margin-top:16px;">
+      <div class="edit-grid">
+        <div class="preview-wrap">
+          <div class="preview-stage"><img id="previewImg" alt="preview"></div>
+        </div>
+        <div class="controls">
+          <div class="result-meta mono" id="originalMeta"></div>
+          <div class="field">
+            <label data-i18n="iu_output_format">আউটপুট ফরম্যাট</label>
+            <select id="formatSelect">
+              <option value="image/jpeg" selected>JPG</option>
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/avif" data-i18n="ic_avif_experimental">AVIF (পরীক্ষামূলক)</option>
+            </select>
+          </div>
+          <div class="control" id="qualityWrap"><label><span data-i18n="iu_quality">কোয়ালিটি</span> <b id="qualityVal" class="mono">75%</b></label><input type="range" id="qualityRange" min="10" max="100" value="75"></div>
+          <div class="control"><label><span data-i18n="ic_max_dim">সর্বোচ্চ প্রস্থ/উচ্চতা</span> <b id="maxDimVal" class="mono">অপরিবর্তিত</b></label><input type="range" id="maxDimRange" min="200" max="4000" step="50" value="4000"></div>
+          <button class="btn" id="compressBtn" data-i18n="ic_compress_btn">কমপ্রেস করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-meta mono" id="savingsMeta" style="color:var(--teal);"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let img = null, originalFile = null;
+  const dropzone = document.getElementById('dropzone');
+  const imageInput = document.getElementById('imageInput');
+  const bodyEl = document.getElementById('body');
+  const previewImg = document.getElementById('previewImg');
+  const originalMeta = document.getElementById('originalMeta');
+  const formatSelect = document.getElementById('formatSelect');
+  const qualityWrap = document.getElementById('qualityWrap');
+  const qualityRange = document.getElementById('qualityRange');
+  const maxDimRange = document.getElementById('maxDimRange');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const savingsMeta = document.getElementById('savingsMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  dropzone.onclick = () => imageInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop' && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+  });
+  imageInput.onchange = () => { if(imageInput.files[0]) handleFile(imageInput.files[0]); };
+
+  function handleFile(file){
+    originalFile = file;
+    const image = new Image();
+    image.onload = () => {
+      img = image;
+      bodyEl.style.display = 'block';
+      resultEl.classList.remove('show');
+      previewImg.src = image.src;
+      originalMeta.textContent = `${t('c_size_label')} ${(file.size/1024).toFixed(1)} KB · ${image.naturalWidth}×${image.naturalHeight}px`;
+      maxDimRange.max = Math.max(4000, image.naturalWidth, image.naturalHeight);
+      maxDimRange.value = Math.max(image.naturalWidth, image.naturalHeight);
+      updateMaxDimLabel();
+    };
+    image.src = URL.createObjectURL(file);
+  }
+
+  formatSelect.onchange = () => {
+    qualityWrap.style.display = (formatSelect.value==='image/png') ? 'none' : 'block';
+  };
+  qualityRange.oninput = () => document.getElementById('qualityVal').textContent = qualityRange.value+'%';
+  function updateMaxDimLabel(){
+    const v = parseInt(maxDimRange.value,10);
+    const atMax = img && v >= Math.max(img.naturalWidth, img.naturalHeight);
+    document.getElementById('maxDimVal').textContent = atMax ? t('ic_unchanged') : v+'px';
+  }
+  maxDimRange.oninput = updateMaxDimLabel;
+
+  document.getElementById('compressBtn').onclick = () => {
+    if(!img) return;
+    const btn = document.getElementById('compressBtn');
+    btn.disabled = true;
+    genStatus.textContent = t('rb_processing');
+    resultEl.classList.remove('show');
+
+    const maxDim = parseInt(maxDimRange.value,10);
+    let w = img.naturalWidth, h = img.naturalHeight;
+    if(Math.max(w,h) > maxDim){
+      const scale = maxDim / Math.max(w,h);
+      w = Math.round(w*scale); h = Math.round(h*scale);
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    if(formatSelect.value !== 'image/png'){
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,w,h);
+    }
+    ctx.drawImage(img, 0, 0, w, h);
+
+    const fmt = formatSelect.value;
+    const q = parseInt(qualityRange.value,10)/100;
+
+    function finish(blob){
+      if(!blob){
+        genStatus.textContent = t('ic_format_unsupported');
+        btn.disabled = false;
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':fmt==='image/avif'?'avif':'jpg';
+      downloadLink.href = url;
+      downloadLink.download = 'compressed.'+ext;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${w}×${h}px`;
+      const reduction = Math.round((1 - blob.size/originalFile.size) * 100);
+      savingsMeta.textContent = reduction > 0
+        ? `${t('go_size_reduced')} ${reduction}% (${(originalFile.size/1024).toFixed(1)} KB → ${(blob.size/1024).toFixed(1)} KB)`
+        : t('go_no_reduction');
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+      btn.disabled = false;
+    }
+
+    try{
+      canvas.toBlob(blob=>finish(blob), fmt, fmt==='image/png' ? undefined : q);
+    } catch(e){
+      genStatus.textContent = t('ic_format_unsupported');
+      btn.disabled = false;
+    }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    img = null; originalFile = null;
+    imageInput.value = '';
+    bodyEl.style.display = 'none';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIF অপ্টিমাইজার — VeloraGif</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+<script src="../assets/gifuct.js"></script>
+<script src="../assets/gif-decode.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="go_title">GIF অপ্টিমাইজার</h1>
+  <p data-i18n="go_sub">GIF-এর ফাইল সাইজ কমান — রিসাইজ, কোয়ালিটি ও ফ্রেম কমিয়ে</p>
+</div>
+
+<div class="app">
+
+  <div class="card">
+    <h2><span class="num">১</span> <span data-i18n="an_drop_title">GIF ফাইল টেনে আনুন</span></h2>
+    <div class="dropzone" id="dropzone">
+      <div><strong data-i18n="an_drop_title">GIF ফাইল টেনে আনুন</strong> <span data-i18n="c_drop_images_or">অথবা ক্লিক করে বেছে নিন</span></div>
+      <input type="file" id="fileInput" accept="image/gif">
+    </div>
+    <div class="result-meta mono" id="originalMeta" style="margin-top:10px;"></div>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h2><span class="num">২</span> <span data-i18n="go_step2">অপ্টিমাইজেশন সেটিংস</span></h2>
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage"><img id="previewImg" alt="preview"></div>
+      </div>
+      <div class="controls">
+        <div class="control"><label><span data-i18n="c_output_width">আউটপুট প্রস্থ</span> <b id="widthVal" class="mono">320px</b></label><input type="range" id="widthRange" min="80" max="800" step="10" value="320"></div>
+        <div class="control"><label><span data-i18n="go_frame_skip">ফ্রেম রাখুন</span> <b id="skipVal" class="mono">প্রতিটা</b></label><input type="range" id="skipRange" min="1" max="5" value="1"></div>
+        <div class="field">
+          <label data-i18n="c_quality">মান (কোয়ালিটি)</label>
+          <select id="qualitySelect">
+            <option value="20" data-i18n="c_quality_small">ছোট সাইজ (দ্রুত)</option>
+            <option value="10" selected data-i18n="c_quality_medium">মাঝারি</option>
+            <option value="1" data-i18n="c_quality_good">ভালো মান (ধীর)</option>
+          </select>
+        </div>
+        <button class="btn" id="optimizeBtn" data-i18n="go_optimize_btn">অপ্টিমাইজ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">৩</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-meta mono" id="savingsMeta" style="color:var(--teal);"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="optimized.gif" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  let originalFile = null;
+  let decoded = null;
+
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const originalMeta = document.getElementById('originalMeta');
+  const step2 = document.getElementById('step2');
+  const previewImg = document.getElementById('previewImg');
+
+  dropzone.onclick = () => fileInput.click();
+  ['dragover','dragleave','drop'].forEach(evt=>{
+    dropzone.addEventListener(evt, e=>{
+      e.preventDefault();
+      dropzone.classList.toggle('drag', evt==='dragover');
+      if(evt==='drop' && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+  });
+  fileInput.onchange = () => { if(fileInput.files[0]) handleFile(fileInput.files[0]); };
+
+  async function handleFile(file){
+    originalFile = file;
+    originalMeta.textContent = (typeof t==='function'?t('sg_decoding'):'ফ্রেম বের করা হচ্ছে...');
+    try{
+      decoded = await decodeGifToFrames(file);
+      originalMeta.textContent = `${t('c_size_label')} ${(file.size/1024).toFixed(1)} KB · ${decoded.width}×${decoded.height}px · ${decoded.frames.length} ${t('c_frames_label')}`;
+      previewImg.src = decoded.frames[0].canvas.toDataURL();
+      document.getElementById('widthRange').max = Math.max(800, decoded.width);
+      document.getElementById('widthRange').value = Math.min(decoded.width, 320);
+      updateSkipLabel();
+      step2.style.display = 'block';
+    } catch(e){
+      originalMeta.textContent = t('an_invalid') + ' (' + e.message + ')';
+    }
+  }
+
+  const widthRange = document.getElementById('widthRange');
+  widthRange.oninput = () => document.getElementById('widthVal').textContent = widthRange.value+'px';
+
+  const skipRange = document.getElementById('skipRange');
+  function updateSkipLabel(){
+    const v = parseInt(skipRange.value,10);
+    document.getElementById('skipVal').textContent = v===1 ? t('go_every_frame') : `${v}${t('go_nth_frame')}`;
+  }
+  skipRange.oninput = updateSkipLabel;
+
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const savingsMeta = document.getElementById('savingsMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  let workerBlobUrl = null;
+  async function getWorkerUrl(){
+    if(workerBlobUrl) return workerBlobUrl;
+    const resp = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
+    const text = await resp.text();
+    workerBlobUrl = URL.createObjectURL(new Blob([text], {type:'application/javascript'}));
+    return workerBlobUrl;
+  }
+
+  document.getElementById('optimizeBtn').onclick = async () => {
+    if(!decoded) return;
+    const targetW = parseInt(widthRange.value,10);
+    const targetH = Math.max(1, Math.round(targetW * decoded.height/decoded.width));
+    const skip = parseInt(skipRange.value,10);
+    const quality = parseInt(document.getElementById('qualitySelect').value,10);
+
+    const btn = document.getElementById('optimizeBtn');
+    btn.disabled = true;
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    genStatus.textContent = t('c_gif_generating');
+    resultEl.classList.remove('show');
+
+    let workerUrl;
+    try{ workerUrl = await getWorkerUrl(); }
+    catch(e){
+      genStatus.textContent = 'ওয়ার্কার স্ক্রিপ্ট লোড করা যায়নি — ইন্টারনেট সংযোগ চেক করুন।';
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+      return;
+    }
+
+    const gif = new GIF({ workers:2, quality: quality, width: targetW, height: targetH, workerScript: workerUrl });
+
+    const kept = decoded.frames.filter((f,i)=> i % skip === 0);
+    kept.forEach(f=>{
+      const tmp = document.createElement('canvas');
+      tmp.width = targetW; tmp.height = targetH;
+      tmp.getContext('2d').drawImage(f.canvas, 0, 0, targetW, targetH);
+      gif.addFrame(tmp, {delay: (f.delay||100) * skip, copy:true});
+    });
+
+    gif.on('progress', p=>{ progressBar.style.width = Math.round(p*100)+'%'; });
+    gif.on('finished', blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${targetW}×${targetH}px · ${kept.length} ${t('c_frames_label')}`;
+      const reduction = Math.round((1 - blob.size/originalFile.size) * 100);
+      savingsMeta.textContent = reduction > 0
+        ? `${t('go_size_reduced')} ${reduction}% (${(originalFile.size/1024).toFixed(1)} KB → ${(blob.size/1024).toFixed(1)} KB)`
+        : t('go_no_reduction');
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+    });
+    try{ gif.render(); }
+    catch(e){
+      genStatus.textContent = 'তৈরি করা যায়নি: ' + e.message;
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+    }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    originalFile = null; decoded = null;
+    fileInput.value = '';
+    step2.style.display = 'none';
+    originalMeta.textContent = '';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>
