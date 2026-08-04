@@ -74,7 +74,7 @@ an_loop_infinite:"অসীম (ইনফিনিট)", an_loop_none:"নেই
 an_palette_colors:"রং", an_palette_none:"নেই", an_invalid:"এটা একটা বৈধ GIF ফাইল মনে হচ্ছে না।", an_read_fail:"ফাইলটি পড়া যায়নি।",
 
 home_hero_title:"ব্রাউজারেই GIF ও ছবি এডিট করুন", home_hero_sub:"কোনো ফাইল সার্ভারে যায় না — সব প্রসেসিং আপনার ডিভাইসেই হয়",
-cat_gif_tools:"GIF টুলস", cat_edit_effects:"এডিট ও ইফেক্ট", cat_image_utils:"ইমেজ ইউটিলিটি", cat_generators:"জেনারেটর",
+cat_gif_tools:"GIF টুলস", cat_edit_effects:"এডিট ও ইফেক্ট", cat_image_utils:"ইমেজ ইউটিলিটি", cat_generators:"জেনারেটর", cat_optimize:"অপ্টিমাইজ",
 cat_video_audio:"ভিডিও ও অডিও", cat_video_audio_note:"(পরের ধাপে)",
 badge_live:"চালু", badge_soon:"শীঘ্রই",
 tool_gifmaker_name:"GIF মেকার", tool_gifmaker_desc:"ছবি বা ভিডিও থেকে GIF বানান, ক্রপ/রিসাইজ/স্পিড/রিভার্স সহ",
@@ -159,6 +159,10 @@ cg_title:"কম্বাইন GIF", cg_sub:"দুইটা GIF পাশা�
 fx_presets_label:"প্রিসেট (ইনস্টাGIF)", fx_preset_normal:"স্বাভাবিক", fx_preset_vintage:"ভিনটেজ", fx_preset_vivid:"উজ্জ্বল", fx_preset_mono:"মনোক্রোম", fx_preset_dramatic:"ড্রামাটিক", fx_preset_soft:"সফট", fx_filter_halftone:"হাফটোন (ডট)", fx_overlay_label:"লোগো / ওভারলে ছবি", fx_overlay_size:"সাইজ", fx_overlay_opacity:"স্বচ্ছতা", fx_shuffle:"ফ্রেম শাফল করুন",
 rb_title:"ব্যাকগ্রাউন্ড রিমুভ", rb_sub:"মানুষের ছবি থেকে ব্যাকগ্রাউন্ড সরিয়ে ফেলুন — AI দিয়ে, ব্রাউজারেই", rb_notice:"এই টুলটা মূলত মানুষের ছবির জন্য কাজ করে (পোর্ট্রেট/সেলফি জাতীয় ছবি) — অন্য বস্তু বা প্রাণীর ছবিতে ততটা ভালো ফল নাও দিতে পারে। প্রথমবার ব্যবহারে একটা ছোট AI মডেল ডাউনলোড হবে।", rb_bg_mode:"ব্যাকগ্রাউন্ড", rb_bg_transparent:"স্বচ্ছ (PNG)", rb_bg_color:"সলিড রং", rb_button:"ব্যাকগ্রাউন্ড সরান", rb_loading_model:"AI মডেল লোড হচ্ছে...", rb_processing:"প্রসেসিং হচ্ছে...",
 rb_edge_softness:"এজ সফটনেস",
+go_title:"GIF অপ্টিমাইজার", go_sub:"GIF-এর ফাইল সাইজ কমান — রিসাইজ, কোয়ালিটি ও ফ্রেম কমিয়ে", go_step2:"অপ্টিমাইজেশন সেটিংস", go_frame_skip:"ফ্রেম রাখুন", go_optimize_btn:"অপ্টিমাইজ করুন", go_every_frame:"প্রতিটা", go_nth_frame:" নম্বর ফ্রেম", go_size_reduced:"সাইজ কমেছে", go_no_reduction:"সাইজ কমানো যায়নি — অন্য সেটিংস চেষ্টা করুন",
+ic_title:"ইমেজ কমপ্রেসর", ic_sub:"JPG, PNG, WebP ও AVIF ছবির সাইজ কমান — মান ঠিক রেখে", ic_avif_experimental:"AVIF (পরীক্ষামূলক)", ic_max_dim:"সর্বোচ্চ প্রস্থ/উচ্চতা", ic_compress_btn:"কমপ্রেস করুন", ic_unchanged:"অপরিবর্তিত", ic_format_unsupported:"এই ফরম্যাট আপনার ব্রাউজারে সাপোর্ট করে না, অন্য ফরম্যাট চেষ্টা করুন।",
+va_tab_compress:"🗜️ কমপ্রেস করুন", vc_level_label:"কমপ্রেশন লেভেল", vc_level_light:"হালকা (ভালো মান)", vc_level_medium:"মাঝারি", vc_level_heavy:"বেশি (ছোট সাইজ)", vc_scale_label:"সর্বোচ্চ প্রস্থ", vc_compress_btn:"কমপ্রেস করুন",
+tool_gifoptimizer_name:"GIF অপ্টিমাইজার", tool_gifoptimizer_desc:"GIF-এর সাইজ কমান রিসাইজ/কোয়ালিটি/ফ্রেম কমিয়ে", tool_imagecompressor_name:"ইমেজ কমপ্রেসর", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF ছবি কমপ্রেস করুন", tool_videocompressor_name:"ভিডিও কমপ্রেসর", tool_videocompressor_desc:"ভিডিওর ফাইল সাইজ কমান",
 tool_removebg_name:"ব্যাকগ্রাউন্ড রিমুভ", tool_removebg_desc:"মানুষের ছবি থেকে AI দিয়ে ব্যাকগ্রাউন্ড সরান"
 },
 
@@ -217,7 +221,7 @@ an_loop_infinite:"Infinite", an_loop_none:"None (plays once)", an_loop_times:"ti
 an_palette_colors:"colors", an_palette_none:"None", an_invalid:"This doesn't look like a valid GIF file.", an_read_fail:"Could not read the file.",
 
 home_hero_title:"Edit GIFs and images right in your browser", home_hero_sub:"No file ever leaves your device — everything is processed locally",
-cat_gif_tools:"GIF Tools", cat_edit_effects:"Edit & Effects", cat_image_utils:"Image Utilities", cat_generators:"Generators",
+cat_gif_tools:"GIF Tools", cat_edit_effects:"Edit & Effects", cat_image_utils:"Image Utilities", cat_generators:"Generators", cat_optimize:"Optimize",
 cat_video_audio:"Video & Audio", cat_video_audio_note:"(coming next)",
 badge_live:"Live", badge_soon:"Soon",
 tool_gifmaker_name:"GIF Maker", tool_gifmaker_desc:"Make a GIF from images or video, with crop/resize/speed/reverse",
@@ -302,6 +306,10 @@ cg_title:"Combine GIF", cg_sub:"Join two GIFs side by side or stacked into one n
 fx_presets_label:"Presets (InstaGIF)", fx_preset_normal:"Normal", fx_preset_vintage:"Vintage", fx_preset_vivid:"Vivid", fx_preset_mono:"Monochrome", fx_preset_dramatic:"Dramatic", fx_preset_soft:"Soft", fx_filter_halftone:"Halftone (dots)", fx_overlay_label:"Logo / overlay image", fx_overlay_size:"Size", fx_overlay_opacity:"Opacity", fx_shuffle:"Shuffle frames",
 rb_title:"Remove Background", rb_sub:"Remove the background from photos of people — with AI, right in your browser", rb_notice:"This tool works mainly for photos of people (portraits/selfies) — it may not work as well for other objects or animals. A small AI model will download the first time you use it.", rb_bg_mode:"Background", rb_bg_transparent:"Transparent (PNG)", rb_bg_color:"Solid color", rb_button:"Remove Background", rb_loading_model:"Loading AI model...", rb_processing:"Processing...",
 rb_edge_softness:"Edge softness",
+go_title:"GIF Optimizer", go_sub:"Reduce a GIF's file size — via resize, quality, and frame reduction", go_step2:"Optimization settings", go_frame_skip:"Keep frames", go_optimize_btn:"Optimize", go_every_frame:"Every frame", go_nth_frame:"th frame", go_size_reduced:"Size reduced by", go_no_reduction:"Couldn't reduce size — try different settings",
+ic_title:"Image Compressor", ic_sub:"Reduce the size of JPG, PNG, WebP and AVIF images — while keeping quality", ic_avif_experimental:"AVIF (experimental)", ic_max_dim:"Max width/height", ic_compress_btn:"Compress", ic_unchanged:"Unchanged", ic_format_unsupported:"This format isn't supported in your browser, try a different one.",
+va_tab_compress:"🗜️ Compress", vc_level_label:"Compression level", vc_level_light:"Light (good quality)", vc_level_medium:"Medium", vc_level_heavy:"Heavy (small size)", vc_scale_label:"Max width", vc_compress_btn:"Compress",
+tool_gifoptimizer_name:"GIF Optimizer", tool_gifoptimizer_desc:"Shrink a GIF via resize/quality/frame reduction", tool_imagecompressor_name:"Image Compressor", tool_imagecompressor_desc:"Compress JPG/PNG/WebP/AVIF images", tool_videocompressor_name:"Video Compressor", tool_videocompressor_desc:"Reduce a video's file size",
 tool_removebg_name:"Remove Background", tool_removebg_desc:"Remove the background from a person's photo with AI"
 },
 
@@ -360,7 +368,7 @@ an_loop_infinite:"Unendlich", an_loop_none:"Keine (läuft einmal)", an_loop_time
 an_palette_colors:"Farben", an_palette_none:"Keine", an_invalid:"Dies scheint keine gültige GIF-Datei zu sein.", an_read_fail:"Die Datei konnte nicht gelesen werden.",
 
 home_hero_title:"GIFs und Bilder direkt im Browser bearbeiten", home_hero_sub:"Keine Datei verlässt Ihr Gerät — alles wird lokal verarbeitet",
-cat_gif_tools:"GIF-Werkzeuge", cat_edit_effects:"Bearbeiten & Effekte", cat_image_utils:"Bild-Werkzeuge", cat_generators:"Generatoren",
+cat_gif_tools:"GIF-Werkzeuge", cat_edit_effects:"Bearbeiten & Effekte", cat_image_utils:"Bild-Werkzeuge", cat_generators:"Generatoren", cat_optimize:"Optimieren",
 cat_video_audio:"Video & Audio", cat_video_audio_note:"(demnächst)",
 badge_live:"Aktiv", badge_soon:"Bald",
 tool_gifmaker_name:"GIF-Ersteller", tool_gifmaker_desc:"GIF aus Bildern oder Video erstellen, mit Zuschnitt/Größe/Tempo/Umkehr",
@@ -445,6 +453,10 @@ cg_title:"GIFs kombinieren", cg_sub:"Zwei GIFs nebeneinander oder übereinander 
 fx_presets_label:"Vorlagen (InstaGIF)", fx_preset_normal:"Normal", fx_preset_vintage:"Vintage", fx_preset_vivid:"Lebendig", fx_preset_mono:"Monochrom", fx_preset_dramatic:"Dramatisch", fx_preset_soft:"Weich", fx_filter_halftone:"Halbton (Punkte)", fx_overlay_label:"Logo / Overlay-Bild", fx_overlay_size:"Größe", fx_overlay_opacity:"Deckkraft", fx_shuffle:"Einzelbilder mischen",
 rb_title:"Hintergrund entfernen", rb_sub:"Entfernen Sie den Hintergrund von Personenfotos — mit KI, direkt im Browser", rb_notice:"Dieses Werkzeug funktioniert hauptsächlich für Personenfotos (Porträts/Selfies) — bei anderen Objekten oder Tieren funktioniert es möglicherweise nicht so gut. Beim ersten Gebrauch wird ein kleines KI-Modell heruntergeladen.", rb_bg_mode:"Hintergrund", rb_bg_transparent:"Transparent (PNG)", rb_bg_color:"Einfarbig", rb_button:"Hintergrund entfernen", rb_loading_model:"KI-Modell wird geladen...", rb_processing:"Wird verarbeitet...",
 rb_edge_softness:"Kantenweichheit",
+go_title:"GIF-Optimierer", go_sub:"Verkleinern Sie ein GIF — durch Größenänderung, Qualität und weniger Einzelbilder", go_step2:"Optimierungseinstellungen", go_frame_skip:"Einzelbilder behalten", go_optimize_btn:"Optimieren", go_every_frame:"Jedes Einzelbild", go_nth_frame:". Einzelbild", go_size_reduced:"Größe reduziert um", go_no_reduction:"Größe konnte nicht reduziert werden — andere Einstellungen versuchen",
+ic_title:"Bild-Kompressor", ic_sub:"Verkleinern Sie JPG-, PNG-, WebP- und AVIF-Bilder — bei guter Qualität", ic_avif_experimental:"AVIF (experimentell)", ic_max_dim:"Max. Breite/Höhe", ic_compress_btn:"Komprimieren", ic_unchanged:"Unverändert", ic_format_unsupported:"Dieses Format wird in Ihrem Browser nicht unterstützt, versuchen Sie ein anderes.",
+va_tab_compress:"🗜️ Komprimieren", vc_level_label:"Komprimierungsstufe", vc_level_light:"Leicht (gute Qualität)", vc_level_medium:"Mittel", vc_level_heavy:"Stark (kleine Größe)", vc_scale_label:"Max. Breite", vc_compress_btn:"Komprimieren",
+tool_gifoptimizer_name:"GIF-Optimierer", tool_gifoptimizer_desc:"GIF verkleinern durch Größe/Qualität/Einzelbilder", tool_imagecompressor_name:"Bild-Kompressor", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF-Bilder komprimieren", tool_videocompressor_name:"Video-Kompressor", tool_videocompressor_desc:"Videodateigröße reduzieren",
 tool_removebg_name:"Hintergrund entfernen", tool_removebg_desc:"Hintergrund eines Personenfotos mit KI entfernen"
 },
 
@@ -503,7 +515,7 @@ an_loop_infinite:"अनंत", an_loop_none:"नहीं (एक बार �
 an_palette_colors:"रंग", an_palette_none:"नहीं", an_invalid:"यह एक वैध GIF फ़ाइल नहीं लगती।", an_read_fail:"फ़ाइल पढ़ी नहीं जा सकी।",
 
 home_hero_title:"ब्राउज़र में ही GIF और इमेज एडिट करें", home_hero_sub:"कोई फ़ाइल कभी सर्वर पर नहीं जाती — सारी प्रोसेसिंग आपके डिवाइस पर ही होती है",
-cat_gif_tools:"GIF टूल्स", cat_edit_effects:"एडिट और इफ़ेक्ट्स", cat_image_utils:"इमेज यूटिलिटीज़", cat_generators:"जनरेटर",
+cat_gif_tools:"GIF टूल्स", cat_edit_effects:"एडिट और इफ़ेक्ट्स", cat_image_utils:"इमेज यूटिलिटीज़", cat_generators:"जनरेटर", cat_optimize:"ऑप्टिमाइज़",
 cat_video_audio:"वीडियो और ऑडियो", cat_video_audio_note:"(जल्द आ रहा है)",
 badge_live:"लाइव", badge_soon:"जल्द",
 tool_gifmaker_name:"GIF मेकर", tool_gifmaker_desc:"इमेज या वीडियो से GIF बनाएँ, क्रॉप/रिसाइज़/स्पीड/रिवर्स सहित",
@@ -588,6 +600,10 @@ cg_title:"GIF कॉम्बाइन करें", cg_sub:"दो GIF को 
 fx_presets_label:"प्रीसेट (InstaGIF)", fx_preset_normal:"सामान्य", fx_preset_vintage:"विंटेज", fx_preset_vivid:"विविड", fx_preset_mono:"मोनोक्रोम", fx_preset_dramatic:"ड्रामैटिक", fx_preset_soft:"सॉफ्ट", fx_filter_halftone:"हाफ़टोन (डॉट्स)", fx_overlay_label:"लोगो / ओवरले इमेज", fx_overlay_size:"साइज़", fx_overlay_opacity:"पारदर्शिता", fx_shuffle:"फ्रेम शफल करें",
 rb_title:"बैकग्राउंड हटाएँ", rb_sub:"लोगों की तस्वीरों से बैकग्राउंड हटाएँ — AI से, ब्राउज़र में ही", rb_notice:"यह टूल मुख्य रूप से लोगों की तस्वीरों (पोर्ट्रेट/सेल्फी) के लिए काम करता है — दूसरी चीज़ों या जानवरों की तस्वीरों में उतना अच्छा नतीजा नहीं मिल सकता। पहली बार इस्तेमाल करने पर एक छोटा AI मॉडल डाउनलोड होगा।", rb_bg_mode:"बैकग्राउंड", rb_bg_transparent:"पारदर्शी (PNG)", rb_bg_color:"सॉलिड रंग", rb_button:"बैकग्राउंड हटाएँ", rb_loading_model:"AI मॉडल लोड हो रहा है...", rb_processing:"प्रोसेसिंग हो रही है...",
 rb_edge_softness:"एज सॉफ्टनेस",
+go_title:"GIF ऑप्टिमाइज़र", go_sub:"GIF का साइज़ कम करें — रिसाइज़, क्वालिटी और फ्रेम घटाकर", go_step2:"ऑप्टिमाइज़ेशन सेटिंग्स", go_frame_skip:"फ्रेम रखें", go_optimize_btn:"ऑप्टिमाइज़ करें", go_every_frame:"हर फ्रेम", go_nth_frame:"वां फ्रेम", go_size_reduced:"साइज़ घटा", go_no_reduction:"साइज़ कम नहीं हो सका — दूसरी सेटिंग्स आज़माएँ",
+ic_title:"इमेज कम्प्रेसर", ic_sub:"JPG, PNG, WebP और AVIF इमेज का साइज़ कम करें — क्वालिटी बनाए रखते हुए", ic_avif_experimental:"AVIF (प्रायोगिक)", ic_max_dim:"अधिकतम चौड़ाई/ऊँचाई", ic_compress_btn:"कम्प्रेस करें", ic_unchanged:"अपरिवर्तित", ic_format_unsupported:"यह फ़ॉर्मेट आपके ब्राउज़र में सपोर्ट नहीं करता, दूसरा आज़माएँ।",
+va_tab_compress:"🗜️ कम्प्रेस करें", vc_level_label:"कम्प्रेशन लेवल", vc_level_light:"हल्का (अच्छी क्वालिटी)", vc_level_medium:"मध्यम", vc_level_heavy:"ज़्यादा (छोटा साइज़)", vc_scale_label:"अधिकतम चौड़ाई", vc_compress_btn:"कम्प्रेस करें",
+tool_gifoptimizer_name:"GIF ऑप्टिमाइज़र", tool_gifoptimizer_desc:"रिसाइज़/क्वालिटी/फ्रेम घटाकर GIF छोटा करें", tool_imagecompressor_name:"इमेज कम्प्रेसर", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF इमेज कम्प्रेस करें", tool_videocompressor_name:"वीडियो कम्प्रेसर", tool_videocompressor_desc:"वीडियो का फ़ाइल साइज़ कम करें",
 tool_removebg_name:"बैकग्राउंड हटाएँ", tool_removebg_desc:"AI से किसी व्यक्ति की तस्वीर से बैकग्राउंड हटाएँ"
 },
 
@@ -646,7 +662,7 @@ an_loop_infinite:"لامحدود", an_loop_none:"کوئی نہیں (ایک با�
 an_palette_colors:"رنگ", an_palette_none:"کوئی نہیں", an_invalid:"یہ ایک درست GIF فائل نہیں لگتی۔", an_read_fail:"فائل پڑھی نہیں جا سکی۔",
 
 home_hero_title:"براؤزر میں ہی GIF اور تصاویر ایڈٹ کریں", home_hero_sub:"کوئی فائل کبھی سرور پر نہیں جاتی — تمام پروسیسنگ آپ کے ڈیوائس پر ہوتی ہے",
-cat_gif_tools:"GIF ٹولز", cat_edit_effects:"ایڈٹ اور ایفیکٹس", cat_image_utils:"امیج یوٹیلیٹیز", cat_generators:"جنریٹرز",
+cat_gif_tools:"GIF ٹولز", cat_edit_effects:"ایڈٹ اور ایفیکٹس", cat_image_utils:"امیج یوٹیلیٹیز", cat_generators:"جنریٹرز", cat_optimize:"آپٹیمائز",
 cat_video_audio:"ویڈیو اور آڈیو", cat_video_audio_note:"(جلد آ رہا ہے)",
 badge_live:"فعال", badge_soon:"جلد",
 tool_gifmaker_name:"GIF میکر", tool_gifmaker_desc:"تصاویر یا ویڈیو سے GIF بنائیں، کراپ/ری سائز/اسپیڈ/ریورس کے ساتھ",
@@ -731,6 +747,10 @@ cg_title:"GIF کمبائن کریں", cg_sub:"دو GIFs کو ساتھ ساتھ �
 fx_presets_label:"پریسیٹس (InstaGIF)", fx_preset_normal:"عام", fx_preset_vintage:"ونٹیج", fx_preset_vivid:"شوخ", fx_preset_mono:"مونوکروم", fx_preset_dramatic:"ڈرامائی", fx_preset_soft:"نرم", fx_filter_halftone:"ہاف ٹون (ڈاٹس)", fx_overlay_label:"لوگو / اوورلے تصویر", fx_overlay_size:"سائز", fx_overlay_opacity:"شفافیت", fx_shuffle:"فریمز شفل کریں",
 rb_title:"بیک گراؤنڈ ہٹائیں", rb_sub:"لوگوں کی تصاویر سے بیک گراؤنڈ ہٹائیں — AI سے، براؤزر میں ہی", rb_notice:"یہ ٹول بنیادی طور پر لوگوں کی تصاویر (پورٹریٹ/سیلفی) کے لیے کام کرتا ہے — دیگر اشیاء یا جانوروں کی تصاویر میں اتنا اچھا نتیجہ نہیں مل سکتا۔ پہلی بار استعمال کرنے پر ایک چھوٹا AI ماڈل ڈاؤن لوڈ ہوگا۔", rb_bg_mode:"بیک گراؤنڈ", rb_bg_transparent:"شفاف (PNG)", rb_bg_color:"سولڈ رنگ", rb_button:"بیک گراؤنڈ ہٹائیں", rb_loading_model:"AI ماڈل لوڈ ہو رہا ہے...", rb_processing:"پروسیسنگ ہو رہی ہے...",
 rb_edge_softness:"ایج سافٹنیس",
+go_title:"GIF آپٹیمائزر", go_sub:"GIF کا سائز کم کریں — ری سائز، کوالٹی اور فریمز کم کر کے", go_step2:"آپٹیمائزیشن سیٹنگز", go_frame_skip:"فریمز رکھیں", go_optimize_btn:"آپٹیمائز کریں", go_every_frame:"ہر فریم", go_nth_frame:"واں فریم", go_size_reduced:"سائز کم ہوا", go_no_reduction:"سائز کم نہیں ہو سکا — دوسری سیٹنگز آزمائیں",
+ic_title:"امیج کمپریسر", ic_sub:"JPG, PNG, WebP اور AVIF تصاویر کا سائز کم کریں — کوالٹی برقرار رکھتے ہوئے", ic_avif_experimental:"AVIF (تجرباتی)", ic_max_dim:"زیادہ سے زیادہ چوڑائی/اونچائی", ic_compress_btn:"کمپریس کریں", ic_unchanged:"غیر تبدیل شدہ", ic_format_unsupported:"یہ فارمیٹ آپ کے براؤزر میں سپورٹ نہیں کرتا، دوسرا آزمائیں۔",
+va_tab_compress:"🗜️ کمپریس کریں", vc_level_label:"کمپریشن لیول", vc_level_light:"ہلکا (اچھی کوالٹی)", vc_level_medium:"درمیانہ", vc_level_heavy:"زیادہ (چھوٹا سائز)", vc_scale_label:"زیادہ سے زیادہ چوڑائی", vc_compress_btn:"کمپریس کریں",
+tool_gifoptimizer_name:"GIF آپٹیمائزر", tool_gifoptimizer_desc:"ری سائز/کوالٹی/فریمز کم کر کے GIF چھوٹا کریں", tool_imagecompressor_name:"امیج کمپریسر", tool_imagecompressor_desc:"JPG/PNG/WebP/AVIF تصاویر کمپریس کریں", tool_videocompressor_name:"ویڈیو کمپریسر", tool_videocompressor_desc:"ویڈیو کا فائل سائز کم کریں",
 tool_removebg_name:"بیک گراؤنڈ ہٹائیں", tool_removebg_desc:"AI سے کسی شخص کی تصویر سے بیک گراؤنڈ ہٹائیں"
 },
 
@@ -789,7 +809,7 @@ an_loop_infinite:"لا نهائي", an_loop_none:"لا يوجد (يُشغَّل 
 an_palette_colors:"ألوان", an_palette_none:"لا يوجد", an_invalid:"هذا لا يبدو ملف GIF صالحًا.", an_read_fail:"تعذرت قراءة الملف.",
 
 home_hero_title:"عدّل ملفات GIF والصور داخل متصفحك مباشرة", home_hero_sub:"لا يغادر أي ملف جهازك أبدًا — تتم كل المعالجة محليًا",
-cat_gif_tools:"أدوات GIF", cat_edit_effects:"التحرير والتأثيرات", cat_image_utils:"أدوات الصور", cat_generators:"المولّدات",
+cat_gif_tools:"أدوات GIF", cat_edit_effects:"التحرير والتأثيرات", cat_image_utils:"أدوات الصور", cat_generators:"المولّدات", cat_optimize:"تحسين",
 cat_video_audio:"الفيديو والصوت", cat_video_audio_note:"(قريبًا)",
 badge_live:"مفعّل", badge_soon:"قريبًا",
 tool_gifmaker_name:"صانع GIF", tool_gifmaker_desc:"أنشئ GIF من صور أو فيديو، مع القص/تغيير الحجم/السرعة/العكس",
@@ -874,6 +894,10 @@ cg_title:"دمج ملفات GIF", cg_sub:"ادمج ملفي GIF جنبًا إل�
 fx_presets_label:"إعدادات مسبقة (InstaGIF)", fx_preset_normal:"عادي", fx_preset_vintage:"قديم الطراز", fx_preset_vivid:"زاهي", fx_preset_mono:"أحادي اللون", fx_preset_dramatic:"درامي", fx_preset_soft:"ناعم", fx_filter_halftone:"نصف تدرج (نقاط)", fx_overlay_label:"شعار / صورة تراكب", fx_overlay_size:"الحجم", fx_overlay_opacity:"الشفافية", fx_shuffle:"خلط الإطارات",
 rb_title:"إزالة الخلفية", rb_sub:"أزل الخلفية من صور الأشخاص — بالذكاء الاصطناعي، داخل المتصفح", rb_notice:"تعمل هذه الأداة بشكل أساسي مع صور الأشخاص (البورتريه/السيلفي) — قد لا تعطي نتائج جيدة مع الأجسام أو الحيوانات الأخرى. سيتم تنزيل نموذج ذكاء اصطناعي صغير عند أول استخدام.", rb_bg_mode:"الخلفية", rb_bg_transparent:"شفافة (PNG)", rb_bg_color:"لون واحد", rb_button:"إزالة الخلفية", rb_loading_model:"جارٍ تحميل نموذج الذكاء الاصطناعي...", rb_processing:"جارٍ المعالجة...",
 rb_edge_softness:"نعومة الحواف",
+go_title:"محسّن GIF", go_sub:"قلّل حجم ملف GIF — عبر تغيير الحجم والجودة وتقليل الإطارات", go_step2:"إعدادات التحسين", go_frame_skip:"احتفظ بالإطارات", go_optimize_btn:"تحسين", go_every_frame:"كل إطار", go_nth_frame:"كل إطار رقم", go_size_reduced:"انخفض الحجم بنسبة", go_no_reduction:"تعذر تقليل الحجم — جرّب إعدادات مختلفة",
+ic_title:"ضاغط الصور", ic_sub:"قلّل حجم صور JPG وPNG وWebP وAVIF — مع الحفاظ على الجودة", ic_avif_experimental:"AVIF (تجريبي)", ic_max_dim:"أقصى عرض/ارتفاع", ic_compress_btn:"ضغط", ic_unchanged:"دون تغيير", ic_format_unsupported:"هذه الصيغة غير مدعومة في متصفحك، جرّب صيغة أخرى.",
+va_tab_compress:"🗜️ ضغط", vc_level_label:"مستوى الضغط", vc_level_light:"خفيف (جودة جيدة)", vc_level_medium:"متوسط", vc_level_heavy:"عالٍ (حجم صغير)", vc_scale_label:"أقصى عرض", vc_compress_btn:"ضغط",
+tool_gifoptimizer_name:"محسّن GIF", tool_gifoptimizer_desc:"قلّل حجم GIF عبر تغيير الحجم/الجودة/الإطارات", tool_imagecompressor_name:"ضاغط الصور", tool_imagecompressor_desc:"ضغط صور JPG/PNG/WebP/AVIF", tool_videocompressor_name:"ضاغط الفيديو", tool_videocompressor_desc:"تقليل حجم ملف الفيديو",
 tool_removebg_name:"إزالة الخلفية", tool_removebg_desc:"إزالة خلفية صورة شخص بالذكاء الاصطناعي"
 }
 };
