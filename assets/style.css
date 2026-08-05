@@ -45,7 +45,9 @@ a{ color:inherit; }
 }
 .site-header .logo{
   font-weight:700; font-size:22px; text-decoration:none;
+  display:flex; align-items:center; gap:9px;
 }
+.site-header .logo img{ width:28px; height:28px; display:block; }
 .site-header .logo span{ color: var(--amber); }
 .site-header nav{
   display:flex; gap:6px; flex-wrap:wrap; align-items:center;

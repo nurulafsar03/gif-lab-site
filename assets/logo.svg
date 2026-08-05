@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e1c26"/>
+      <stop offset="100%" stop-color="#15141a"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="96" height="96" rx="24" fill="url(#bgGrad)" stroke="#2a2733" stroke-width="1.5"/>
+
+  <!-- loop ring (teal) with a gap, suggesting looping animation -->
+  <circle cx="50" cy="50" r="32" fill="none" stroke="#49d0c5" stroke-width="6"
+    stroke-linecap="round" stroke-dasharray="173 28" transform="rotate(-38 50 50)"/>
+
+  <!-- play triangle (amber) -->
+  <polygon points="41,36 41,64 66,50" fill="#e8a33d"/>
+</svg>
