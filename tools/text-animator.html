@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>টেক্সট অ্যানিমেটর — VeloraGif</title>
+<link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/logo-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+<script src="../assets/i18n.js" defer></script>
+</head>
+<body>
+
+<div class="sprockets"></div>
+<header class="site-header">
+  <a href="../index.html" class="logo"><img src="../assets/logo.svg" alt="VeloraGif logo">Velora<span>Gif</span></a>
+  <nav>
+    <a href="gif-maker.html" data-i18n="c_nav_gif">GIF মেকার</a>
+    <a href="effects-text.html" data-i18n="c_nav_fx">ইফেক্ট ও টেক্সট</a>
+    <a href="image-utils.html" data-i18n="c_nav_iu">ইমেজ ইউটিলিটি</a>
+    <a href="qr-generator.html" data-i18n="c_nav_qr">QR জেনারেটর</a>
+    <a href="analyzer.html" data-i18n="c_nav_an">GIF অ্যানালাইজার</a>
+    <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a>
+    <select id="langSwitch" class="lang-switch"></select>
+  </nav>
+</header>
+<div class="sprockets"></div>
+
+<div class="page-hero">
+  <h1 data-i18n="ta_title">টেক্সট অ্যানিমেটর</h1>
+  <p data-i18n="ta_sub">টেক্সট লিখলেই সেটা টাইপিং/বাউন্স/ফেড এফেক্টে অ্যানিমেটেড GIF হয়ে যাবে</p>
+</div>
+
+<div class="app">
+  <div class="card">
+    <div class="edit-grid">
+      <div class="preview-wrap">
+        <div class="preview-stage"><canvas id="previewCanvas"></canvas></div>
+      </div>
+      <div class="controls">
+        <div class="field">
+          <label data-i18n="ta_text_label">টেক্সট</label>
+          <input type="text" id="textInput" placeholder="এখানে লিখুন..." data-i18n-ph="fx_text_placeholder" maxlength="60">
+        </div>
+        <div class="field">
+          <label data-i18n="ta_style_label">অ্যানিমেশন স্টাইল</label>
+          <select id="styleSelect">
+            <option value="typing" data-i18n="ta_style_typing">টাইপিং</option>
+            <option value="bounce" data-i18n="ta_style_bounce">বাউন্স ইন</option>
+            <option value="fade" data-i18n="ta_style_fade">ফেড ইন</option>
+            <option value="slide" data-i18n="ta_style_slide">স্লাইড ইন</option>
+          </select>
+        </div>
+        <div class="control"><label><span data-i18n="fx_font_size">ফন্ট সাইজ</span> <b id="fontSizeVal" class="mono">36px</b></label><input type="range" id="fontSizeRange" min="16" max="72" value="36"></div>
+        <div class="field"><label data-i18n="fx_color">রং</label><input type="color" id="textColor" value="#ffffff" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px; background:var(--panel-2);"></div>
+        <div class="field"><label data-i18n="cl_bg_label">ব্যাকগ্রাউন্ড রং</label><input type="color" id="bgColor" value="#15141a" style="width:100%; height:38px; border:1px solid var(--line); border-radius:8px;"></div>
+        <div class="control"><label><span data-i18n="ta_duration">দৈর্ঘ্য (সেকেন্ড)</span> <b id="durationVal" class="mono">2s</b></label><input type="range" id="durationRange" min="1" max="5" step="0.5" value="2"></div>
+        <div class="control"><label><span data-i18n="c_output_width">আউটপুট প্রস্থ</span> <b id="widthVal" class="mono">480px</b></label><input type="range" id="widthRange" min="200" max="800" step="10" value="480"></div>
+        <button class="btn" id="generateBtn" data-i18n="ta_generate_btn">অ্যানিমেট করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">✓</span> <span data-i18n="c_step3">ফলাফল</span></h2>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="status" id="genStatus"></div>
+    <div class="result" id="result">
+      <img id="resultImg" alt="ফলাফল">
+      <div class="result-meta mono" id="resultMeta"></div>
+      <div class="result-actions">
+        <a class="btn" id="downloadLink" download="text-animation.gif" data-i18n="c_download">⬇ ডাউনলোড করুন</a>
+        <button class="btn ghost" id="resetBtn" data-i18n="c_reset">নতুন করে শুরু করুন</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <a href="../about.html" data-i18n="c_footer_about">About</a> · <a href="../privacy.html" data-i18n="c_footer_privacy">Privacy</a> · <a href="../contact.html" data-i18n="c_footer_contact">Contact</a> · <a href="../blog/index.html" data-i18n="c_nav_blog">ব্লগ</a><br>
+  <span data-i18n="c_footer_note">সব প্রসেসিং আপনার ব্রাউজারেই হয় — কোনো ফাইল সার্ভারে পাঠানো হয় না</span>
+</footer>
+
+<script>
+(function(){
+  const previewCanvas = document.getElementById('previewCanvas');
+  const textInput = document.getElementById('textInput');
+  const styleSelect = document.getElementById('styleSelect');
+  const fontSizeRange = document.getElementById('fontSizeRange');
+  const textColor = document.getElementById('textColor');
+  const bgColor = document.getElementById('bgColor');
+  const durationRange = document.getElementById('durationRange');
+  const widthRange = document.getElementById('widthRange');
+
+  [textInput, styleSelect, fontSizeRange, textColor, bgColor, widthRange].forEach(el=>{
+    el.addEventListener('input', updatePreview);
+  });
+  fontSizeRange.oninput = () => { document.getElementById('fontSizeVal').textContent = fontSizeRange.value+'px'; updatePreview(); };
+  durationRange.oninput = () => { document.getElementById('durationVal').textContent = durationRange.value+'s'; updatePreview(); };
+  widthRange.oninput = () => { document.getElementById('widthVal').textContent = widthRange.value+'px'; updatePreview(); };
+
+  function drawFrame(canvas, progress){
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.fillStyle = bgColor.value;
+    ctx.fillRect(0,0,w,h);
+
+    const text = textInput.value || 'VeloraGif';
+    const fontSize = parseInt(fontSizeRange.value,10);
+    ctx.font = `bold ${fontSize}px 'Hind Siliguri', sans-serif`;
+    ctx.fillStyle = textColor.value;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const style = styleSelect.value;
+    if(style === 'typing'){
+      const chars = Math.max(1, Math.round(text.length * progress));
+      ctx.fillText(text.slice(0, chars), w/2, h/2);
+    } else if(style === 'fade'){
+      ctx.globalAlpha = progress;
+      ctx.fillText(text, w/2, h/2);
+      ctx.globalAlpha = 1;
+    } else if(style === 'bounce'){
+      let scale;
+      if(progress < 0.7) scale = (progress/0.7) * 1.15;
+      else scale = 1.15 - ((progress-0.7)/0.3) * 0.15;
+      ctx.save();
+      ctx.translate(w/2, h/2);
+      ctx.scale(Math.max(0.01,scale), Math.max(0.01,scale));
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+    } else if(style === 'slide'){
+      const offset = (1-progress) * (w/2 + 100);
+      ctx.fillText(text, w/2 + offset, h/2);
+    }
+  }
+
+  function updatePreview(){
+    const w = parseInt(widthRange.value,10);
+    const h = Math.round(w * 0.5);
+    previewCanvas.width = w; previewCanvas.height = h;
+    drawFrame(previewCanvas, 0.5);
+  }
+  updatePreview();
+
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const genStatus = document.getElementById('genStatus');
+  const resultEl = document.getElementById('result');
+  const resultImg = document.getElementById('resultImg');
+  const resultMeta = document.getElementById('resultMeta');
+  const downloadLink = document.getElementById('downloadLink');
+
+  let workerBlobUrl = null;
+  async function getWorkerUrl(){
+    if(workerBlobUrl) return workerBlobUrl;
+    const resp = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
+    const text = await resp.text();
+    workerBlobUrl = URL.createObjectURL(new Blob([text], {type:'application/javascript'}));
+    return workerBlobUrl;
+  }
+
+  document.getElementById('generateBtn').onclick = async () => {
+    const btn = document.getElementById('generateBtn');
+    const w = parseInt(widthRange.value,10);
+    const h = Math.round(w * 0.5);
+    const duration = parseFloat(durationRange.value);
+    const fps = 15;
+    const holdFrames = Math.round(fps*0.6);
+    const animFrames = Math.max(2, Math.round(duration*fps));
+    const totalFrames = animFrames + holdFrames;
+
+    btn.disabled = true;
+    progressWrap.classList.add('show'); progressBar.style.width='0%';
+    genStatus.textContent = t('c_gif_generating');
+    resultEl.classList.remove('show');
+
+    let workerUrl;
+    try{ workerUrl = await getWorkerUrl(); }
+    catch(e){
+      genStatus.textContent = 'ওয়ার্কার স্ক্রিপ্ট লোড করা যায়নি — ইন্টারনেট সংযোগ চেক করুন।';
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+      return;
+    }
+
+    const gif = new GIF({ workers:2, quality:10, width:w, height:h, workerScript: workerUrl });
+    const delay = Math.round(1000/fps);
+    for(let i=0;i<totalFrames;i++){
+      const progress = i < animFrames ? i/(animFrames-1) : 1;
+      const tmp = document.createElement('canvas');
+      tmp.width = w; tmp.height = h;
+      drawFrame(tmp, progress);
+      gif.addFrame(tmp, {delay, copy:true});
+    }
+
+    gif.on('progress', p=>{ progressBar.style.width = Math.round(p*100)+'%'; });
+    gif.on('finished', blob=>{
+      const url = URL.createObjectURL(blob);
+      resultImg.src = url;
+      downloadLink.href = url;
+      resultMeta.textContent = `${t('c_size_label')} ${(blob.size/1024).toFixed(1)} KB · ${w}×${h}px · ${totalFrames} ${t('c_frames_label')}`;
+      resultEl.classList.add('show');
+      genStatus.textContent = t('c_gif_done');
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+    });
+    try{ gif.render(); }
+    catch(e){
+      genStatus.textContent = 'তৈরি করা যায়নি: ' + e.message;
+      btn.disabled = false;
+      progressWrap.classList.remove('show');
+    }
+  };
+
+  document.getElementById('resetBtn').onclick = () => {
+    textInput.value = '';
+    resultEl.classList.remove('show');
+    genStatus.textContent = '';
+    updatePreview();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+})();
+</script>
+</body>
+</html>
