@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
-<script src="../assets/bgremoval-lib.js"></script>
+<script src="../assets/ai-combined-lib.js"></script>
 <script src="../assets/i18n.js" defer></script>
 </head>
 <body>
@@ -56,6 +56,7 @@
               <option value="whole" data-i18n="ia_scope_whole">পুরো ছবি (জুম/প্যান)</option>
               <option value="region" data-i18n="ia_scope_region">নির্দিষ্ট একটা অংশ</option>
               <option value="bgonly" data-i18n="ia_scope_bgonly">শুধু ব্যাকগ্রাউন্ড (AI, মানুষ স্থির)</option>
+              <option value="facial" data-i18n="ia_scope_facial">চোখ/মুখ (AI, স্বয়ংক্রিয়)</option>
             </select>
           </div>
 
@@ -101,6 +102,12 @@
                 <option value="panright" data-i18n="ia_preset_panright">ডানে প্যান</option>
               </select>
             </div>
+          </div>
+
+          <div id="facialControls" style="display:none;">
+            <p style="font-size:12.5px; color:var(--muted); margin:0 0 12px; line-height:1.6;" data-i18n="ia_facial_notice">এটা একটা আনুমানিক/সরলীকৃত এফেক্ট — বাস্তবিক ব্লিংকিং না, তবে ছবিকে কিছুটা জীবন্ত অনুভূতি দেয়। AI স্বয়ংক্রিয়ভাবে চোখ ও মুখ খুঁজে বের করবে।</p>
+            <div class="toggle-row"><span data-i18n="ia_facial_eyes">চোখে পলক (ব্লিংক)</span><input type="checkbox" id="facialEyesCheck" checked style="width:18px; height:18px;"></div>
+            <div class="toggle-row" style="margin-top:8px;"><span data-i18n="ia_facial_mouth">মুখ নড়াচড়া</span><input type="checkbox" id="facialMouthCheck" style="width:18px; height:18px;"></div>
           </div>
           <div class="control"><label><span data-i18n="ia_duration">দৈর্ঘ্য (সেকেন্ড)</span> <b id="durationVal" class="mono">3s</b></label><input type="range" id="durationRange" min="1" max="8" step="0.5" value="3"></div>
           <div class="control"><label><span data-i18n="c_output_width">আউটপুট প্রস্থ</span> <b id="widthVal" class="mono">360px</b></label><input type="range" id="widthRange" min="150" max="720" step="10" value="360"></div>
@@ -174,6 +181,7 @@
     image.onload = () => {
       img = image;
       personCutoutCache = null;
+      faceBoxesCache = null;
       bodyEl.style.display = 'block';
       document.getElementById('result').classList.remove('show');
       updatePreview();
@@ -184,10 +192,12 @@
   const wholeControls = document.getElementById('wholeControls');
   const regionControls = document.getElementById('regionControls');
   const bgonlyControls = document.getElementById('bgonlyControls');
+  const facialControls = document.getElementById('facialControls');
   scopeSelect.onchange = () => {
     wholeControls.style.display = scopeSelect.value==='whole' ? 'block' : 'none';
     regionControls.style.display = scopeSelect.value==='region' ? 'block' : 'none';
     bgonlyControls.style.display = scopeSelect.value==='bgonly' ? 'block' : 'none';
+    facialControls.style.display = scopeSelect.value==='facial' ? 'block' : 'none';
     updatePreview();
   };
 
@@ -195,6 +205,8 @@
   widthRange.oninput = () => { document.getElementById('widthVal').textContent = widthRange.value+'px'; personCutoutCache=null; updatePreview(); };
   presetSelect.onchange = updatePreview;
   bgPresetSelect.onchange = updatePreview;
+  document.getElementById('facialEyesCheck').addEventListener('change', updatePreview);
+  document.getElementById('facialMouthCheck').addEventListener('change', updatePreview);
   [regionX,regionY,regionW,regionH,regionEffectSelect].forEach(el=>{
     el.addEventListener('input', ()=>{
       document.getElementById('regionXVal').textContent = regionX.value+'%';
@@ -327,6 +339,94 @@
     ctx.drawImage(cutout, 0, 0);
   }
 
+  // ---- Facial mode (auto eye/mouth detection) ----
+  let faceDetector = null;
+  let faceBoxesCache = null; // {forWidth, forHeight, leftEye, rightEye, mouth} each {x,y,w,h} or null
+
+  async function ensureFaceDetector(){
+    if(faceDetector) return faceDetector;
+    genStatus.textContent = t('ia_detecting_face');
+    await tf.setBackend('webgl');
+    await tf.ready();
+    faceDetector = await faceDetection.createDetector(
+      faceDetection.SupportedModels.MediaPipeFaceDetector,
+      { runtime: 'tfjs' }
+    );
+    return faceDetector;
+  }
+
+  function boxAround(px, py, boxW, boxH){
+    return { x: px - boxW/2, y: py - boxH/2, w: boxW, h: boxH };
+  }
+
+  async function ensureFaceBoxes(w, h){
+    if(faceBoxesCache && faceBoxesCache.forWidth===w && faceBoxesCache.forHeight===h) return faceBoxesCache;
+    const detector = await ensureFaceDetector();
+    const faces = await detector.estimateFaces(img);
+    if(!faces || !faces.length) throw new Error(t('ia_no_face_found'));
+
+    const face = faces[0];
+    const scaleX = w/img.naturalWidth, scaleY = h/img.naturalHeight;
+    const kp = {};
+    face.keypoints.forEach(p => { if(p.name) kp[p.name] = {x:p.x*scaleX, y:p.y*scaleY}; });
+    const faceW = (face.box.width||face.box.xMax-face.box.xMin) * scaleX;
+
+    const eyeSize = faceW * 0.32;
+    const mouthW = faceW * 0.55, mouthH = faceW * 0.32;
+
+    const result = {
+      forWidth: w, forHeight: h,
+      leftEye: kp.leftEye ? boxAround(kp.leftEye.x, kp.leftEye.y, eyeSize, eyeSize*0.7) : null,
+      rightEye: kp.rightEye ? boxAround(kp.rightEye.x, kp.rightEye.y, eyeSize, eyeSize*0.7) : null,
+      mouth: kp.mouthCenter ? boxAround(kp.mouthCenter.x, kp.mouthCenter.y, mouthW, mouthH) : null
+    };
+    faceBoxesCache = result;
+    return result;
+  }
+
+  function blinkFactor(progress){
+    const center = 0.5, width = 0.09;
+    const d = Math.abs(progress - center);
+    if(d > width) return 1;
+    const local = d/width;
+    return 0.12 + 0.88*local;
+  }
+
+  function squishBox(ctx, img, box, factor, w, h){
+    if(!box) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(box.x, box.y, box.w, box.h);
+    ctx.clip();
+    const cx = box.x+box.w/2, cy = box.y+box.h/2;
+    ctx.translate(cx, cy);
+    ctx.scale(1, Math.max(0.05, factor));
+    ctx.translate(-cx, -cy);
+    ctx.drawImage(img, 0, 0, w, h);
+    ctx.restore();
+  }
+
+  async function drawFacialFrame(canvas, progress){
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0,0,w,h);
+    ctx.drawImage(img, 0, 0, w, h);
+
+    const boxes = await ensureFaceBoxes(w, h);
+    const animateEyes = document.getElementById('facialEyesCheck').checked;
+    const animateMouth = document.getElementById('facialMouthCheck').checked;
+
+    if(animateEyes){
+      const blink = blinkFactor(progress);
+      squishBox(ctx, img, boxes.leftEye, blink, w, h);
+      squishBox(ctx, img, boxes.rightEye, blink, w, h);
+    }
+    if(animateMouth){
+      const talk = 1 + 0.35*Math.sin(progress*Math.PI*4);
+      squishBox(ctx, img, boxes.mouth, talk, w, h);
+    }
+  }
+
   let previewToken = 0;
   async function updatePreview(){
     if(!img) return;
@@ -340,6 +440,13 @@
     else if(scope === 'bgonly'){
       try{
         await drawBgOnlyFrame(previewCanvas, 0);
+        if(myToken === previewToken) document.getElementById('genStatus').textContent = '';
+      } catch(e){
+        if(myToken === previewToken) document.getElementById('genStatus').textContent = 'সমস্যা হয়েছে: ' + e.message;
+      }
+    } else if(scope === 'facial'){
+      try{
+        await drawFacialFrame(previewCanvas, 0);
         if(myToken === previewToken) document.getElementById('genStatus').textContent = '';
       } catch(e){
         if(myToken === previewToken) document.getElementById('genStatus').textContent = 'সমস্যা হয়েছে: ' + e.message;
@@ -398,6 +505,15 @@
         return;
       }
     }
+    if(scope === 'facial'){
+      try{ await ensureFaceBoxes(w, h); }
+      catch(e){
+        genStatus.textContent = 'সমস্যা হয়েছে: ' + e.message;
+        btn.disabled = false;
+        progressWrap.classList.remove('show');
+        return;
+      }
+    }
 
     const gif = new GIF({ workers:2, quality, width:w, height:h, workerScript: workerUrl });
     const delay = Math.round(1000/fps);
@@ -408,6 +524,7 @@
       if(scope === 'whole') drawWholeFrame(tmp, progress);
       else if(scope === 'region') drawRegionFrame(tmp, progress);
       else if(scope === 'bgonly') await drawBgOnlyFrame(tmp, progress);
+      else if(scope === 'facial') await drawFacialFrame(tmp, progress);
       gif.addFrame(tmp, {delay, copy:true});
       genStatus.textContent = `${t('c_gif_generating')} (${i+1}/${totalFrames})`;
     }
@@ -434,6 +551,7 @@
   document.getElementById('resetBtn').onclick = () => {
     img = null;
     personCutoutCache = null;
+    faceBoxesCache = null;
     imageInput.value = '';
     bodyEl.style.display = 'none';
     resultEl.classList.remove('show');
