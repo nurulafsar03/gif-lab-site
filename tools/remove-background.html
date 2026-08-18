@@ -134,8 +134,13 @@
   async function ensureModel(){
     if(segmenter) return segmenter;
     genStatus.textContent = t('rb_loading_model');
-    await tf.setBackend('webgl');
-    await tf.ready();
+    try{
+      await tf.setBackend('webgl');
+      await tf.ready();
+    } catch(e){
+      await tf.setBackend('cpu');
+      await tf.ready();
+    }
     segmenter = await bodySegmentation.createSegmenter(
       bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation,
       { runtime: 'tfjs', modelType: 'general' }

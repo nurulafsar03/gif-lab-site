@@ -285,12 +285,27 @@
     ctx.restore();
   }
 
+  // ---- Shared: pick a working TF backend (webgl preferred, cpu as fallback) ----
+  let backendReady = null;
+  async function ensureBackend(){
+    if(backendReady) return backendReady;
+    backendReady = (async () => {
+      try{
+        await tf.setBackend('webgl');
+        await tf.ready();
+      } catch(e){
+        await tf.setBackend('cpu');
+        await tf.ready();
+      }
+    })();
+    return backendReady;
+  }
+
   // ---- Background-only (AI) mode ----
   async function ensureModel(){
     if(segmenter) return segmenter;
     document.getElementById('genStatus').textContent = t('rb_loading_model');
-    await tf.setBackend('webgl');
-    await tf.ready();
+    await ensureBackend();
     segmenter = await bodySegmentation.createSegmenter(
       bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation,
       { runtime: 'tfjs', modelType: 'general' }
@@ -346,8 +361,7 @@
   async function ensureFaceDetector(){
     if(faceDetector) return faceDetector;
     genStatus.textContent = t('ia_detecting_face');
-    await tf.setBackend('webgl');
-    await tf.ready();
+    await ensureBackend();
     faceDetector = await faceDetection.createDetector(
       faceDetection.SupportedModels.MediaPipeFaceDetector,
       { runtime: 'tfjs' }
