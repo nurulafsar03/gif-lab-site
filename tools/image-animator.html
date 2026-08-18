@@ -406,7 +406,7 @@
     return 0.22 + 0.78*local;
   }
 
-  function squishBox(ctx, img, box, factor, w, h){
+  function squishBox(ctx, sourceCanvas, box, factor){
     if(!box) return;
     const bw = Math.max(1, Math.round(box.w)), bh = Math.max(1, Math.round(box.h));
 
@@ -416,12 +416,12 @@
 
     // Base layer: the normal, unsquished slice — so the edges peeking out
     // from behind the compressed overlay still look correct.
-    octx.drawImage(img, box.x, box.y, bw, bh, 0, 0, bw, bh);
+    octx.drawImage(sourceCanvas, box.x, box.y, bw, bh, 0, 0, bw, bh);
 
     // Overlay: the same slice compressed vertically around its own center.
     const scaledH = bh * Math.max(0.08, factor);
     const offsetY = (bh - scaledH) / 2;
-    octx.drawImage(img, box.x, box.y, bw, bh, 0, offsetY, bw, scaledH);
+    octx.drawImage(sourceCanvas, box.x, box.y, bw, bh, 0, offsetY, bw, scaledH);
 
     // Feathered radial mask so the box's edges blend into the surrounding face
     // instead of showing a hard rectangular seam.
@@ -456,12 +456,12 @@
 
     if(animateEyes){
       const blink = blinkFactor(progress);
-      squishBox(ctx, img, boxes.leftEye, blink, w, h);
-      squishBox(ctx, img, boxes.rightEye, blink, w, h);
+      squishBox(ctx, canvas, boxes.leftEye, blink);
+      squishBox(ctx, canvas, boxes.rightEye, blink);
     }
     if(animateMouth){
       const talk = 1 + 0.35*Math.sin(progress*Math.PI*4);
-      squishBox(ctx, img, boxes.mouth, talk, w, h);
+      squishBox(ctx, canvas, boxes.mouth, talk);
     }
   }
 
